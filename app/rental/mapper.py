@@ -7,7 +7,23 @@ fields = {
     "unique": []
 }
 
-def get_obj_from_request(data, customer):
+
+
+
+mapFields = {
+    "name": "name",
+    "postalCode": "postal_code",
+    "addressLine1": "address_line1",
+    "addressLine2": "address_line2",
+    "country": "country",
+    "checkInTime": "check_in_time",
+    "checkOutTime": "check_out_time",
+}
+
+def get_obj_from_request(apiData, customer):
+    data = {}
+    for x in apiData:
+      data[mapFields[x]] = apiData[x]
     for field in fields["primary"]:
         if field not in data.keys():
             raise Exception(field + " not present")
@@ -30,7 +46,10 @@ def get_obj_from_request(data, customer):
     print("jasdeep rental made")
     return rental
 
-def update_obj_from_request(data):
+def update_obj_from_request(apiData):
+    data = {}
+    for x in apiData:
+      data[mapFields[x]] = apiData[x]
     for field in fields["unique"]:
         if getattr(Rental, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")

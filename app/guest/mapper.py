@@ -6,7 +6,26 @@ fields = {
     "unique": []
 }
 
-def get_obj_from_request(data, customer):
+
+mapFields = {
+    "emailId": "email_id",
+    "name": "name",
+    "phoneNo": "phone_no",
+    "customerId": "customer_id",
+    "secondaryEmailId": "secondary_email_id",
+    "country": "country",
+    "address": "address",
+    "postalCode": "postal_code",
+    "state": "state",
+    "nationality": "nationality",
+    "language": "language",
+    "notes": "notes",
+}
+
+def get_obj_from_request(apiData, customer):
+    data = {}
+    for x in apiData:
+      data[mapFields[x]] = apiData[x]
     for field in fields["primary"]:
         if field not in data.keys():
             raise Exception(field + " not present")

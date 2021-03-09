@@ -38,7 +38,10 @@ def get_obj_from_request(apiData):
     print("jasdeep customer made")
     return customer
 
-def update_obj_from_request(data, customer):
+def update_obj_from_request(apiData, customer):
+    data = {}
+    for x in apiData:
+      data[mapFields[x]] = apiData[x]
     for field in data:
         if field in field["unique"]:
             if getattr(Customer, "check_" + field)(data[field]):
