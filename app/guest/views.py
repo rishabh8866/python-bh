@@ -26,12 +26,11 @@ def add_guest():
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     return common_views.as_success(constants.view_constants.SUCCESS)
 
-@guest.route("/getGuestByBookingId/<string:bookingId>", methods = ["POST"])
+@guest.route("/getGuestByBookingId/<string:bookingId>", methods = ["GET"])
 @auth.login_required
 def get_guests_for_booking(bookingId):
-    if not request.json:
+    if not bookingId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    data = utils.clean_up_request(request.json)
     booking = Booking.query.get(int(bookingId))
     resp = []
     for guest in booking.guests:
@@ -44,7 +43,7 @@ def add_guest_to_booking(bookingId):
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    guest = Guest.query.get(int(data["guest_id"]))
+    guest = Guest.query.get(int(data["guestId"]))
     booking = Booking.query.get(int(bookingId))
     guest.bookings.append(booking)
     try:

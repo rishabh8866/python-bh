@@ -24,13 +24,12 @@ def add_booking():
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     return common_views.as_success(constants.view_constants.SUCCESS)
 
-@booking.route("/", methods = ["DELETE"])
+@booking.route("/<string:bookingId>", methods = ["DELETE"])
 @auth.login_required
-def delete_booking():
-    if not request.json:
+def delete_booking(bookingId):
+    if not bookingId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    booking_id = int(request.json["booking_id"])
-    booking = Booking.query.get(booking_id)
+    booking = Booking.query.get(bookingId)
     try:
         db.session.delete(booking)
         db.session.commit()

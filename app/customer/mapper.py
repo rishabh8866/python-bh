@@ -17,6 +17,22 @@ mapFields = {
     "website": "website",
 }
 
+
+fieldToMap = {
+    "email_id": "emailId",
+    "name": "name",
+    "number_of_rooms": "noOfUnits",
+    "property_type": "companyName",
+    "property_type": "propertyType",
+    "website": "website",
+    "customer_type": "customerType",
+    "created_at": "createdAt",
+    "number_display": "numberDisplay",
+    "date_display": "dateDisplay",
+    "currency": "currency",
+    "time_display": "timeDisplay"
+}
+
 def get_obj_from_request(apiData):
     # assume data is json
     data = {}
@@ -49,3 +65,10 @@ def update_obj_from_request(apiData, customer):
     for field in data:
         setattr(customer, field, data[field])
     return customer
+
+def get_obj_from_customer_info(data):
+    apiData = {}
+    for x in data:
+        apiData[fieldToMap[x]] = data[x]
+    return apiData  
+

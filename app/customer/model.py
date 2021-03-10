@@ -71,7 +71,7 @@ class Customer(db.Model):
 
     @property
     def currency(self):
-        return self.currency
+        return self._currency
 
     @currency.setter
     def currency(self, val):
@@ -135,7 +135,7 @@ class Customer(db.Model):
             "name": self.name,
             "number_of_rooms": self.number_of_rooms,
             "customer_type": self.customer_type,
-            "created_at": self.created_at
+            "created_at": self._created_at
         }
 
     def full_serialize(self):

@@ -20,6 +20,17 @@ def verify_password(unused_1, unused_2):
         return True
     return False
 
+@auth.error_handler
+def auth_error(status):
+    response = jsonify({
+        'token_expire':"Access is denied or Expired, please request a new token"
+    })
+    return response, status
+
+@app.before_request
+def before_request():
+    g.customer = customer
+
 @customer.route("/index", methods = ["GET", "POST"])
 def index():
     return jsonify({"msg": "success"})
@@ -37,36 +48,45 @@ def register():
     try:
         db.session.add(c)
         db.session.commit()
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     #customer made send the email process
     #utils.send_mail(c)
     #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
-    return jsonify({"token": str(c.generate_auth_token())})
+    response = jsonify({
+        "token": str(c.generate_auth_token().decode("utf-8")),
+        "data":request.json
+    })
+    return response
 
 @customer.route("/login", methods = ["POST"])
 def email_login():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    email_id = data["email_id"]
+    email_id = data["emailId"]
     c = Customer.query.filter_by(_email_id = email_id).first()
     print("Jasdeep customer is: " + str(c.generate_auth_token()) + " " + str(c.id))
     if not c:
         return common_views.internal_error(constants.view_constants.NO_RECORD)
     #utils.send_mail(c)
     #return common_views.as_success(constants.view_constants.MAIL_SENT)
-    return jsonify({"token": str(c.generate_auth_token())})
+    response = jsonify({
+        "emailId":email_id,
+        "token": str(c.generate_auth_token().decode("utf-8"))
+    })
+    return response
 
 @customer.route("/login/<string:auth_token>", methods = ["GET"])
 def login(auth_token):
     if not auth_token:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     print("Jasdeep auth token is " + auth_token)
-    c = Customer.verify_auth_token(auth_token)
+    c = Customer.verify_auth_token(auth_token).half_serialize()
     if not c:
         return common_views.not_authenticated(constants.view_constants.TOKEN_NOT_VALID)
-    return common_views.as_success(constants.view_constants.USER_LOGGED_IN)
+    c = customer_mapper.get_obj_from_customer_info(c)   
+    return jsonify({"user": c, "success": constants.view_constants.USER_LOGGED_IN})
 
 
 @customer.route("/customerInfo", methods = ["GET"])
@@ -74,14 +94,16 @@ def login(auth_token):
 def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    return jsonify({"customer": g.customer.half_serialize()})
+    c = customer_mapper.get_obj_from_customer_info(g.customer.half_serialize())    
+    return jsonify({"customer": c})
 
 @customer.route("/customerSettings", methods = ["GET"])
 @auth.login_required
 def customer_settings():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    return jsonify({"customer": g.customer.full_serialize()})
+    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize()) 
+    return jsonify({"customer": c})
 
 @customer.route("/updateCustomer", methods = ["PUT"])
 @auth.login_required
@@ -91,9 +113,11 @@ def update_customer():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    c = utils.get_obj_from_request(data, g.customer)
+    c = customer_mapper.get_obj_from_request(data)
+    # c = utils.get_obj_from_request(data, g.customer)
     try:
         db.session.commit()
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return jsonify({"customer": c.full_serialize()})
+    c = customer_mapper.get_obj_from_customer_info(c.full_serialize())  
+    return jsonify({"customer": c})

@@ -31,7 +31,7 @@ class Group(db.Model):
     def half_serialize(self):
         return {
                 "id": self.id,
-                "name": self.name,
+                "groupName": self.name,
                 "color": self.color
                 }
 

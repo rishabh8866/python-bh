@@ -51,16 +51,15 @@ def list_rentals():
     rentals = customer.rentals
     resp = []
     for rental in rentals:
-        resp.append(rental.half_serialize())
+        resp.append(rental_mapper.get_response_object(rental.full_serialize()))
     return jsonify({"rentals": resp})
 
-@rental.route("/", methods = ["DELETE"])
+@rental.route("/<string:rentalId>", methods = ["DELETE"])
 @auth.login_required
-def delete_rental():
-    if not request.json:
+def delete_rental(rentalId):
+    if not rentalId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    data = request.json
-    rental_id = data["rental_id"]
+    rental_id = rentalId
     gp = Rental.query.get(rental_id)
     try:
         db.session.delete(gp)

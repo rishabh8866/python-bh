@@ -3,7 +3,7 @@ from app.group.model import Group
 
 fields = {
     "primary": ["name", "address_line1", "postal_code"],
-    "secondary": ["address_line2", "country", "check_in_time", "check_out_time"],
+    "secondary": ["address_line2", "country", "max_guests", "currency"],
     "unique": []
 }
 
@@ -18,6 +18,24 @@ mapFields = {
     "country": "country",
     "checkInTime": "check_in_time",
     "checkOutTime": "check_out_time",
+    "maxGuests": "max_guests",
+    "groupId": "group_id",
+    "currency": "currency",
+}
+
+
+fieldToMap = {
+    "name": "name",
+    "postal_code": "postalCode",
+    "address_line1": "addressLine1",
+    "address_line2": "addressLine2",
+    "country": "country",
+    "check_in_time": "checkInTime",
+    "check_out_time": "checkOutTime",
+    "id": "id",
+    "group_id": "groupId",
+    "currency": "currency",
+    "max_guests": "maxGuests",
 }
 
 def get_obj_from_request(apiData, customer):
@@ -39,7 +57,7 @@ def get_obj_from_request(apiData, customer):
         setattr(rental, field, data[field])
     rental.customer_id = customer.id
     if "group_id" in data:
-        gp_id = int(group_id)
+        gp_id = int(data["group_id"])
         gp = Group.query.get(gp_id)
         if gp:
             rental.group_id = gp_id
@@ -66,3 +84,10 @@ def update_obj_from_request(apiData):
         if gp:
             rental.group_id = gp_id
     return rental
+
+def get_response_object(data):
+    apiData = {}
+    for x in data:
+        apiData[fieldToMap[x]] = data[x]
+    return apiData  
+    

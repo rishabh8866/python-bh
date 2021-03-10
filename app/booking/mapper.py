@@ -2,7 +2,7 @@ from app.booking.model import Booking
 
 fields = {
     "primary": ["no_of_adults", "price", "tax", "rental_id"],
-    "secondary": ["no_of_children", "check_in_time", "check_out_time", "payment_status", "source"],
+    "secondary": ["no_of_children", "check_in_time", "check_out_time", "payment_status", "source", "arrive", "depart"],
     "unique": []
 }
 
@@ -17,6 +17,8 @@ mapFields = {
     "checkOutTime": "check_out_time",
     "paymentStatus": "payment_status",
     "source": "source",
+    "arrive": "arrive",
+    "depart": "depart",
 }
 
 def get_obj_from_request(apiData, customer):
@@ -38,4 +40,5 @@ def get_obj_from_request(apiData, customer):
         setattr(booking, field, data[field])
     booking.customer_id = customer.id
     print("jasdeep booking made")
+    print(booking)
     return booking

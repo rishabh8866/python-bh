@@ -30,14 +30,21 @@ def edit_group():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     try:
+        data = request.json
         gp = group_mapper.update_obj_from_request(data)
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
         db.session.commit()
     except:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return common_views.as_success(constants.view_constants.SUCCESS)
+    # return common_views.as_success(constants.view_constants.SUCCESS)
+    response_object = jsonify({
+        "data":request.json,
+        "status" : 'success',
+        "message": 'Successfully Updated'
+    })
+    return response_object,200
 
 @group.route("/", methods = ["GET"])
 @auth.login_required
@@ -48,20 +55,22 @@ def list_groups():
         list_resp.append(group.half_serialize())
     return jsonify({"groups": list_resp})
 
-@group.route("/", methods = ["DELETE"])
+@group.route("/<string:groupId>", methods = ["DELETE"])
 @auth.login_required
-def delete_group():
-    if not request.json:
+def delete_group(groupId):
+    if not groupId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    data = request.json
-    group_id = data["group_id"]
-    gp = Group.query.get(int(group_id))
+    gp = Group.query.get(int(groupId))
     try:
         db.session.delete(gp)
         db.session.commit()
     except:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return common_views.as_success(constants.view_constants.SUCCESS)
+    response_object = jsonify({
+        "status" : 'success',
+        "message": 'Successfully deleted'
+    })
+    return response_object,200
 
 @group.route("/groupRental", methods = ["POST"])
 @auth.login_required
@@ -69,8 +78,8 @@ def add_rental_to_group():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = request.json
-    group = Group.query.get(data["group_id"])
-    rental = Rental.query.get(data["rental_id"])
+    group = Group.query.get(data["groupId"])
+    rental = Rental.query.get(data["rentalId"])
     group.rentals.append(rental)
     try:
         db.session.add(group)

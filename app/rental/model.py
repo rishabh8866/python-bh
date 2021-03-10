@@ -10,6 +10,7 @@ class Rental(db.Model):
     _address_line2       =db.Column      (db.Text)
     _postal_code         =db.Column      (db.String(10), nullable = False)
     _country             =db.Column      (db.Enum(CountryEnum))
+    _currency            =db.Column      (db.String(10))
     _check_in_time       =db.Column      (db.Time())
     _check_out_time      =db.Column      (db.Time())
     _max_guests          =db.Column      (db.Integer)
@@ -62,8 +63,16 @@ class Rental(db.Model):
         self._country = val
 
     @property
+    def currency(self):
+        return self._currency
+
+    @currency.setter
+    def currency(self, val):
+        self._currency = val
+
+    @property
     def check_in_time(self):
-        return self.check_in_time
+        return self._check_in_time
 
     @check_in_time.setter
     def check_in_time(self, val):
@@ -113,7 +122,8 @@ class Rental(db.Model):
         return dict(self.half_serialize(), **{
             "address_line2": self.address_line2,
             "postal_code": self.postal_code,
-            "country": self.country,
             "check_in_time": self.check_in_time,
-            "check_out_time": self.check_out_time
+            "check_out_time": self.check_out_time,
+            "max_guests": self.max_guests,
+            "currency": self.currency
         })

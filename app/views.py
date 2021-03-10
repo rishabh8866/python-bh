@@ -2,9 +2,16 @@ from flask import jsonify, render_template, Flask
 from app import app
 import constants
 
-@app.route("/index", methods=["GET", "POST"])
+@app.route("/")
 def index():
-    return jsonify({"msg": constants.view_constants.SUCCESS})
+    return render_template('index.html')
+@app.errorhandler(404)   
+def not_found(e):   
+  return render_template('index.html')
+
+# @app.route("/", methods=["GET"])
+# def index():
+#     return render_template('index.html')
 
 @app.route('/api/docs')
 def get_docs():
