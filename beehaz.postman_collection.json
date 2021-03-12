@@ -1,0 +1,697 @@
+{
+	"info": {
+		"_postman_id": "4d69d7b0-8b3f-473a-ab92-755d6ced7f63",
+		"name": "beehaz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "rental",
+			"item": [
+				{
+					"name": "add_rental",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"silver\",\r\n    \"postalCode\": \"395000\",\r\n    \"addressLine1\": \"my address_line1\",\r\n    \"addressLine2\": \"my address_line2\",\r\n    \"country\": \"India\",\r\n    \"maxGuests\": 5,\r\n    \"groupId\": 1,\r\n    \"currency\": \"inr\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/rental/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rental",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_rentals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/rental/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rental",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_rental",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\": 1,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"check_in_time\",\r\n    \"checkOutTime\": \"check_out_time\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/rental/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rental",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_rental",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/rental/4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rental",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_single_rental",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/rental/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"rental",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"testname\",\r\n    \"emailId\": \"test@gmail.com\",\r\n    \"companyName\": \"test\",\r\n    \"website\": \"test.com\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customer/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"test@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customer/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customerInfo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customer/customerInfo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"customerInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customerSettings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/customer/customerSettings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"customerSettings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\": \"test@gmail.com\",\r\n    \"name\": \"tttt\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\",\r\n    \"website\": \"ss.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/customer/updateCustomer",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"customer",
+								"updateCustomer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group",
+			"item": [
+				{
+					"name": "list_groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/group/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_rental",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupName\": \"groupa\",\r\n\t\"color\": \"abcde\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/group/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/group/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 7,\r\n    \"groupName\":\"group123\",\r\n    \"color\": \"Red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/group/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"group",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "guest",
+			"item": [
+				{
+					"name": "add_guest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"adfds\",\r\n\t\"emailId\": \"dfsq\",\r\n\t\"phoneNo\": \"dfsdf\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"india\",\r\n\t\"address\": \"address\",\r\n    \"postalCode\": \"postal_code\",\r\n    \"state\": \"GOA\",\r\n    \"nationality\": \"indian\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/guest/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"guest",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGuestByBookingId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/guest/getGuestByBookingId/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"guest",
+								"getGuestByBookingId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addGuestByBookingId",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"guestId\":5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/guest/addGuestByBookingId/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"guest",
+								"addGuestByBookingId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "add_booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\": 1,\r\n\t\"price\": 200,\r\n\t\"tax\": 200,\r\n\t\"noOfAdults\": 5,\r\n\t\"arrive\": \"arrive\",\r\n    \"depart\": \"depart\",\r\n    \"noOfChildren\": 12,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/booking/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"booking",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_booking",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/booking/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"booking",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
