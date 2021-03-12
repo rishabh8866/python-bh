@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5ab8422a.chunk.css",
+    "main.js": "/static/js/main.fc137046.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.4a9a1424.js",
+    "static/css/2.b7ea9308.chunk.css": "/static/css/2.b7ea9308.chunk.css",
+    "static/js/2.f28adb3b.chunk.js": "/static/js/2.f28adb3b.chunk.js",
+    "static/js/3.ccc3977c.chunk.js": "/static/js/3.ccc3977c.chunk.js",
+    "index.html": "/index.html",
+    "static/js/2.f28adb3b.chunk.js.LICENSE.txt": "/static/js/2.f28adb3b.chunk.js.LICENSE.txt",
+    "static/media/address-book-regular.a6674ee8.svg": "/static/media/address-book-regular.a6674ee8.svg",
+    "static/media/calendar-alt-regular.3c2bd673.svg": "/static/media/calendar-alt-regular.3c2bd673.svg",
+    "static/media/file-invoice-dollar-solid.e70c907e.svg": "/static/media/file-invoice-dollar-solid.e70c907e.svg",
+    "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/hotel-solid.fde80172.svg": "/static/media/hotel-solid.fde80172.svg",
+    "static/media/house.b9643113.svg": "/static/media/house.b9643113.svg",
+    "static/media/main.31b1091b.png": "/static/media/main.31b1091b.png",
+    "static/media/person-lines.2824a56c.svg": "/static/media/person-lines.2824a56c.svg",
+    "static/media/phone.e8891a63.png": "/static/media/phone.e8891a63.png",
+    "static/media/question-circle.c83e69f6.svg": "/static/media/question-circle.c83e69f6.svg",
+    "static/media/settings.67afd3a2.svg": "/static/media/settings.67afd3a2.svg",
+    "static/media/tablet.8a75f8d1.png": "/static/media/tablet.8a75f8d1.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4a9a1424.js",
+    "static/css/2.b7ea9308.chunk.css",
+    "static/js/2.f28adb3b.chunk.js",
+    "static/css/main.5ab8422a.chunk.css",
+    "static/js/main.fc137046.chunk.js"
+  ]
+}

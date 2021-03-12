@@ -1,0 +1,138 @@
+from app import app, db
+from app.rental.enums import CountryEnum
+
+
+class Rental(db.Model):
+    __tablename__ = "rental"
+    id                   =db.Column      (db.Integer, primary_key = True)
+    _name                =db.Column      (db.Text, nullable = False)
+    _address_line1       =db.Column      (db.Text, nullable = False)
+    _address_line2       =db.Column      (db.Text)
+    _postal_code         =db.Column      (db.String(10), nullable = False)
+    _city                =db.Column      (db.String(10))
+    _country             =db.Column      (db.Enum(CountryEnum))
+    _currency            =db.Column      (db.String(10))
+    _check_in_time       =db.Column      (db.Time())
+    _check_out_time      =db.Column      (db.Time())
+    _max_guests          =db.Column      (db.Integer)
+    _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
+    _group_id            =db.Column      (db.Integer, db.ForeignKey('group.id'))
+
+    def __init__(self, **kwargs):
+        self._name = kwargs["name"]
+        self._address_line1 = kwargs["address_line1"]
+        self._postal_code = kwargs["postal_code"]
+
+    @property
+    def address_line1(self):
+        return self._address_line1
+
+    @address_line1.setter
+    def address_line1(self, val):
+        self._address_line1 = val
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, val):
+        self._name = val
+
+    @property
+    def address_line2(self):
+        return self._address_line2
+
+    @address_line2.setter
+    def address_line2(self, val):
+        self._address_line2 = val
+
+    @property
+    def postal_code(self):
+        return self._postal_code
+
+    @postal_code.setter
+    def postal_code(self, val):
+        self._postal_code = val
+
+    @property
+    def city(self):
+        return self._city
+
+    @city.setter
+    def city(self, val):
+        self._city = val
+
+    @property
+    def country(self):
+        return self._country
+
+    @country.setter
+    def country(self, val):
+        self._country = val
+
+    @property
+    def currency(self):
+        return self._currency
+
+    @currency.setter
+    def currency(self, val):
+        self._currency = val
+
+    @property
+    def check_in_time(self):
+        return self._check_in_time
+
+    @check_in_time.setter
+    def check_in_time(self, val):
+        self._check_in_time = val
+
+    @property
+    def check_out_time(self):
+        return self._check_out_time
+
+    @check_out_time.setter
+    def check_out_time(self, val):
+        self.check_out_time = val
+
+    @property
+    def customer_id(self):
+        return self._customer_id
+
+    @customer_id.setter
+    def customer_id(self, val):
+        self._customer_id = val
+
+    @property
+    def group_id(self):
+        return self._group_id
+
+    @group_id.setter
+    def group_id(self, val):
+        self._group_id = val
+
+    @property
+    def max_guests(self):
+        return self._max_guests
+
+    @max_guests.setter
+    def max_guests(self, val):
+        self._max_guests = val
+
+    def half_serialize(self):
+        return {
+            "id": self.id,
+            "address_line1": self.address_line1,
+            "name": self.name,
+            "group_id": self.group_id
+        }
+
+    def full_serialize(self):
+        return dict(self.half_serialize(), **{
+            "address_line2": self.address_line2,
+            "postal_code": self.postal_code,
+            "check_in_time": self.check_in_time,
+            "check_out_time": self.check_out_time,
+            "max_guests": self.max_guests,
+            "currency": self.currency
+        })
