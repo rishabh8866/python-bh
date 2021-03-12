@@ -22,7 +22,12 @@ def add_group():
         db.session.commit()
     except:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return jsonify({"group": gp.full_serialize()})
+    response_object = jsonify({
+        "group": gp.full_serialize(),
+        "status" : 'success',
+        "message": 'Group Created'
+        })
+    return response_object,200
 
 @group.route("/", methods = ["PUT"])
 @auth.login_required
@@ -61,16 +66,23 @@ def delete_group(groupId):
     if not groupId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     gp = Group.query.get(int(groupId))
-    try:
-        db.session.delete(gp)
-        db.session.commit()
-    except:
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-        "status" : 'success',
-        "message": 'Successfully deleted'
-    })
-    return response_object,200
+    if gp:
+        try:
+            db.session.delete(gp)
+            db.session.commit()
+        except:
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "status" : 'success',
+            "message": 'Group deleted'
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Group not exists'
+        })
+        return response_object,200
 
 @group.route("/groupRental", methods = ["POST"])
 @auth.login_required

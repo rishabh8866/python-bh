@@ -8,6 +8,7 @@ fields = {
 
 
 mapFields = {
+    "noOfGuests":"_no_of_guests",
     "noOfAdults": "no_of_adults",
     "price": "price",
     "tax": "tax",

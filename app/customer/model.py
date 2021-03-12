@@ -9,6 +9,8 @@ class Customer(db.Model):
     __tablename__ = "customer"
     id                  =db.Column      (db.Integer, primary_key = True)
     _email_id           =db.Column      (db.String(250), unique = True, index = True, nullable = False)
+    _first_name         =db.Column      (db.String(150))
+    _last_name          =db.Column      (db.String(150))
     _property_type      =db.Column      (db.Enum(PropertyEnum))
     _number_of_rooms    =db.Column      (db.Integer)
     _name               =db.Column      (db.Text)
@@ -35,6 +37,22 @@ class Customer(db.Model):
     @email_id.setter
     def email_id(self, val):
         self._email_id = val
+    
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @first_name.setter
+    def first_name(self, val):
+        self._first_name = val
+    
+    @property
+    def last_name(self):
+        return self._last_name
+
+    @last_name.setter
+    def last_name(self, val):
+        self._last_name = val
 
     @property
     def property_type(self):

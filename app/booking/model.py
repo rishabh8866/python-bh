@@ -7,8 +7,6 @@ class Booking(db.Model):
     id                   =db.Column      (db.Integer, primary_key = True)
     _no_of_adults        =db.Column      (db.Integer, nullable = False)
     _no_of_children      =db.Column      (db.Integer, nullable = False)
-    _arrive              =db.Column      (db.Enum, nullable = False)
-    _depart              =db.Column      (db.Enum, nullable = False)
     _check_in_time       =db.Column      (db.DateTime(), nullable = False)
     _check_out_time      =db.Column      (db.DateTime(), nullable = False)
     _payment_status      =db.Column      (db.Enum(PaymentEnum), nullable = False)
@@ -24,6 +22,15 @@ class Booking(db.Model):
         self._check_in_time = datetime.datetime.now() + datetime.timedelta(days = 1)
         self._check_out_time = datetime.datetime.now() + datetime.timedelta(days = 2)
         self._source = SourceEnum.AIRBNB
+
+    
+    @property
+    def no_of_guests(self):
+        return self._no_of_guests
+
+    @no_of_guests.setter
+    def no_of_guests(self, val):
+        self._no_of_guests = val
 
     @property
     def no_of_adults(self):

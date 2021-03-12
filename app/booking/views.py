@@ -20,9 +20,15 @@ def add_booking():
     try:
         db.session.add(b)
         db.session.commit()
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return common_views.as_success(constants.view_constants.SUCCESS)
+    response_object = jsonify({
+        'booking':data,
+        "status":"success",
+        "message":'Booking created'
+    })
+    return response_object,200
+    # return common_views.as_success(constants.view_constants.SUCCESS)
 
 @booking.route("/<string:bookingId>", methods = ["DELETE"])
 @auth.login_required
@@ -30,9 +36,22 @@ def delete_booking(bookingId):
     if not bookingId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     booking = Booking.query.get(bookingId)
-    try:
-        db.session.delete(booking)
-        db.session.commit()
-    except:
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    return common_views.as_success(constants.view_constants.SUCCESS)
+    if booking:
+        try:
+            db.session.delete(booking)
+            db.session.commit()
+        except:
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "status":"success",
+            "message":'Booking deleted'
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+            "status":"failed",
+            "message":"Record not exists"
+        })
+        return response_object,200
+
+    # return common_views.as_success(constants.view_constants.SUCCESS)

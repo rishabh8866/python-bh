@@ -11,6 +11,7 @@ fields = {
 
 
 mapFields = {
+    "id":"rental_id",
     "name": "name",
     "postalCode": "postal_code",
     "addressLine1": "address_line1",
@@ -25,6 +26,7 @@ mapFields = {
 
 
 fieldToMap = {
+    "rental_id":"rentalId",
     "name": "name",
     "postal_code": "postalCode",
     "address_line1": "addressLine1",
@@ -79,7 +81,7 @@ def update_obj_from_request(apiData):
         print("Jasdeep setting " + field + " " + str(data[field]))
         setattr(rental, field, data[field])
     if "group_id" in data:
-        gp_id = int(group_id)
+        gp_id = int(data["group_id"])
         gp = Group.query.get(gp_id)
         if gp:
             rental.group_id = gp_id
@@ -87,7 +89,15 @@ def update_obj_from_request(apiData):
 
 def get_response_object(data):
     apiData = {}
+    groupName = ""
+    if "group_id" in data:
+        if not (data["group_id"] is None):
+            gp_id = int(data["group_id"])
+            gp = Group.query.get(gp_id)
+            if gp:
+                groupName = gp.name
     for x in data:
         apiData[fieldToMap[x]] = data[x]
+    apiData["groupName"]  = groupName   
     return apiData  
     

@@ -9,6 +9,7 @@ class Rental(db.Model):
     _address_line1       =db.Column      (db.Text, nullable = False)
     _address_line2       =db.Column      (db.Text)
     _postal_code         =db.Column      (db.String(10), nullable = False)
+    _city                =db.Column      (db.String(10))
     _country             =db.Column      (db.Enum(CountryEnum))
     _currency            =db.Column      (db.String(10))
     _check_in_time       =db.Column      (db.Time())
@@ -53,6 +54,14 @@ class Rental(db.Model):
     @postal_code.setter
     def postal_code(self, val):
         self._postal_code = val
+
+    @property
+    def city(self):
+        return self._city
+
+    @city.setter
+    def city(self, val):
+        self._city = val
 
     @property
     def country(self):
