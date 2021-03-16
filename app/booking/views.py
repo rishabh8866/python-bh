@@ -20,6 +20,7 @@ def add_booking():
     try:
         db.session.add(b)
         db.session.commit()
+        data["id"] = b.id
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
@@ -44,7 +45,8 @@ def delete_booking(bookingId):
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         response_object = jsonify({
             "status":"success",
-            "message":'Booking deleted'
+            "message":'Booking deleted',
+            "id": bookingId
         })
         return response_object,200
     else:

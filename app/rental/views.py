@@ -33,7 +33,7 @@ def add_rental():
         print("Jasdeep db exception: " + str(e))
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
-        "data":request.json,
+        "data": rental_mapper.get_response_object(r.full_serialize()),
         "status" : 'success',
         "message": 'Successfully Added'
     })
@@ -56,7 +56,7 @@ def edit_rental():
         print("Jasdeep db exception: " + str(e))
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
-            "data":request.json,
+            "data": rental_mapper.get_response_object(r.full_serialize()),
             "status" : 'success',
             "message": 'Successfully Updated'
     })
@@ -89,7 +89,8 @@ def delete_rental(rentalId):
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         response_object = jsonify({
             "status" : 'success',
-            "message": 'Successfully Deleted'
+            "message": 'Successfully Deleted',
+            "id": rentalId
         })
         # return common_views.as_success(constants.view_constants.SUCCESS)
         return response_object,200

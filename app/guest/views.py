@@ -27,6 +27,7 @@ def add_guest():
     try:
         db.session.add(guest)
         db.session.commit()
+        request.json["id"] = guest.id;
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
@@ -37,33 +38,40 @@ def add_guest():
     return response_object,200
     # return common_views.as_success(constants.view_constants.SUCCESS)
 
-
-@guest.route("/addGuestByBookingId/<string:bookingId>", methods = ["POST"])
+@guest.route("/", methods = ["GET"])
 @auth.login_required
-def add_guest_to_booking(bookingId):
-    if not request.json:
+def list_guests():
+    print(g.customer.id)
+    guests = Guest.query.filter(Guest._customer_id == g.customer.id)
+    list_resp = []
+    for guest in guests:
+        list_resp.append(guest_mapper.get_obj_from_Guest_info(guest.full_serialize()))
+    return jsonify({"guests": list_resp})
+
+@guest.route("/<string:guestId>", methods = ["DELETE"])
+@auth.login_required
+def delete_guest(guestId):
+    if not guestId:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    g = Guest.query.get(int(guestId))
+    if g:
+        try:
+            db.session.delete(g)
+            db.session.commit()
+        except:
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "status" : 'success',
+            "message": 'Guest deleted',
+            "id": guestId
+        })
+        return response_object,200
+    else:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'Invalid payload'
+            "message": 'Guest not exists'
         })
-        return response_object,400
-        # return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    data = utils.clean_up_request(request.json)
-    guest = Guest.query.get(int(data["guestId"]))
-    booking = Booking.query.get(int(bookingId))
-    guest.bookings.append(booking)
-    try:
-        db.session.add(guest)
-        db.session.commit()
-    except Exception as e:
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-        "guest" : request.json,
-        "status":"success",
-        "message":"Guest added in bokking"
-    })
-    return response_object,200
-    # return common_views.as_success(constants.view_constants.SUCCESS)
+        return response_object,200
 
 @guest.route("/getGuestByBookingId/<string:bookingId>", methods = ["GET"])
 @auth.login_required
@@ -74,9 +82,20 @@ def get_guests_for_booking(bookingId):
     resp = []
     for guest in booking.guests:
         resp.append(guest.half_serialize())
-    response_object = jsonify({
-        "guest" : resp,
-        "status":"success",
-        "message":"Guest fetch successfully"
-    })
-    return response_object,200
+    return jsonify({"guests": resp})
+
+@guest.route("/addGuestByBookingId/<string:bookingId>", methods = ["POST"])
+@auth.login_required
+def add_guest_to_booking(bookingId):
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    guest = Guest.query.get(int(data["guestId"]))
+    booking = Booking.query.get(int(bookingId))
+    guest.bookings.append(booking)
+    try:
+        db.session.add(guest)
+        db.session.commit()
+    except:
+        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+    return common_views.as_success(constants.view_constants.SUCCESS)

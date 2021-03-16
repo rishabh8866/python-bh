@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.09ad6012.chunk.css",
-    "main.js": "/static/js/main.42e87cbb.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.a03905c6.js",
+    "main.css": "/static/css/main.d3d13187.chunk.css",
+    "main.js": "/static/js/main.a9d5bdf6.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.d6c750a9.js",
     "static/css/2.74488332.chunk.css": "/static/css/2.74488332.chunk.css",
-    "static/js/2.9cc02796.chunk.js": "/static/js/2.9cc02796.chunk.js",
-    "static/js/3.0ae8a637.chunk.js": "/static/js/3.0ae8a637.chunk.js",
+    "static/js/2.841dc5bc.chunk.js": "/static/js/2.841dc5bc.chunk.js",
+    "static/js/3.edafd2a0.chunk.js": "/static/js/3.edafd2a0.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.9cc02796.chunk.js.LICENSE.txt": "/static/js/2.9cc02796.chunk.js.LICENSE.txt",
+    "static/js/2.841dc5bc.chunk.js.LICENSE.txt": "/static/js/2.841dc5bc.chunk.js.LICENSE.txt",
     "static/media/address-book-regular.a6674ee8.svg": "/static/media/address-book-regular.a6674ee8.svg",
     "static/media/calendar-alt-regular.3c2bd673.svg": "/static/media/calendar-alt-regular.3c2bd673.svg",
     "static/media/file-invoice-dollar-solid.e70c907e.svg": "/static/media/file-invoice-dollar-solid.e70c907e.svg",
@@ -22,10 +22,10 @@
     "static/media/tablet.8a75f8d1.png": "/static/media/tablet.8a75f8d1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.a03905c6.js",
+    "static/js/runtime-main.d6c750a9.js",
     "static/css/2.74488332.chunk.css",
-    "static/js/2.9cc02796.chunk.js",
-    "static/css/main.09ad6012.chunk.css",
-    "static/js/main.42e87cbb.chunk.js"
+    "static/js/2.841dc5bc.chunk.js",
+    "static/css/main.d3d13187.chunk.css",
+    "static/js/main.a9d5bdf6.chunk.js"
   ]
 }

@@ -69,7 +69,7 @@ def register():
             # return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         
         #customer made send the email process
-        #utils.send_mail(c)
+        utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,
@@ -99,6 +99,7 @@ def email_login():
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
+        utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),

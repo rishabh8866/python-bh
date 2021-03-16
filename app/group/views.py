@@ -45,7 +45,7 @@ def edit_group():
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     # return common_views.as_success(constants.view_constants.SUCCESS)
     response_object = jsonify({
-        "data":request.json,
+        "data": gp.full_serialize(),
         "status" : 'success',
         "message": 'Successfully Updated'
     })
@@ -74,7 +74,8 @@ def delete_group(groupId):
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         response_object = jsonify({
             "status" : 'success',
-            "message": 'Group deleted'
+            "message": 'Group deleted',
+            "id": groupId
         })
         return response_object,200
     else:

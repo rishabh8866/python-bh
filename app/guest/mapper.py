@@ -20,6 +20,22 @@ mapFields = {
     "nationality": "nationality",
     "language": "language",
     "notes": "notes",
+    "bookings": "bookings"
+}
+
+fieldToMap = {
+"email_id": "emailId",
+    "name": "name",
+    "phone_no": "phoneNo",
+    "customer_id": "customerId",
+    "secondary_email_id": "secondaryEmailId",
+    "country": "country",
+    "address": "address",
+    "postal_code": "postalCode",
+    "state": "state",
+    "nationality": "nationality",
+    "language": "language",
+    "notes": "notes",
 }
 
 def get_obj_from_request(apiData, customer):
@@ -41,3 +57,9 @@ def get_obj_from_request(apiData, customer):
         setattr(guest, field, data[field])
     print("jasdeep guest made")
     return guest
+
+def get_obj_from_Guest_info(data):
+    apiData = {}
+    for x in data:
+        apiData[fieldToMap[x]] = data[x]
+    return apiData 

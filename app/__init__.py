@@ -37,10 +37,10 @@ def register_blueprints():
     from app.group import group
     from app.booking import booking
     from app.guest import guest
-    app.register_blueprint(customer, url_prefix = "/customer")
-    app.register_blueprint(rental, url_prefix = "/rental")
-    app.register_blueprint(group, url_prefix = "/group")
-    app.register_blueprint(booking, url_prefix = "/booking")
-    app.register_blueprint(guest, url_prefix = "/guest")
+    app.register_blueprint(customer, url_prefix = "/api/customer")
+    app.register_blueprint(rental, url_prefix = "/api/rental")
+    app.register_blueprint(group, url_prefix = "/api/group")
+    app.register_blueprint(booking, url_prefix = "/api/booking")
+    app.register_blueprint(guest, url_prefix = "/api/guest")
 
 register_blueprints()

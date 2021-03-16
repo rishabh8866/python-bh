@@ -1,5 +1,6 @@
 from app import app, db
 from app.rental.enums import CountryEnum
+import json
 
 
 class Rental(db.Model):
@@ -10,7 +11,7 @@ class Rental(db.Model):
     _address_line2       =db.Column      (db.Text)
     _postal_code         =db.Column      (db.String(10), nullable = False)
     _city                =db.Column      (db.String(10))
-    _country             =db.Column      (db.Enum(CountryEnum))
+    _country             =db.Column      (db.String(30))
     _currency            =db.Column      (db.String(10))
     _check_in_time       =db.Column      (db.Time())
     _check_out_time      =db.Column      (db.Time())
@@ -134,5 +135,6 @@ class Rental(db.Model):
             "check_in_time": self.check_in_time,
             "check_out_time": self.check_out_time,
             "max_guests": self.max_guests,
-            "currency": self.currency
+            "currency": self.currency,
+            "country": self.country
         })

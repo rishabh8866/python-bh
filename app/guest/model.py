@@ -138,11 +138,11 @@ class Guest(db.Model):
         }
 
     def full_serialize(self):
-        return dict(self.half_serialize, **{
+        return dict(self.half_serialize(), **{
             "secondary_email_id": self.secondary_email_id,
-            "country": self.country,
             "address": self.address,
-            "postal_code": self.postal_code
+            "postal_code": self.postal_code,
+            "notes": self.notes
         })
 
 guest_bookings = db.Table("guest_bookings",

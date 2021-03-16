@@ -18,6 +18,10 @@ def get_docs():
     print('sending docs')
     return render_template('swaggerui.html')
 
+@app.route('/api/world')
+def get_world():
+    return app.send_static_file('./world.json')
+
 def bad_request(data):
     return jsonify({"msg": constants.view_constants.BAD_REQUEST, "data": data}), 400
 

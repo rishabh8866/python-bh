@@ -6,18 +6,23 @@ from flask_mail import Message
 from app import mail
 
 
-AUTH_VERIFICATION = '''Dear {name},
+AUTH_VERIFICATION = '''<html>
+<body>
+Dear {name},
 
 The token is:
 
-{token}
+<a href="http://beehaz.com/verify/{token}">Login</a>
 
 If you have not requested a verification simply ignore this message.
 
 Sincerely,
 
 The Beehaz Team
+</body>
+</html>
 '''
+
 
 EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
@@ -37,13 +42,13 @@ def clean_up_request(data):
 
 def send_mail(subject, sender, recipients, body):
     msg = Message(subject, sender=sender, recipients=recipients)
-    msg.body = body
+    msg.html = body
     mail.send(msg)
 
 
 def send_auth_email(user):
-    token = user.generate_auth_token()
+    token = str(user.generate_auth_token().decode("utf-8"))
     send_mail('[BeeHaz] Log In',
                app.config['ADMINS'][0],
                [user.email_id],
-               AUTH_VERIFICATION.format(name = user.name, token = user.generate_auth_token()))
+               AUTH_VERIFICATION.format(name = user.name, token = token))
