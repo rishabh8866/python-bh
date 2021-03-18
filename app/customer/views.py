@@ -99,7 +99,7 @@ def email_login():
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
-        utils.send_mail(c)
+        # utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),
@@ -183,11 +183,10 @@ def general_settings():
     c = customer_mapper.get_obj_from_request(data)
     # Find record by email..
     customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
-    print("\n\n",data['currency'])
     customer_update._currency = data['currency']
-    # customer_update._time_display = data['timeDisplay']
-    # customer_update._date_display = data['dateDisplay']
-    # customer_update._number_display = data['numberDisplay']
+    customer_update._time_display = data['timeDisplay']
+    customer_update._date_display = data['dateDisplay']
+    customer_update._number_display = data['numberDisplay']
     try:
         db.session.commit()
     except Exception as e:
@@ -196,7 +195,7 @@ def general_settings():
     response_object = jsonify({
             "data":request.json,
             "status" : 'success',
-            "message": 'Customer updated'
+            "message": 'general settings updated'
         })
     return response_object,200
   
