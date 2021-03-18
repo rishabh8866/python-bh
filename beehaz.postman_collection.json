@@ -265,7 +265,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/customer/customerInfo",
+							"raw": "http://127.0.0.1:5000/api/customer/customerInfo",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -275,6 +275,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"customer",
 								"customerInfo"
 							]
@@ -285,7 +286,7 @@
 				{
 					"name": "customerSettings",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "auth_token",
@@ -293,8 +294,17 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"test@gmail.com\",\r\n    \"name\":\"ss\",\r\n    \"language\":\"English\",\r\n    \"permissions\":\"User\",\r\n    \"isFutureBooking\":false,\r\n    \"allowBookingFor\":\"years\",\r\n    \"accountType\":\"free\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customer/customerSettings",
+							"raw": "http://127.0.0.1:5000/api/customer/customerSettings",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -304,6 +314,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"customer",
 								"customerSettings"
 							]
@@ -332,7 +343,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customer/updateCustomer",
+							"raw": "http://127.0.0.1:5000/api/customer/updateCustomer",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -342,8 +353,48 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"customer",
 								"updateCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generalSettings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"test@gmail.com\",\r\n    \"name\":\"tt\",\r\n    \"currency\":\"cad\",\r\n    \"timeDisplay\":\"AM_PM\",\r\n    \"dateDisplay\":\"M1\",\r\n    \"numberDisplay\":\"M2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/customer/generalSettings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customer",
+								"generalSettings"
 							]
 						}
 					},
@@ -686,6 +737,50 @@
 							"path": [
 								"booking",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rates",
+			"item": [
+				{
+					"name": "add_rate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA4NzAwMCwiZXhwIjoxNjE4Njc5MDAwfQ.eyJpZCI6MX0.RQ5FV_Gv_yJJMSkXuEN7rU5IXNSfkWmhULx_q71ObwW6wSAy48m871z0WclyJAoyn-sdptszpZTevQ_955Odyw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rentalId\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": false,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":false,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/rate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"rate",
+								""
 							]
 						}
 					},
