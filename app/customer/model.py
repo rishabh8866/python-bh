@@ -16,11 +16,16 @@ class Customer(db.Model):
     _name               =db.Column      (db.Text)
     _website            =db.Column      (db.Text)
     _created_at         =db.Column      (db.DateTime())
-    _currency           =db.Column      (db.Enum(CurrencyEnum))
+    _currency           =db.Column      (db.String(25))
     _time_display       =db.Column      (db.Enum(TimeDisplayEnum))
     _date_display       =db.Column      (db.Enum(DateDisplayEnum))
     _customer_type      =db.Column      (db.Enum(TypeEnum))
     _number_display     =db.Column      (db.Enum(NumberDisplayEnum))
+    _language           =db.Column      (db.String(250))
+    _permissions        =db.Column      (db.String(250),default="user")
+    _is_future_booking  =db.Column      (db.Boolean,default=False)
+    _allow_booking_for  =db.Column     (db.String(250))
+    _account_type       =db.Column     (db.String(250))
     rentals             =db.relationship('Rental', backref='customer', lazy=True)
 
 
@@ -127,6 +132,47 @@ class Customer(db.Model):
     def number_display(self, val):
         self._number_display = val
 
+
+    @property
+    def language(self):
+        return self._language
+
+    @language.setter
+    def language(self, val):
+        self._language = val
+
+    @property
+    def permissions(self):
+        return self._permissions
+
+    @permissions.setter
+    def permissions(self, val):
+        self._permissions = val
+
+    @property
+    def is_future_booking(self):
+        return self._is_future_booking
+
+    @permissions.setter
+    def is_future_booking(self, val):
+        self._is_future_booking = val
+
+    @property
+    def allow_booking_for(self):
+        return self._allow_booking_for
+
+    @allow_booking_for.setter
+    def allow_booking_for(self, val):
+        self._allow_booking_for = val
+
+    @property
+    def account_type(self):
+        return self._account_type
+
+    @account_type.setter
+    def account_type(self, val):
+        self._account_type = val
+    
     def generate_auth_token(self):
         serial_token = Serializer(app.config[constants.SECRET_KEY], expires_in = constants.MS.MONTH)
         return serial_token.dumps({"id": self.id})
@@ -153,7 +199,12 @@ class Customer(db.Model):
             "name": self.name,
             "number_of_rooms": self.number_of_rooms,
             "customer_type": self.customer_type,
-            "created_at": self._created_at
+            "created_at": self._created_at,
+            "language": self.language,
+            "permissions":self.permissions,
+            "is_future_booking":self._is_future_booking,
+            "allow_booking_for":self.allow_booking_for,
+            "account_type":self.account_type
         }
 
     def full_serialize(self):

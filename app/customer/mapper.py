@@ -15,6 +15,15 @@ mapFields = {
     "companyName": "property_type",
     "propertyType": "property_type",
     "website": "website",
+    "language":"language",
+    "permissions":"permissions",
+    "isFutureBooking":"is_future_booking",
+    "allowBookingFor":"allow_booking_for",
+    "accountType":"account_type",
+    "currency": "currency",
+    "timeDisplay": "time_display",
+    "dateDisplay": "date_display",
+    "numberDisplay": "number_display",
 }
 
 
@@ -30,7 +39,12 @@ fieldToMap = {
     "number_display": "numberDisplay",
     "date_display": "dateDisplay",
     "currency": "currency",
-    "time_display": "timeDisplay"
+    "time_display": "timeDisplay",
+    "language":"language",
+    "permissions":"permissions",
+    "is_future_booking":"isFutureBooking",
+    "allow_booking_for":"allowBookingFor",
+    "account_type":"accountType"
 }
 
 def get_obj_from_request(apiData):

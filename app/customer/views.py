@@ -135,14 +135,71 @@ def get_customer():
     c = customer_mapper.get_obj_from_customer_info(g.customer.half_serialize())    
     return jsonify({"customer": c})
 
-@customer.route("/customerSettings", methods = ["GET"])
+# @customer.route("/customerSettings", methods = ["GET"])
+# @auth.login_required
+# def customer_settings():
+#     if not g.customer:
+#         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
+#     c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize()) 
+#     return jsonify({"customer": c})
+
+# Current users settings.
+@customer.route("/customerSettings", methods = ["PUT"])
 @auth.login_required
 def customer_settings():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize()) 
-    return jsonify({"customer": c})
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    c = customer_mapper.get_obj_from_request(data)
+    # Find record by email..
+    customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
+    customer_update._email_id = data['emailId']
+    customer_update._language = data['language']
+    customer_update._is_future_booking = data['isFutureBooking']
+    customer_update._permissions = data['permissions']
+    customer_update._allow_booking_for = data['allowBookingFor']
+    customer_update._account_type = data['accountType']
+    try:
+        db.session.commit()
+    except Exception as e:
+        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+    response_object = jsonify({
+            "data":request.json,
+            "status" : 'success',
+            "message": 'Customer updated'
+        })
+    return response_object,200
 
+@customer.route("/generalSettings", methods = ["PUT"])
+@auth.login_required
+def general_settings():
+    if not g.customer:
+        return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    c = customer_mapper.get_obj_from_request(data)
+    # Find record by email..
+    customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
+    print("\n\n",data['currency'])
+    customer_update._currency = data['currency']
+    # customer_update._time_display = data['timeDisplay']
+    # customer_update._date_display = data['dateDisplay']
+    # customer_update._number_display = data['numberDisplay']
+    try:
+        db.session.commit()
+    except Exception as e:
+        print("Exceptions :",e)
+        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+    response_object = jsonify({
+            "data":request.json,
+            "status" : 'success',
+            "message": 'Customer updated'
+        })
+    return response_object,200
+  
 @customer.route("/updateCustomer", methods = ["PUT"])
 @auth.login_required
 def update_customer():
