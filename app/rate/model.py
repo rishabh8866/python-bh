@@ -19,8 +19,8 @@ class Rate(db.Model):
     _week_price                =db.Column      (db.Integer)
     _monthly_price             =db.Column      (db.Integer)
     _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'))
-    _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id'))
+    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'),nullable=True)
+    _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id'),nullable=True)
 
     def __init__(self, **kwargs):
         self._week_days = kwargs["week_days"]
@@ -155,7 +155,7 @@ class Rate(db.Model):
             # "week_days": self.week_days,
             "daily_rate": self.daily_rate,
             "guest_per_night": self.guest_per_night,
-            # "usd_per_guest": self.usd_per_guest,
+            "usd_per_guest": self.usd_per_guest,
             "allow_discount": self.allow_discount,
             "weekly_discount": self.weekly_discount,
             "monthly_discount": self.monthly_discount,

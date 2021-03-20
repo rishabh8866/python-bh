@@ -35,7 +35,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/rental/",
+							"raw": "http://127.0.0.1:5000/api/rental/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -45,6 +45,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"rental",
 								""
 							]
@@ -417,7 +418,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/group/",
+							"raw": "http://127.0.0.1:5000/api/group/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -427,6 +428,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"group",
 								""
 							]
@@ -455,7 +457,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/group/",
+							"raw": "http://127.0.0.1:5000/api/group/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -465,6 +467,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"group",
 								""
 							]
@@ -760,7 +763,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": false,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":false,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"raw": "{\r\n    \"rentalId\":1,\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -781,6 +784,105 @@
 								"api",
 								"rate",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_rate",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/rate/13",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"rate",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_rate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":12,\r\n    \"rentalId\":1,\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 17, 2020 - Mar 30, 2020 \",\r\n    \"minimumStayRequirement\": 5,\r\n    \"weekDays\": \"TUE\",\r\n    \"dailyRate\": 33,\r\n    \"guestPerNight\": 20,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/rate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"rate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_single_rate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/rate/152",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"rate",
+								"152"
 							]
 						}
 					},
