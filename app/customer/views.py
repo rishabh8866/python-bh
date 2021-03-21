@@ -39,7 +39,7 @@ def index():
 def register():
     if not request.json:
         response_object = jsonify({
-            "status" : 'fail',
+            "status" : 'failed',
             "message": 'Invalid payload'
         })
         return response_object,400
@@ -47,7 +47,7 @@ def register():
     user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
     if user:
         response_object = jsonify({
-            "status" : 'fail',
+            "status" : 'failed',
             "message": 'That email is taken. Please choose another.'
         })
         return response_object,400
@@ -62,7 +62,7 @@ def register():
             db.session.commit()
         except Exception as e:
             response_object = jsonify({
-                    "status" : 'fail',
+                    "status" : 'failed',
                     "message": 'Invalid payload'
                 })
             return response_object,400
@@ -83,7 +83,7 @@ def register():
 def email_login():
     if not request.json:
         response_object = jsonify({
-            "status" : 'fail',
+            "status" : 'failed',
             "message": 'Invalid payload'
         })
         return response_object,400

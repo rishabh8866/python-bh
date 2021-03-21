@@ -5,7 +5,7 @@ from app.booking.model import Booking
 from app.booking import utils
 from app.booking import mapper as booking_mapper
 import app.views as common_views
-import constants
+import constants,json
 
 @booking.route("/", methods = ["POST"])
 @auth.login_required
@@ -18,8 +18,28 @@ def add_booking():
     except:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
-        db.session.add(b)
-        db.session.commit()
+        check_booking = Booking.query.filter_by(_customer_id=b.customer_id).first()
+        if check_booking:
+            data = {
+                "noOfAdults": check_booking._no_of_adults,
+                "noOfGuests": check_booking._no_of_children,
+                "checkInTime": check_booking._check_in_time,
+                "checkOutTime": check_booking._check_out_time,
+                "paymentStatus": check_booking._payment_status,
+                "source": check_booking._source,
+                "price": check_booking._price,
+                "tax": check_booking._tax,
+            }
+            jsonified_data = json.dumps(data,sort_keys=True,default=str)
+            response_object = jsonify({
+                    "data":json.loads(jsonified_data),
+                    "status" : 'Success',
+                    "message": 'You have already booking'
+                })
+            return response_object,200
+        else:
+            db.session.add(b)
+            db.session.commit()
         data["id"] = b.id
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
@@ -29,7 +49,6 @@ def add_booking():
         "message":'Booking created'
     })
     return response_object,200
-    # return common_views.as_success(constants.view_constants.SUCCESS)
 
 @booking.route("/<string:bookingId>", methods = ["DELETE"])
 @auth.login_required
@@ -57,3 +76,13 @@ def delete_booking(bookingId):
         return response_object,200
 
     # return common_views.as_success(constants.view_constants.SUCCESS)
+
+
+@booking.route("/", methods = ["GET"])
+@auth.login_required
+def list_booking():
+    bookings = Booking.query.all()
+    list_resp = []
+    for booking in bookings:
+        list_resp.append(booking.full_serialize())
+    return jsonify({"booking": list_resp})
