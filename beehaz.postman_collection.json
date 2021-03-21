@@ -197,7 +197,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"testname\",\r\n    \"emailId\": \"test@gmail.com\",\r\n    \"companyName\": \"test\",\r\n    \"website\": \"test.com\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\"\r\n}",
+							"raw": "{\r\n    \"name\": \"testname\",\r\n    \"emailId\": \"test1@gmail.com\",\r\n    \"companyName\": \"test\",\r\n    \"website\": \"test.com\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -205,7 +205,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customer/register",
+							"raw": "http://127.0.0.1:5000/api/customer/register",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -215,6 +215,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"customer",
 								"register"
 							]
@@ -229,7 +230,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"test@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"test1@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,7 +238,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/customer/login",
+							"raw": "http://127.0.0.1:5000/api/customer/login",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -247,6 +248,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"customer",
 								"login"
 							]
@@ -261,7 +263,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
 								"type": "text"
 							}
 						],
@@ -291,7 +293,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
 								"type": "text"
 							}
 						],
@@ -330,7 +332,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTU2NjU0NywiZXhwIjoxNjE4MTU4NTQ3fQ.eyJpZCI6MTl9.tw5BGqMI07zoysaC-eMQPd5-1Z1dkO8XePnURX02JAEZ6eyTdHHw-XiSW_6jHTVjGAGAc2ud6lr8hvRZezeicQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
 								"type": "text"
 							}
 						],
@@ -575,7 +577,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/guest/",
+							"raw": "http://127.0.0.1:5000/api/guest/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -585,6 +587,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"guest",
 								""
 							]
@@ -672,6 +675,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "list_guest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/guest",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"guest"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -699,7 +731,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/booking/",
+							"raw": "http://127.0.0.1:5000/api/booking/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -709,6 +741,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"booking",
 								""
 							]
@@ -740,6 +773,35 @@
 							"path": [
 								"booking",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_booking",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/booking",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"booking"
 							]
 						}
 					},
