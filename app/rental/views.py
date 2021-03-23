@@ -113,8 +113,8 @@ def get_single_rental(rentalId):
         data = {
             "addressLine1": gp._address_line1,
             "addressLine2": gp._address_line2,
-            "checkInTime": gp._check_in_time,
-            "checkOutTime": gp._check_out_time,
+            "checkInTime": gp._checkin_time,
+            "checkOutTime": gp._checkout_time,
             "currency": gp._currency,
             "groupId": gp._group_id,
             "id":gp.id,

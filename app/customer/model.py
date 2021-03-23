@@ -11,7 +11,7 @@ class Customer(db.Model):
     _email_id           =db.Column      (db.String(250), unique = True, index = True, nullable = False)
     _first_name         =db.Column      (db.String(150))
     _last_name          =db.Column      (db.String(150))
-    _property_type      =db.Column      (db.Enum(PropertyEnum))
+    _property_type      =db.Column      (db.String(150))
     _number_of_rooms    =db.Column      (db.Integer)
     _name               =db.Column      (db.Text)
     _website            =db.Column      (db.Text)
@@ -73,7 +73,6 @@ class Customer(db.Model):
 
     @number_of_rooms.setter
     def number_of_rooms(self, val):
-        print("Jasdeep setting number of rooms")
         self._number_of_rooms = val
 
     @property

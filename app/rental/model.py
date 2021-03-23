@@ -13,8 +13,8 @@ class Rental(db.Model):
     _city                =db.Column      (db.String(10))
     _country             =db.Column      (db.String(30))
     _currency            =db.Column      (db.String(10))
-    _check_in_time       =db.Column      (db.Time())
-    _check_out_time      =db.Column      (db.Time())
+    _checkin_time       =db.Column      (db.String(30), nullable = False)
+    _checkout_time      =db.Column      (db.String(30), nullable = False)
     _max_guests          =db.Column      (db.Integer)
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
     _group_id            =db.Column      (db.Integer, db.ForeignKey('group.id'))
@@ -81,20 +81,20 @@ class Rental(db.Model):
         self._currency = val
 
     @property
-    def check_in_time(self):
-        return self._check_in_time
+    def checkin_time(self):
+        return self._checkin_time
 
-    @check_in_time.setter
-    def check_in_time(self, val):
-        self._check_in_time = val
+    @checkin_time.setter
+    def checkin_time(self, val):
+        self._checkin_time = val
 
     @property
-    def check_out_time(self):
-        return self._check_out_time
+    def checkout_time(self):
+        return self._checkout_time
 
-    @check_out_time.setter
-    def check_out_time(self, val):
-        self.check_out_time = val
+    @checkout_time.setter
+    def checkout_time(self, val):
+        self._checkout_time = val
 
     @property
     def customer_id(self):
@@ -132,8 +132,8 @@ class Rental(db.Model):
         return dict(self.half_serialize(), **{
             "address_line2": self.address_line2,
             "postal_code": self.postal_code,
-            "check_in_time": self.check_in_time,
-            "check_out_time": self.check_out_time,
+            "checkin_time": self.checkin_time,
+            "checkout_time": self.checkout_time,
             "max_guests": self.max_guests,
             "currency": self.currency,
             "country": self.country

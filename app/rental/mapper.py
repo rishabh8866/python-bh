@@ -3,11 +3,9 @@ from app.group.model import Group
 
 fields = {
     "primary": ["name", "address_line1", "postal_code"],
-    "secondary": ["address_line2", "country", "max_guests", "currency"],
+    "secondary": ["address_line2", "country", "max_guests", "currency","checkin_time","checkout_time"],
     "unique": []
 }
-
-
 
 
 mapFields = {
@@ -17,8 +15,8 @@ mapFields = {
     "addressLine1": "address_line1",
     "addressLine2": "address_line2",
     "country": "country",
-    "checkInTime": "check_in_time",
-    "checkOutTime": "check_out_time",
+    "checkInTime": "checkin_time",
+    "checkOutTime": "checkout_time",
     "maxGuests": "max_guests",
     "groupId": "group_id",
     "currency": "currency",
@@ -32,8 +30,8 @@ fieldToMap = {
     "address_line1": "addressLine1",
     "address_line2": "addressLine2",
     "country": "country",
-    "check_in_time": "checkInTime",
-    "check_out_time": "checkOutTime",
+    "checkin_time": "checkInTime",
+    "checkout_time": "checkOutTime",
     "id": "id",
     "group_id": "groupId",
     "currency": "currency",
@@ -50,7 +48,7 @@ def get_obj_from_request(apiData, customer):
     for field in fields["unique"]:
         if getattr(Rental, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    rental = Rental(name = data["name"], address_line1 = data["address_line1"], postal_code = "postal_code")
+    rental = Rental(name = data["name"], address_line1 = data["address_line1"],checkin_time=data['checkin_time'], checkout_time=data['checkout_time'],postal_code = "postal_code")
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")

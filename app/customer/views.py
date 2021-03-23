@@ -20,6 +20,7 @@ def verify_password(unused_1, unused_2):
         return True
     return False
 
+
 @auth.error_handler
 def auth_error(status):
     response = jsonify({
@@ -27,13 +28,16 @@ def auth_error(status):
     })
     return response, status
 
+
 @app.before_request
 def before_request():
     g.customer = customer
 
+
 @customer.route("/index", methods = ["GET", "POST"])
 def index():
     return jsonify({"msg": "success"})
+
 
 @customer.route("/register", methods = ["POST"])
 def register():
@@ -54,8 +58,9 @@ def register():
     else:
         data = utils.clean_up_request(request.json)
         try:
-            c = customer_mapper.get_obj_from_request(data)
+            c = customer_mapper.get_obj_from_request(data,request.json['emailId'])
         except Exception as e:
+            print(e)
             return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
         try:
             db.session.add(c)
@@ -66,10 +71,9 @@ def register():
                     "message": 'Invalid payload'
                 })
             return response_object,400
-            # return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         
         #customer made send the email process
-        utils.send_mail(c)
+        # utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,
@@ -78,6 +82,7 @@ def register():
             "message": 'Customer created'
         })
         return response_object,200
+
 
 @customer.route("/login", methods = ["POST"])
 def email_login():
@@ -115,6 +120,7 @@ def email_login():
         })
         return response_object,200
 
+
 @customer.route("/login/<string:auth_token>", methods = ["GET"])
 def login(auth_token):
     if not auth_token:
@@ -132,16 +138,15 @@ def login(auth_token):
 def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    c = customer_mapper.get_obj_from_customer_info(g.customer.half_serialize())    
-    return jsonify({"customer": c})
+    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())    
+    response_object = jsonify({
+        "customer":c,
+        "status" : 'success',
+        "message": 'Customer updated'
+    })
+    return response_object,200
+    # return jsonify({"customer": c})
 
-# @customer.route("/customerSettings", methods = ["GET"])
-# @auth.login_required
-# def customer_settings():
-#     if not g.customer:
-#         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-#     c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize()) 
-#     return jsonify({"customer": c})
 
 # Current users settings.
 @customer.route("/customerSettings", methods = ["PUT"])
@@ -152,15 +157,22 @@ def customer_settings():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    c = customer_mapper.get_obj_from_request(data)
+    current_email = g.customer._email_id
+    c = customer_mapper.get_obj_from_request(data,current_email)
     # Find record by email..
-    customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
-    customer_update._email_id = data['emailId']
-    customer_update._language = data['language']
-    customer_update._is_future_booking = data['isFutureBooking']
-    customer_update._permissions = data['permissions']
-    customer_update._allow_booking_for = data['allowBookingFor']
-    customer_update._account_type = data['accountType']
+    customer_update = Customer.query.filter_by(_email_id=g.customer._email_id).first()
+    if customer_update:
+        customer_update._language = data['language']
+        customer_update._is_future_booking = data['isFutureBooking']
+        customer_update._permissions = data['permissions']
+        customer_update._allow_booking_for = data['allowBookingFor']
+        customer_update._account_type = data['accountType']
+    else:
+        response_object = jsonify({
+            "status" : 'failed',
+            "message": 'please check provided details'
+        })
+        return response_object,400
     try:
         db.session.commit()
     except Exception as e:
@@ -172,6 +184,7 @@ def customer_settings():
         })
     return response_object,200
 
+
 @customer.route("/generalSettings", methods = ["PUT"])
 @auth.login_required
 def general_settings():
@@ -180,17 +193,25 @@ def general_settings():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    c = customer_mapper.get_obj_from_request(data)
-    # Find record by email..
-    customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
-    customer_update._currency = data['currency']
-    customer_update._time_display = data['timeDisplay']
-    customer_update._date_display = data['dateDisplay']
-    customer_update._number_display = data['numberDisplay']
+    current_email = g.customer._email_id
+    c = customer_mapper.get_obj_from_request(data,current_email)
+    # Find record by email of currently logged-in user..
+    customer_update = Customer.query.filter_by(_email_id=current_email).first()
+    if customer_update:
+        customer_update._currency = data['currency']
+        customer_update._time_display = data['timeDisplay']
+        customer_update._date_display = data['dateDisplay']
+        customer_update._number_display = data['numberDisplay']
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'please check provided details'
+            })
+        return response_object,400
     try:
         db.session.commit()
     except Exception as e:
-        print("Exceptions :",e)
+        print(e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
             "data":request.json,
@@ -199,6 +220,7 @@ def general_settings():
         })
     return response_object,200
   
+
 @customer.route("/updateCustomer", methods = ["PUT"])
 @auth.login_required
 def update_customer():
@@ -207,17 +229,32 @@ def update_customer():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
-    c = customer_mapper.get_obj_from_request(data)
+    current_email = g.customer._email_id
+    c = customer_mapper.get_obj_from_request(data,current_email)
     # Find record by email and update..
-    customer_update = Customer.query.filter_by(_email_id=data['emailId']).first()
-    customer_update._name = data['name']
-    customer_update._number_of_rooms = data['noOfUnits']
-    customer_update._property_type = data['propertyType']
-    customer_update._website = data['website']
+    customer_update = Customer.query.filter_by(_email_id=current_email).first()
+    if customer_update:
+        customer_update._name = data['name']
+        customer_update._number_of_rooms = data['noOfUnits']
+        customer_update._property_type = data['propertyType']
+        customer_update._website = data['website']
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'please check provided details'
+            })
+        return response_object,400
     # c = utils.get_obj_from_request(data, g.customer)
     try:
         db.session.commit()
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    c = customer_mapper.get_obj_from_customer_info(c.full_serialize())  
-    return jsonify({"customer": c})
+    # c = customer_mapper.get_obj_from_customer_info(c.full_serialize())  
+    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())    
+    response_object = jsonify({
+        "customer":c,
+        "status" : 'success',
+        "message": 'Customer updated'
+    })
+    return response_object,200
+    # return jsonify({"customer": c})

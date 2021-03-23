@@ -47,7 +47,8 @@ fieldToMap = {
     "account_type":"accountType"
 }
 
-def get_obj_from_request(apiData):
+def get_obj_from_request(apiData,current_email):
+    print("GET",current_email)
     # assume data is json
     data = {}
     for x in apiData:
@@ -58,7 +59,7 @@ def get_obj_from_request(apiData):
     for field in fields["unique"]:
         if getattr(Customer, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    customer = Customer(data["email_id"], name = data["name"])
+    customer = Customer(current_email, name = data["name"])
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")

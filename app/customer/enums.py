@@ -1,14 +1,14 @@
 import enum
 
 class CurrencyEnum(enum.Enum):
-    CAD = "cad"
-    USD = "usd"
-    EUR = "euro"
-    CHF = "chf"
-    GDP = "gdp"
+    CAD = "CAD"
+    USD = "USD"
+    EUR = "EUR"
+    CHF = "CHF"
+    GDP = "GDP"
     
 
-class TimeDisplayEnum(enum.Enum):
+class TimeDisplayEnum(str,enum.Enum):
     AM_PM = "AM/PM"
     H = "24 H"
 
@@ -16,7 +16,7 @@ class TypeEnum(enum.Enum):
     FREE = "free"
     PAID = "paid"
 
-class NumberDisplayEnum(enum.Enum):
+class NumberDisplayEnum(str,enum.Enum):
     M1 = "1,000.00"
     M2 = "1'000.00"
     M3 = "1.000,00"
@@ -25,7 +25,7 @@ class PropertyEnum(enum.Enum):
     NORMAL = 'normal'
     RENTED = "rented"
 
-class DateDisplayEnum(enum.Enum):
+class DateDisplayEnum(str,enum.Enum):
     M1 = "YYYY/MM/DD"
     M2 = "YY/MM/DD"
     M3 = "YYYY-MM-DD"
