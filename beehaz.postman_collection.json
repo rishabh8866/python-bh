@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							},
 							{
@@ -27,7 +27,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"silver\",\r\n    \"postalCode\": \"395000\",\r\n    \"addressLine1\": \"my address_line1\",\r\n    \"addressLine2\": \"my address_line2\",\r\n    \"country\": \"India\",\r\n    \"maxGuests\": 5,\r\n    \"groupId\": 1,\r\n    \"currency\": \"inr\"\r\n}",
+							"raw": "{\r\n    \"name\": \"silver\",\r\n    \"postalCode\": \"395000\",\r\n    \"addressLine1\": \"my address_line1\",\r\n    \"addressLine2\": \"my address_line2\",\r\n    \"country\": \"India\",\r\n    \"maxGuests\": 5,\r\n    \"groupId\": 1,\r\n    \"currency\": \"inr\",\r\n    \"checkInTime\":\"10/25/06 14:30:59\",\r\n    \"checkOutTime\":\"10/25/06 14:30:59\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,13 +89,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\": 1,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"check_in_time\",\r\n    \"checkOutTime\": \"check_out_time\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"10/25/06 14:30:59\",\r\n    \"checkOutTime\": \"10/25/06 14:30:59\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,7 +103,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/rental/",
+							"raw": "http://127.0.0.1:5000/api/rental/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -113,6 +113,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"rental",
 								""
 							],
@@ -168,7 +169,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/rental/1",
+							"raw": "http://127.0.0.1:5000/api/rental/10",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -178,8 +179,9 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"rental",
-								"1"
+								"10"
 							]
 						}
 					},
@@ -197,7 +199,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"testname\",\r\n    \"emailId\": \"test1@gmail.com\",\r\n    \"companyName\": \"test\",\r\n    \"website\": \"test.com\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\"\r\n}",
+							"raw": "{\r\n    \"name\": \"demringen\",\r\n    \"emailId\": \"demringen@hotmail.red\",\r\n    \"companyName\": \"demringen@hotmail.red company pvt\",\r\n    \"website\": \"demringen@hotmail.red.com\",\r\n    \"noOfUnits\": 5,\r\n    \"propertyType\": \"rented\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -230,7 +232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"test1@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -263,7 +265,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							}
 						],
@@ -293,13 +295,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"test@gmail.com\",\r\n    \"name\":\"ss\",\r\n    \"language\":\"English\",\r\n    \"permissions\":\"User\",\r\n    \"isFutureBooking\":false,\r\n    \"allowBookingFor\":\"years\",\r\n    \"accountType\":\"free\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"demringen\",\r\n    \"language\":\"English\",\r\n    \"permissions\":\"User\",\r\n    \"isFutureBooking\":false,\r\n    \"allowBookingFor\":\"years\",\r\n    \"accountType\":\"free\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -332,13 +334,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\": \"test@gmail.com\",\r\n    \"name\": \"tttt\",\r\n    \"noOfUnits\": \"1\",\r\n    \"propertyType\": \"rented\",\r\n    \"website\": \"ss.com\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\": \"demringen\",\r\n    \"noOfUnits\": \"10\",\r\n    \"propertyType\": \"rented\",\r\n    \"website\": \"demringen.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,13 +373,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA3Nzg0OSwiZXhwIjoxNjE4NjY5ODQ5fQ.eyJpZCI6MX0.qO8uPGZ99Fgd9VXp5NR1Y7uzFNeJziW0bQnbx9PrqUJWWEJ2VKeJJHVLqOpAcPQdBe6v9EJLc0gwi2rpwd9NOQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"test@gmail.com\",\r\n    \"name\":\"tt\",\r\n    \"currency\":\"cad\",\r\n    \"timeDisplay\":\"AM_PM\",\r\n    \"dateDisplay\":\"M1\",\r\n    \"numberDisplay\":\"M2\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"tt\",\r\n    \"currency\":\"CAD\",\r\n    \"timeDisplay\":\"AM_PM\",\r\n    \"dateDisplay\":\"M10\",\r\n    \"numberDisplay\":\"M2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -489,7 +491,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/group/5",
+							"raw": "http://127.0.0.1:5000/api/group/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -499,8 +501,9 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"group",
-								"5"
+								"1"
 							],
 							"query": [
 								{
