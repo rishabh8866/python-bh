@@ -6,6 +6,7 @@ from app.rate import mapper as rate_mapper
 from app import views as common_views
 from app.rate import utils
 import constants
+from app.rental.model import Rental
 import json
 
 @rate.route("/", methods = ["POST"])
@@ -21,7 +22,14 @@ def add_rate():
     data = request.json
     utils.clean_up_request(data)
     try:
-        r = rate_mapper.get_obj_from_request(data, g.customer)
+        exists =  Rental.query.filter_by(id=data['rentalId']).scalar()
+        if exists:
+            r = rate_mapper.get_obj_from_request(data, g.customer)
+        else:
+            response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Rental not available'})
+            return response_object,400
     except Exception as e:
         print("Exception: " + str(e))
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
@@ -29,7 +37,6 @@ def add_rate():
         db.session.add(r)
         db.session.commit()
     except Exception as e:
-        print("Exception",e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
         "data": rate_mapper.get_response_object(r.full_serialize()),
@@ -128,3 +135,18 @@ def get_single_rate(rateId):
                 "message": 'Record not exists'
             })
         return response_object,200
+
+
+@rate.route("/", methods = ["GET"])
+@auth.login_required
+def  get_all_rate():
+    rates = Rate.query.filter(Rate._customer_id == g.customer.id)
+    list_resp = []
+    for rate in rates:
+        list_resp.append(rate_mapper.get_response_object(rate.full_serialize()))
+    response_object = jsonify({
+        "data": list_resp,
+        "status" : 'success',
+        "message": 'Successfully fetched'
+    })
+    return response_object,200

@@ -19,7 +19,7 @@ class Rate(db.Model):
     _week_price                =db.Column      (db.Integer)
     _monthly_price             =db.Column      (db.Integer)
     _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'),nullable=True)
+    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'),nullable=False)
     _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id'),nullable=True)
 
     def __init__(self, **kwargs):
@@ -150,14 +150,16 @@ class Rate(db.Model):
 
     def full_serialize(self):
         return {
-            "date_range": self.date_range,
-            "minimum_stay_requirement": self.minimum_stay_requirement,
-            # "week_days": self.week_days,
-            "daily_rate": self.daily_rate,
-            "guest_per_night": self.guest_per_night,
+            "id":self.id,
+            "rental_id":self.rental_id,
             "usd_per_guest": self.usd_per_guest,
+            "daily_rate": self.daily_rate,
             "allow_discount": self.allow_discount,
-            "weekly_discount": self.weekly_discount,
+            "allow_fixed_rate":self.allow_fixed_rate,
+            "guest_per_night": self.guest_per_night,
+            "minimum_stay_requirement": self.minimum_stay_requirement,
             "monthly_discount": self.monthly_discount,
+            "weekly_discount": self.weekly_discount,
+            "date_range": self.date_range,
             "week_price": self.week_price
         }

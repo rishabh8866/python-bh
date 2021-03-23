@@ -73,7 +73,7 @@ def register():
             return response_object,400
         
         #customer made send the email process
-        # utils.send_mail(c)
+        utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,

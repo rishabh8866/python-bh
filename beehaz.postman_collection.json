@@ -65,7 +65,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/rental/",
+							"raw": "http://127.0.0.1:5000/api/rental/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -75,6 +75,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"rental",
 								""
 							]
@@ -140,7 +141,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/rental/4",
+							"raw": "http://127.0.0.1:5000/api/rental/4",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -150,6 +151,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"rental",
 								"4"
 							]
@@ -404,6 +406,15 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
 				}
 			]
 		},
@@ -537,7 +548,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/group/",
+							"raw": "http://127.0.0.1:5000/api/group/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -547,6 +558,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"group",
 								""
 							]
@@ -622,7 +634,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/guest/getGuestByBookingId/1",
+							"raw": "http://127.0.0.1:5000/api/guest/getGuestByBookingId/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -632,6 +644,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"guest",
 								"getGuestByBookingId",
 								"1"
@@ -661,7 +674,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/guest/addGuestByBookingId/1",
+							"raw": "http://127.0.0.1:5000/api/guest/addGuestByBookingId/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -671,6 +684,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"guest",
 								"addGuestByBookingId",
 								"1"
@@ -764,7 +778,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/booking/2",
+							"raw": "http://127.0.0.1:5000/api/booking/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -774,6 +788,7 @@
 							],
 							"port": "5000",
 							"path": [
+								"api",
 								"booking",
 								"2"
 							]
@@ -828,7 +843,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":1,\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"raw": "{\r\n    \"rentalId\":\"10\",\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -948,6 +963,36 @@
 								"api",
 								"rate",
 								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_rate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA4NzAwMCwiZXhwIjoxNjE4Njc5MDAwfQ.eyJpZCI6MX0.RQ5FV_Gv_yJJMSkXuEN7rU5IXNSfkWmhULx_q71ObwW6wSAy48m871z0WclyJAoyn-sdptszpZTevQ_955Odyw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/rate/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"rate",
+								""
 							]
 						}
 					},
