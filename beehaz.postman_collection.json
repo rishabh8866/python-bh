@@ -584,7 +584,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"adfds\",\r\n\t\"emailId\": \"dfsq\",\r\n\t\"phoneNo\": \"dfsdf\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"india\",\r\n\t\"address\": \"address\",\r\n    \"postalCode\": \"postal_code\",\r\n    \"state\": \"GOA\",\r\n    \"nationality\": \"indian\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"notes\"\r\n}",
+							"raw": "{\r\n    \"name\": \"adfds\",\r\n\t\"emailId\": \"dfsq\",\r\n\t\"phoneNo\": \"dfsdf\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gght\",\r\n\t\"address\": \"address\",\r\n    \"postalCode\": \"postal_code\",\r\n    \"state\": \"dfsd\",\r\n    \"nationality\": \"dfsd\",\r\n    \"language\": \"dfadf\",\r\n    \"notes\": \"notes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,7 +634,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/guest/getGuestByBookingId/1",
+							"raw": "http://127.0.0.1:5000/api/guest/getGuestByBookingId",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -646,8 +646,7 @@
 							"path": [
 								"api",
 								"guest",
-								"getGuestByBookingId",
-								"1"
+								"getGuestByBookingId"
 							]
 						}
 					},
@@ -721,6 +720,82 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete_guest",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/guest/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"guest",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_guest",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"test update\",\r\n\t\"emailId\": \"sefger\",\r\n\t\"phoneNo\": \"dfrtdbhgsdf\",\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gshg4ght\",\r\n\t\"address\": \"s5yghkc\",\r\n    \"postalCode\": \"3655\",\r\n    \"state\": \"hgfyut\",\r\n    \"nationality\": \"fu79ik \",\r\n    \"language\": \"yuog8\",\r\n    \"notes\": \"hkjuo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/guest/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"guest",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -740,7 +815,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\": 1,\r\n\t\"price\": 200,\r\n\t\"tax\": 200,\r\n\t\"noOfAdults\": 5,\r\n\t\"arrive\": \"arrive\",\r\n    \"depart\": \"depart\",\r\n    \"noOfChildren\": 12,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\":10\r\n}",
+							"raw": "{\r\n    \"rentalId\": 10,\r\n    \"price\": 200,\r\n    \"tax\": 200,\r\n    \"noOfAdults\": 5,\r\n    \"arrive\": \"arrive\",\r\n    \"depart\": \"depart\",\r\n    \"noOfChildren\": 12,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\": 10,\r\n    \"checkInTime\": \"2021-03-20 15:28:42\",\r\n    \"checkOutTime\": \"2021-03-28 15:28:42\",\r\n    \"bookingType\":\"booking\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -778,7 +853,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/booking/2",
+							"raw": "http://127.0.0.1:5000/api/booking/5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -790,7 +865,7 @@
 							"path": [
 								"api",
 								"booking",
-								"2"
+								"5"
 							]
 						}
 					},
