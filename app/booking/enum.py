@@ -1,7 +1,7 @@
 import enum
 
-class PaymentEnum(enum.Enum):
+class PaymentEnum(str,enum.Enum):
     INCOMPLETE = "incomplete"
 
-class SourceEnum(enum.Enum):
+class SourceEnum(str,enum.Enum):
     AIRBNB = "airbnb"

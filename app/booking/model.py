@@ -12,6 +12,7 @@ class Booking(db.Model):
     _payment_status      =db.Column      (db.Enum(PaymentEnum), nullable = False)
     _source              =db.Column      (db.Enum(SourceEnum), nullable = False)
     _price               =db.Column      (db.Integer, nullable = False)
+    _booking_type        =db.Column      (db.String(150))
     _tax                 =db.Column      (db.Integer, nullable = False)
     _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id'))
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'))
@@ -31,6 +32,14 @@ class Booking(db.Model):
     @no_of_guests.setter
     def no_of_guests(self, val):
         self._no_of_guests = val
+
+    @property
+    def booking_type(self):
+        return self._booking_type
+
+    @booking_type.setter
+    def booking_type(self, val):
+        self._booking_type = val
 
     @property
     def no_of_adults(self):
@@ -114,6 +123,7 @@ class Booking(db.Model):
 
     def half_serialize(self):
         return {
+            "id":self.id,
             "no_of_adults": self.no_of_adults,
             "no_of_children": self.no_of_children,
         }
@@ -121,5 +131,10 @@ class Booking(db.Model):
     def full_serialize(self):
         return dict(self.half_serialize(), **{
             "price": self.price,
-            "tax": self.tax
+            "tax": self.tax,
+            "check_in_time":self.check_in_time,
+            "check_out_time":self.check_out_time,
+            "source":self.source,
+            "rental_id":self.rental_id,
+            "booking_type":self.booking_type
         })
