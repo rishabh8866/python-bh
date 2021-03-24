@@ -8,6 +8,7 @@ fields = {
 
 
 mapFields = {
+    "id":"id",
     "emailId": "email_id",
     "name": "name",
     "phoneNo": "phone_no",
@@ -24,7 +25,8 @@ mapFields = {
 }
 
 fieldToMap = {
-"email_id": "emailId",
+    "id":"id",
+    "email_id": "emailId",
     "name": "name",
     "phone_no": "phoneNo",
     "customer_id": "customerId",

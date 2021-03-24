@@ -73,6 +73,48 @@ def delete_guest(guestId):
         })
         return response_object,200
 
+
+@guest.route("/", methods = ["PUT"])
+@auth.login_required
+def update_guests():
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = request.json
+    # Find record by email and update..
+    guest_update = Guest.query.get(data['id'])
+    if guest_update:
+        guest_update._name = data['name']
+        guest_update._email_id = data['emailId']
+        guest_update._phone_no = data['phoneNo']
+        guest_update._secondary_email_id = data['secondaryEmailId']
+        guest_update._country = data['country']
+        guest_update._address = data['address']
+        guest_update._postal_code = data['postalCode']
+        guest_update._state = data['state']
+        guest_update._nationality = data['nationality']
+        guest_update._language = data['language']
+        guest_update._notes = data['notes']
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'please check provided details'
+            })
+        return response_object,400
+    # c = utils.get_obj_from_request(data, g.customer)
+    try:
+        db.session.commit()
+    except Exception as e:
+        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+
+    resp = guest_mapper.get_obj_from_Guest_info(guest_update.full_serialize())
+    response_object = jsonify({
+        "guest":resp,
+        "status" : 'success',
+        "message": 'Guest updated'
+    })
+    return response_object,200
+
+
 @guest.route("/getGuestByBookingId/<string:bookingId>", methods = ["GET"])
 @auth.login_required
 def get_guests_for_booking(bookingId):

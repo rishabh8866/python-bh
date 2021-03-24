@@ -132,16 +132,22 @@ class Guest(db.Model):
 
     def half_serialize(self):
         return {
+            "id": self.id,
             "name": self._name,
             "email_id": self._email_id,
             "phone_no": self._phone_no,
+            "customer_id": self._customer_id,
         }
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
             "secondary_email_id": self.secondary_email_id,
+            "country":self._country,
             "address": self.address,
             "postal_code": self.postal_code,
+            "state": self.state,
+            "nationality":self.nationality,
+            "language":self.language,
             "notes": self.notes
         })
 

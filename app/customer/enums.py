@@ -22,8 +22,10 @@ class NumberDisplayEnum(str,enum.Enum):
     M3 = "1.000,00"
 
 class PropertyEnum(enum.Enum):
-    NORMAL = 'normal'
-    RENTED = "rented"
+    NORMAL = 'apartments'
+    RENTED = 'townhomes'
+    CONDOMINIUM = 'condominium'
+    ROOM = 'room'
 
 class DateDisplayEnum(str,enum.Enum):
     M1 = "YYYY/MM/DD"
