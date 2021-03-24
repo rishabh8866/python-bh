@@ -9,6 +9,7 @@ fields = {
 
 
 mapFields = {
+    "id":"id",
     "emailId": "email_id",
     "name": "name",
     "noOfUnits": "number_of_rooms",
@@ -28,6 +29,7 @@ mapFields = {
 
 
 fieldToMap = {
+    "id":"id",
     "email_id": "emailId",
     "name": "name",
     "number_of_rooms": "noOfUnits",

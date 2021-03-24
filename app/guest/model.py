@@ -132,6 +132,7 @@ class Guest(db.Model):
 
     def half_serialize(self):
         return {
+            "id": self.id,
             "name": self._name,
             "email_id": self._email_id,
             "phone_no": self._phone_no,

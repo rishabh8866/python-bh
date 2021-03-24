@@ -194,6 +194,7 @@ class Customer(db.Model):
 
     def half_serialize(self):
         return {
+            "id":self.id,
             "email_id": self.email_id,
             "name": self.name,
             "number_of_rooms": self.number_of_rooms,

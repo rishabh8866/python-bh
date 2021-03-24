@@ -96,15 +96,16 @@ def email_login():
     data = utils.clean_up_request(request.json)
     email_id = data["emailId"]
     c = Customer.query.filter_by(_email_id = email_id).first()
-    if c: 
+    if c:
         data = {
+            "id": c.id,
             "createdAt": str(c._created_at),
             "customerType": c._customer_type,
             "emailId": c._email_id,
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
-        # utils.send_mail(c)
+        utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),

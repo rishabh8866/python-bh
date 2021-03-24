@@ -23,7 +23,6 @@ class Booking(db.Model):
         self._check_out_time = datetime.datetime.now() + datetime.timedelta(days = 2)
         self._source = SourceEnum.AIRBNB
 
-    
     @property
     def no_of_guests(self):
         return self._no_of_guests
@@ -66,7 +65,7 @@ class Booking(db.Model):
 
     @property
     def payment_status(self):
-        return self.payment_status
+        return self._payment_status
 
     @payment_status.setter
     def payment_status(self, val):
@@ -114,12 +113,17 @@ class Booking(db.Model):
 
     def half_serialize(self):
         return {
+            "check_in_time":self.check_in_time,
+            "check_out_time":self.check_out_time,
             "no_of_adults": self.no_of_adults,
             "no_of_children": self.no_of_children,
+            "rental_id": self.rental_id,
+            #"payment_status": self.payment_status,
+            #"source": self.source
         }
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
             "price": self.price,
-            "tax": self.tax
+            "tax": self.tax,
         })

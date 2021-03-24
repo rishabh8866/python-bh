@@ -21,6 +21,7 @@ def add_booking():
         check_booking = Booking.query.filter_by(_customer_id=b.customer_id).first()
         if check_booking:
             data = {
+                "id":check_booking.id,
                 "noOfAdults": check_booking._no_of_adults,
                 "noOfGuests": check_booking._no_of_children,
                 "checkInTime": check_booking._check_in_time,
@@ -33,7 +34,7 @@ def add_booking():
             jsonified_data = json.dumps(data,sort_keys=True,default=str)
             response_object = jsonify({
                     "data":json.loads(jsonified_data),
-                    "status" : 'Success',
+                    "status" : 'fail',
                     "message": 'You have already booking'
                 })
             return response_object,200
@@ -70,7 +71,7 @@ def delete_booking(bookingId):
         return response_object,200
     else:
         response_object = jsonify({
-            "status":"failed",
+            "status":"fail",
             "message":"Record not exists"
         })
         return response_object,200
@@ -81,7 +82,7 @@ def delete_booking(bookingId):
 @booking.route("/", methods = ["GET"])
 @auth.login_required
 def list_booking():
-    bookings = Booking.query.all()
+    bookings = Booking.query.filter(Booking._customer_id == g.customer.id)
     list_resp = []
     for booking in bookings:
         list_resp.append(booking.full_serialize())

@@ -161,5 +161,6 @@ class Rate(db.Model):
             "monthly_discount": self.monthly_discount,
             "weekly_discount": self.weekly_discount,
             "date_range": self.date_range,
-            "week_price": self.week_price
+            "week_price": self.week_price,
+            "monthly_price": self.monthly_price
         }
