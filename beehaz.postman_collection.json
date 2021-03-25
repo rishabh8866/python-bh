@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							},
 							{
@@ -60,7 +60,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -90,13 +90,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 10,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"10/25/06 14:30:59\",\r\n    \"checkOutTime\": \"10/25/06 14:30:59\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"10/25/06 14:30:59\",\r\n    \"checkOutTime\": \"10/25/06 14:30:59\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -141,7 +141,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rental/4",
+							"raw": "http://127.0.0.1:5000/api/rental/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -153,7 +153,7 @@
 							"path": [
 								"api",
 								"rental",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -171,7 +171,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rental/10",
+							"raw": "http://127.0.0.1:5000/api/rental/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -183,7 +183,7 @@
 							"path": [
 								"api",
 								"rental",
-								"10"
+								"1"
 							]
 						}
 					},
@@ -267,7 +267,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -336,7 +336,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -375,7 +375,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -406,15 +406,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
 				}
 			]
 		},
@@ -428,7 +419,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -452,19 +443,19 @@
 					"response": []
 				},
 				{
-					"name": "add_rental",
+					"name": "add_group",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"groupName\": \"groupa\",\r\n\t\"color\": \"abcde\"\r\n}",
+							"raw": "{\r\n    \"groupName\": \"group-b\",\r\n\t\"color\": \"blue\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -497,12 +488,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/group/1",
+							"raw": "http://127.0.0.1:5000/api/group/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -514,7 +505,7 @@
 							"path": [
 								"api",
 								"group",
-								"1"
+								"2"
 							],
 							"query": [
 								{
@@ -534,13 +525,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\" : 7,\r\n    \"groupName\":\"group123\",\r\n    \"color\": \"Red\"\r\n}",
+							"raw": "{\r\n    \"id\" : 1,\r\n    \"groupName\":\"group-a\",\r\n    \"color\": \"Red\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -578,13 +569,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"adfds\",\r\n\t\"emailId\": \"dfsq\",\r\n\t\"phoneNo\": \"dfsdf\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gght\",\r\n\t\"address\": \"address\",\r\n    \"postalCode\": \"postal_code\",\r\n    \"state\": \"dfsd\",\r\n    \"nationality\": \"dfsd\",\r\n    \"language\": \"dfadf\",\r\n    \"notes\": \"notes\"\r\n}",
+							"raw": "{\r\n    \"name\": \"my guest\",\r\n\t\"emailId\": \"myguest@gmail.com\",\r\n\t\"phoneNo\": \"1234567890\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"2nd@gmail.com\",\r\n\t\"country\": \"xyz\",\r\n\t\"address\": \"address testing\",\r\n    \"postalCode\": \"147852\",\r\n    \"state\": \"abc\",\r\n    \"nationality\": \"avx\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"no notes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,7 +625,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/guest/getGuestByBookingId",
+							"raw": "http://127.0.0.1:5000/api/guest/getGuestByBookingId/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -646,7 +637,8 @@
 							"path": [
 								"api",
 								"guest",
-								"getGuestByBookingId"
+								"getGuestByBookingId",
+								"2"
 							]
 						}
 					},
@@ -665,7 +657,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"guestId\":5\r\n}",
+							"raw": "{\r\n    \"guestId\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -673,7 +665,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/guest/addGuestByBookingId/1",
+							"raw": "http://127.0.0.1:5000/api/guest/addGuestByBookingId/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -686,7 +678,7 @@
 								"api",
 								"guest",
 								"addGuestByBookingId",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -699,7 +691,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
@@ -809,13 +801,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\": 10,\r\n    \"price\": 200,\r\n    \"tax\": 200,\r\n    \"noOfAdults\": 5,\r\n    \"arrive\": \"arrive\",\r\n    \"depart\": \"depart\",\r\n    \"noOfChildren\": 12,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\": 10,\r\n    \"checkInTime\": \"2021-03-20 15:28:42\",\r\n    \"checkOutTime\": \"2021-03-28 15:28:42\",\r\n    \"bookingType\":\"booking\"\r\n}",
+							"raw": "{\r\n    \"rentalId\": 1,\r\n    \"price\": 560,\r\n    \"tax\": 120,\r\n    \"noOfAdults\": 5,\r\n    \"checkInTime\": \"13:22\",\r\n    \"checkOutTime\": \"14:04\",\r\n    \"arrive\": \"2021-03-31\",\r\n    \"depart\": \"2021-03-31\",\r\n    \"noOfChildren\": 3,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\": 8,\r\n    \"bookingType\":\"booking\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -912,13 +904,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA4NzAwMCwiZXhwIjoxNjE4Njc5MDAwfQ.eyJpZCI6MX0.RQ5FV_Gv_yJJMSkXuEN7rU5IXNSfkWmhULx_q71ObwW6wSAy48m871z0WclyJAoyn-sdptszpZTevQ_955Odyw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":\"10\",\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"raw": "{\r\n    \"rentalId\":\"1\",\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -987,7 +979,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":12,\r\n    \"rentalId\":1,\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 17, 2020 - Mar 30, 2020 \",\r\n    \"minimumStayRequirement\": 5,\r\n    \"weekDays\": \"TUE\",\r\n    \"dailyRate\": 33,\r\n    \"guestPerNight\": 20,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"raw": "{\r\n    \"id\":1,\r\n    \"rentalId\":1,\r\n    \"usdPerGuest\":10,\r\n    \"dateRange\": \"Mar 24, 2020 - Mar 30, 2020 \",\r\n    \"minimumStayRequirement\": 50,\r\n    \"weekDays\": \"TUE\",\r\n    \"dailyRate\": 3,\r\n    \"guestPerNight\": 20,\r\n    \"allowDiscount\": false,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1025,7 +1017,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rate/15",
+							"raw": "http://127.0.0.1:5000/api/rate/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1037,7 +1029,7 @@
 							"path": [
 								"api",
 								"rate",
-								"15"
+								"1"
 							]
 						}
 					},
@@ -1085,13 +1077,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":1,\r\n    \"name\":\"name\",\r\n    \"feeType\":\"fee_type\",\r\n    \"amount\": 10,\r\n    \"modality\":\"modality\"\r\n}",
+							"raw": "{\r\n    \"rentalId\":1,\r\n    \"name\":\"test\",\r\n    \"feeType\":\"fee_type\",\r\n    \"amount\": 10,\r\n    \"modality\":\"modality\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1124,13 +1116,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":2,\r\n    \"name\":\"name\",\r\n    \"feeType\":\"flat USD\",\r\n    \"amount\": 1000,\r\n    \"modality\":\"per night\"\r\n}",
+							"raw": "{\r\n    \"id\":2,\r\n    \"name\":\"ttt\",\r\n    \"feeType\":\"flat USD\",\r\n    \"amount\": 1000,\r\n    \"modality\":\"per night\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1157,7 +1149,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "delete_fee",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1193,12 +1185,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/fee/5",
+							"raw": "http://127.0.0.1:5000/api/fee/4",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1210,13 +1202,42 @@
 							"path": [
 								"api",
 								"fee",
-								"5"
+								"4"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "inquiry",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth_token",
+						"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/inquiry",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"inquiry"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

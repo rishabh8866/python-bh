@@ -7,8 +7,10 @@ class Booking(db.Model):
     id                   =db.Column      (db.Integer, primary_key = True)
     _no_of_adults        =db.Column      (db.Integer, nullable = False)
     _no_of_children      =db.Column      (db.Integer, nullable = False)
-    _check_in_time       =db.Column      (db.DateTime(), nullable = False)
-    _check_out_time      =db.Column      (db.DateTime(), nullable = False)
+    _arrive              =db.Column      (db.DateTime(), nullable = False)
+    _depart              =db.Column      (db.DateTime(), nullable = False)
+    _check_in_time       =db.Column      (db.String(150))
+    _check_out_time      =db.Column      (db.String(150))
     _payment_status      =db.Column      (db.Enum(PaymentEnum), nullable = False)
     _source              =db.Column      (db.Enum(SourceEnum), nullable = False)
     _price               =db.Column      (db.Integer, nullable = False)
@@ -20,8 +22,8 @@ class Booking(db.Model):
     def __init__(self):
         self._payment_status = PaymentEnum.INCOMPLETE
         self._no_of_children = 0
-        self._check_in_time = datetime.datetime.now() + datetime.timedelta(days = 1)
-        self._check_out_time = datetime.datetime.now() + datetime.timedelta(days = 2)
+        self._arrive  = datetime.datetime.now() + datetime.timedelta(days = 1)
+        self._depart = datetime.datetime.now() + datetime.timedelta(days = 2)
         self._source = SourceEnum.AIRBNB
 
     @property
@@ -105,6 +107,22 @@ class Booking(db.Model):
         self._tax = val
 
     @property
+    def arrive(self):
+        return self._arrive
+
+    @arrive.setter
+    def arrive(self, val):
+        self._arrive = val
+    
+    @property
+    def depart(self):
+        return self._depart
+
+    @depart.setter
+    def depart(self, val):
+        self._depart = val
+
+    @property
     def rental_id(self):
         return self._rental_id
 
@@ -122,21 +140,20 @@ class Booking(db.Model):
 
     def half_serialize(self):
         return {
-            "id":self.id,
-            "check_in_time":self.check_in_time,
-            "check_out_time":self.check_out_time,
             "no_of_adults": self.no_of_adults,
             "no_of_children": self.no_of_children,
-            "rental_id": self.rental_id,
         }
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
+            "booking_type":self.booking_type,
             "price": self.price,
             "tax": self.tax,
             "check_in_time":self.check_in_time,
             "check_out_time":self.check_out_time,
             "source":self.source,
             "rental_id":self.rental_id,
-            "booking_type":self.booking_type
+            "arrive":self.arrive,
+            "depart":self.depart,
+            "id":self.id
         })

@@ -45,23 +45,31 @@ def add_rental():
 def edit_rental():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    try:
-        r = rental_mapper.update_obj_from_request(request.json)
-    except Exception as e:
-        print("Jasdeep mapping error: ", str(e))
-        return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
-    try:
-        db.session.commit()
-    except Exception as e:
-        print("Jasdeep db exception: " + str(e))
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-            "data": rental_mapper.get_response_object(r.full_serialize()),
-            "status" : 'success',
-            "message": 'Successfully Updated'
-    })
-    return response_object,200
-    # return common_views.as_success(constants.view_constants.SUCCESS)
+    rental_exists = Rental.query.get(request.json['id'])
+    if  rental_exists:
+        try:
+            r = rental_mapper.update_obj_from_request(request.json)
+        except Exception as e:
+            print("Jasdeep mapping error: ", str(e))
+            return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
+        try:
+            db.session.commit()
+        except Exception as e:
+            print("dddJasdeep db exception: " + str(e))
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+                "data": rental_mapper.get_response_object(r.full_serialize()),
+                "status" : 'success',
+                "message": 'Successfully Updated'
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'record not exists'
+        })
+        return response_object,200
+
 
 
 @rental.route("/", methods = ["GET"])

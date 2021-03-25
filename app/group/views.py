@@ -34,22 +34,31 @@ def add_group():
 def edit_group():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    try:
-        data = request.json
-        gp = group_mapper.update_obj_from_request(data)
-    except Exception as e:
-        return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
-    try:
-        db.session.commit()
-    except:
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    # return common_views.as_success(constants.view_constants.SUCCESS)
-    response_object = jsonify({
-        "data": gp.full_serialize(),
-        "status" : 'success',
-        "message": 'Successfully Updated'
-    })
-    return response_object,200
+    exists_group = Group.query.get(request.json['id'])
+    if exists_group:
+        try:
+            data = request.json
+            gp = group_mapper.update_obj_from_request(data)
+        except Exception as e:
+            return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
+        try:
+            exists_group._name = data['groupName']
+            db.session.commit()
+        except:
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        # return common_views.as_success(constants.view_constants.SUCCESS)
+        response_object = jsonify({
+            "data": gp.full_serialize(),
+            "status" : 'success',
+            "message": 'Successfully Updated'
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'record not exists'
+        })
+        return response_object,200
 
 @group.route("/", methods = ["GET"])
 @auth.login_required

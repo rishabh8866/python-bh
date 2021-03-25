@@ -16,6 +16,7 @@ def add_booking():
     try:
         b = booking_mapper.get_obj_from_request(data, g.customer)
     except:
+        print(e)
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
         check_booking = Booking.query.filter_by(_customer_id=b.customer_id).first()
@@ -43,6 +44,7 @@ def add_booking():
             db.session.commit()
         data["id"] = b.id
     except Exception as e:
+        print(e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
         'booking':data,
