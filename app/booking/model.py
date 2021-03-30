@@ -7,6 +7,7 @@ class Booking(db.Model):
     id                   =db.Column      (db.Integer, primary_key = True)
     _no_of_adults        =db.Column      (db.Integer, nullable = False)
     _no_of_children      =db.Column      (db.Integer, nullable = False)
+    _no_of_guests        =db.Column      (db.Integer, nullable = False)
     _arrive              =db.Column      (db.String(50), nullable = True)
     _depart              =db.Column      (db.String(50), nullable = True)
     _check_in_time       =db.Column      (db.String(150))
@@ -16,21 +17,21 @@ class Booking(db.Model):
     _price               =db.Column      (db.Integer, nullable = False)
     _booking_type        =db.Column      (db.String(150))
     _tax                 =db.Column      (db.Integer, nullable = False)
-    _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id'))
-    _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'))
+    _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE'))
+    _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'))
 
     def __init__(self):
         self._payment_status = PaymentEnum.PARTIALLY_PAID
         self._no_of_children = 0
         self._source = SourceEnum.BEEHAZ
 
-    # @property
-    # def no_of_guests(self):
-    #     return self._no_of_guests
+    @property
+    def no_of_guests(self):
+        return self._no_of_guests
 
-    # @no_of_guests.setter
-    # def no_of_guests(self, val):
-    #     self._no_of_guests = val
+    @no_of_guests.setter
+    def no_of_guests(self, val):
+        self._no_of_guests = val
 
     @property
     def booking_type(self):
@@ -144,13 +145,14 @@ class Booking(db.Model):
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
-            "booking_type":self.booking_type,
+            "bookingType":self.booking_type,
             "price": self.price,
             "tax": self.tax,
-            "check_in_time":self.check_in_time,
-            "check_out_time":self.check_out_time,
+            "checkInTime":self.check_in_time,
+            "checkOutTime":self.check_out_time,
             "source":self.source,
-            "rental_id":self.rental_id,
+            "rentalId":self.rental_id,
             "arrive":self.arrive,
             "depart":self.depart,
+            "id":self.id
         })

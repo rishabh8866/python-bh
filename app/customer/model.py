@@ -13,10 +13,12 @@ class Customer(db.Model):
     _last_name          =db.Column      (db.String(150))
     _property_type      =db.Column      (db.Enum(PropertyEnum))
     _number_of_rooms    =db.Column      (db.Integer)
+    _number_of          =db.Column      (db.Integer)
     _name               =db.Column      (db.Text)
     _website            =db.Column      (db.Text)
     _created_at         =db.Column      (db.DateTime())
     _currency           =db.Column      (db.String(25))
+    _country             =db.Column     (db.String(30))
     _time_display       =db.Column      (db.Enum(TimeDisplayEnum))
     _date_display       =db.Column      (db.Enum(DateDisplayEnum))
     _customer_type      =db.Column      (db.Enum(TypeEnum))
@@ -26,7 +28,7 @@ class Customer(db.Model):
     _is_future_booking  =db.Column      (db.Boolean,default=False)
     _allow_booking_for  =db.Column     (db.String(250))
     _account_type       =db.Column     (db.String(250))
-    rentals             =db.relationship('Rental', backref='customer', lazy=True)
+    rentals             =db.relationship('Rental', cascade='all,delete', backref='customer', lazy=True)
 
 
     def __init__(self, email_id, **kwargs):
@@ -78,6 +80,14 @@ class Customer(db.Model):
     @number_of_rooms.setter
     def number_of_rooms(self, val):
         self._number_of_rooms = val
+
+    @property
+    def number_of(self):
+        return self._number_of
+
+    @number_of.setter
+    def number_of(self, val):
+        self._number_of = val
 
     @property
     def name(self):
@@ -208,7 +218,8 @@ class Customer(db.Model):
             "permissions":self.permissions,
             "is_future_booking":self._is_future_booking,
             "allow_booking_for":self.allow_booking_for,
-            "account_type":self.account_type
+            "account_type":self.account_type,
+            "property_type":self.property_type
         }
 
     def full_serialize(self):

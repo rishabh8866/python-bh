@@ -1,12 +1,17 @@
 from flask import jsonify, request, g
 from app import app, db, auth
 from app.customer import customer
+from app.group.model import Group
 from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum
 from app.customer import mapper as customer_mapper
 from app.customer import utils
 from app import views as common_views
 from app.customer.model import Customer
 import constants,json
+
+from app.group import group
+from app.group.model import Group
+from app.group import mapper as group_mapper
 
 NumberDisplay={
     "M1":"1,000.00",
@@ -84,11 +89,29 @@ def register():
         try:
             c = customer_mapper.get_obj_from_request(data,request.json['emailId'])
         except Exception as e:
-            print(e)
             return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
         try:
             db.session.add(c)
             db.session.commit()
+
+            # Creating default group when user creating
+            try:
+                data = {
+                    "groupName": "Default",
+                    "color": "yellow"
+                }
+                user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
+                print("\n\n",user.id)
+                gp = Group(name = data["groupName"], color = data["color"], customer_id = user.id)
+            except Exception as e:
+                print("Jasdeep exception : " + str(e))
+                return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
+            try:
+                db.session.add(gp)
+                db.session.commit()
+            except:
+                return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+            
         except Exception as e:
             response_object = jsonify({
                     "status" : 'fail',
@@ -141,7 +164,7 @@ def email_login():
     else:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'Customer not exists'
+            "message": 'This email address is not registered in our system. Please check the spelling or create an account'
         })
         return response_object,200
 
@@ -167,7 +190,7 @@ def get_customer():
     response_object = jsonify({
         "customer":c,
         "status" : 'success',
-        "message": 'Customer updated'
+        "message": 'Customer fetched'
     })
     return response_object,200
     # return jsonify({"customer": c})
@@ -192,6 +215,7 @@ def customer_settings():
         customer_update._permissions = data['permissions']
         customer_update._allow_booking_for = data['allowBookingFor']
         customer_update._account_type = data['accountType']
+        customer_update._number_of = data['numberOf']
     else:
         response_object = jsonify({
             "status" : 'fail',
@@ -290,3 +314,30 @@ def update_customer():
     })
     return response_object,200
     # return jsonify({"customer": c})
+
+
+@customer.route("/<string:Id>", methods = ["DELETE"])
+@auth.login_required
+def delete_customer(Id):
+    if not Id:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    customer = Customer.query.get(Id)
+    if customer:
+        try:
+            db.session.delete(customer)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "status":"success",
+            "message":'Customer deleted',
+            "id": Id
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+            "status":"fail",
+            "message":"Customer not exists"
+        })
+        return response_object,200

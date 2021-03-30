@@ -13,6 +13,7 @@ def add_group():
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = request.json
     try:
+        print("\n\n\n",g.customer)
         gp = group_mapper.get_obj_from_request(data, g.customer)
     except Exception as e:
         print("Jasdeep exception : " + str(e))

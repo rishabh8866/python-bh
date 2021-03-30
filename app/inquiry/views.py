@@ -4,7 +4,7 @@ from app.inquiry import inquiry
 from app.booking.model import Booking
 from app.guest.model import Guest
 from app.customer.model import Customer
-from app.tax import mapper as tax_mapper
+# from app.tax import mapper as tax_mapper
 from app import views as common_views
 from app.rate import utils
 import constants

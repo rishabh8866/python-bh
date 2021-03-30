@@ -18,8 +18,8 @@ class Rate(db.Model):
     _allow_fixed_rate          =db.Column      (db.Boolean,default=False)
     _week_price                =db.Column      (db.Integer)
     _monthly_price             =db.Column      (db.Integer)
-    _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'),nullable=False)
+    _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id',ondelete='CASCADE',onupdate='CASCADE'), nullable = False)
+    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE',onupdate='CASCADE'),nullable=False)
     _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id'),nullable=True)
 
     def __init__(self, **kwargs):

@@ -48,7 +48,9 @@ def send_mail(subject, sender, recipients, body):
 
 def send_auth_email(user):
     token = str(user.generate_auth_token().decode("utf-8"))
+    message = ""
     send_mail('[BeeHaz] Log In',
+                message,
                app.config['ADMINS'][0],
                [user.email_id],
                AUTH_VERIFICATION.format(name = user.name, token = token))

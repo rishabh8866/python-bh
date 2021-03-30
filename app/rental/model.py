@@ -9,7 +9,7 @@ class Rental(db.Model):
     _name                =db.Column      (db.Text, nullable = False)
     _address_line1       =db.Column      (db.Text, nullable = False)
     _address_line2       =db.Column      (db.Text)
-    _postal_code         =db.Column      (db.String(10), nullable = False)
+    _postal_code         =db.Column      (db.String(10), nullable = True)
     _city                =db.Column      (db.String(10))
     _country             =db.Column      (db.String(30))
     _currency            =db.Column      (db.String(10))
@@ -17,7 +17,7 @@ class Rental(db.Model):
     _checkout_time      =db.Column      (db.String(30), nullable = False)
     _max_guests          =db.Column      (db.Integer)
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    _group_id            =db.Column      (db.Integer, db.ForeignKey('group.id'))
+    _group_id            =db.Column      (db.Integer, db.ForeignKey('group.id', ondelete='CASCADE'))
 
     def __init__(self, **kwargs):
         self._name = kwargs["name"]

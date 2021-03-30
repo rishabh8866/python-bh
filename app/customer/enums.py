@@ -12,7 +12,7 @@ class TimeDisplayEnum(str,enum.Enum):
     AM_PM = "AM_PM"
     H = "H"
 
-class TypeEnum(enum.Enum):
+class TypeEnum(str,enum.Enum):
     FREE = "free"
     PAID = "paid"
 
@@ -21,7 +21,7 @@ class NumberDisplayEnum(str,enum.Enum):
     M2 = "1'000.00"
     M3 = "1.000,00"
 
-class PropertyEnum(enum.Enum):
+class PropertyEnum(str,enum.Enum):
     SERVICED_APARTMENTS = 'serviced_apartments'
     BNB = 'bnb'
     HOTEL = 'hotel'
@@ -38,4 +38,5 @@ class DateDisplayEnum(str,enum.Enum):
     M8 = "MM-DD-YY"
     M9 = "MMM DD, YYYY"
     M10 = "MMM DD 'YY"
+    M11 = "DD/MM/YYYY"
 

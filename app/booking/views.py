@@ -6,6 +6,8 @@ from app.booking import utils
 from app.booking import mapper as booking_mapper
 import app.views as common_views
 import constants,json
+from sqlalchemy import and_
+
 
 @booking.route("/", methods = ["POST"])
 @auth.login_required
@@ -15,21 +17,22 @@ def add_booking():
     data = utils.clean_up_request(request.json)
     try:
         b = booking_mapper.get_obj_from_request(data, g.customer)
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
-        check_booking = Booking.query.filter_by(_customer_id=b.customer_id).first()
+        check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart >= data['depart'])).first()
         if check_booking:
             data = {
-                "id":check_booking.id,
                 "noOfAdults": check_booking._no_of_adults,
-                "noOfGuests": check_booking._no_of_children,
+                "noOfChildrens": check_booking._no_of_children,
+                "price": check_booking._price,
+                "tax": check_booking._tax,
+                "id":check_booking.id,
+                "noOfGuests": check_booking._no_of_guests,
                 "checkInTime": check_booking._check_in_time,
                 "checkOutTime": check_booking._check_out_time,
                 "paymentStatus": check_booking._payment_status,
                 "source": check_booking._source,
-                "price": check_booking._price,
-                "tax": check_booking._tax,
             }
             jsonified_data = json.dumps(data,sort_keys=True,default=str)
             response_object = jsonify({
@@ -43,6 +46,7 @@ def add_booking():
             db.session.commit()
         data["id"] = b.id
     except Exception as e:
+        print('Ex',e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
         'booking':data,

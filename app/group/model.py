@@ -5,7 +5,7 @@ class Group(db.Model):
     id                  =db.Column      (db.Integer, primary_key = True)
     _name               =db.Column      (db.String(250), nullable = False)
     _color              =db.Column      (db.String(10), nullable = False)
-    _customer_id        =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
+    _customer_id        =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
 
     def __init__(self, **kwargs):
         self._name = kwargs["name"]
@@ -32,7 +32,8 @@ class Group(db.Model):
         return {
                 "id": self.id,
                 "groupName": self.name,
-                "color": self.color
+                "color": self.color,
+                "cusid":self._customer_id
                 }
 
     def full_serialize(self):

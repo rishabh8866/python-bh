@@ -3,7 +3,7 @@ from app.customer.model import Customer
 
 fields = {
     "primary": ["email_id", "name"],
-    "secondary": ["number_of_rooms", "website", "property_type","currency"],
+    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of"],
     "unique": ["email_id"]
 }
 
@@ -25,6 +25,8 @@ mapFields = {
     "timeDisplay": "time_display",
     "dateDisplay": "date_display",
     "numberDisplay": "number_display",
+    "numberOf":"number_of",
+    "country":"country"
 }
 
 fieldToMap = {
@@ -45,7 +47,9 @@ fieldToMap = {
     "permissions":"permissions",
     "is_future_booking":"isFutureBooking",
     "allow_booking_for":"allowBookingFor",
-    "account_type":"accountType"
+    "account_type":"accountType",
+    "number_of":"numberOf",
+    "country" : "country"
 }
 
 def get_obj_from_request(apiData,current_email):

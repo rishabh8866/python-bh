@@ -5,9 +5,9 @@ import json
 class Tax(db.Model):
     __tablename__ = "tax"
     id                         =db.Column      (db.Integer, primary_key = True)
-    _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
-    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id'),nullable=False)
-    _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id'),nullable=True)
+    _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
+    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id', ondelete='CASCADE'),nullable=False)
+    _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id', ondelete='CASCADE'),nullable=True)
     _name                      =db.Column      (db.String(150))
     _fee_type                  =db.Column      (db.String(150))
     _amount                    =db.Column      (db.Integer)     
