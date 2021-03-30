@@ -7,8 +7,8 @@ class Booking(db.Model):
     id                   =db.Column      (db.Integer, primary_key = True)
     _no_of_adults        =db.Column      (db.Integer, nullable = False)
     _no_of_children      =db.Column      (db.Integer, nullable = False)
-    _arrive              =db.Column      (db.DateTime(), nullable = False)
-    _depart              =db.Column      (db.DateTime(), nullable = False)
+    _arrive              =db.Column      (db.String(50), nullable = True)
+    _depart              =db.Column      (db.String(50), nullable = True)
     _check_in_time       =db.Column      (db.String(150))
     _check_out_time      =db.Column      (db.String(150))
     _payment_status      =db.Column      (db.Enum(PaymentEnum), nullable = False)
@@ -20,19 +20,17 @@ class Booking(db.Model):
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'))
 
     def __init__(self):
-        self._payment_status = PaymentEnum.INCOMPLETE
+        self._payment_status = PaymentEnum.PARTIALLY_PAID
         self._no_of_children = 0
-        self._arrive  = datetime.datetime.now() + datetime.timedelta(days = 1)
-        self._depart = datetime.datetime.now() + datetime.timedelta(days = 2)
-        self._source = SourceEnum.AIRBNB
+        self._source = SourceEnum.BEEHAZ
 
-    @property
-    def no_of_guests(self):
-        return self._no_of_guests
+    # @property
+    # def no_of_guests(self):
+    #     return self._no_of_guests
 
-    @no_of_guests.setter
-    def no_of_guests(self, val):
-        self._no_of_guests = val
+    # @no_of_guests.setter
+    # def no_of_guests(self, val):
+    #     self._no_of_guests = val
 
     @property
     def booking_type(self):
@@ -155,5 +153,4 @@ class Booking(db.Model):
             "rental_id":self.rental_id,
             "arrive":self.arrive,
             "depart":self.depart,
-            "id":self.id
         })

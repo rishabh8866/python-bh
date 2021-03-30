@@ -1,12 +1,36 @@
 from flask import jsonify, request, g
 from app import app, db, auth
 from app.customer import customer
+from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum
 from app.customer import mapper as customer_mapper
 from app.customer import utils
 from app import views as common_views
 from app.customer.model import Customer
 import constants,json
 
+NumberDisplay={
+    "M1":"1,000.00",
+    "M2":"1'000.00",
+    "M3":"1.000,00"
+}
+
+dateDisplay={
+    "M1" : "YYYY/MM/DD",
+    "M2" : "YY/MM/DD",
+    "M3" : "YYYY-MM-DD",
+    "M4" : "YY-MM-DD",
+    "M5" : "MM/DD/YYYY",
+    "M6" : "MM/DD/YY",
+    "M7" : "MM-DD-YYYY",
+    "M8" : "MM-DD-YY",
+    "M9" : "MMM DD, YYYY",
+    "M10" : "MMM DD 'YY"
+}
+
+timeDisplay={
+    "AM_PM": "AM_PM",
+    "H" : "H"
+}
 
 @auth.verify_password
 def verify_password(unused_1, unused_2):
@@ -43,15 +67,15 @@ def index():
 def register():
     if not request.json:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'Invalid payload'
         })
         return response_object,400
-    # check if user us alredy exists or not
+    # check if user us already exists or not
     user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
     if user:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'That email is taken. Please choose another.'
         })
         return response_object,400
@@ -67,7 +91,7 @@ def register():
             db.session.commit()
         except Exception as e:
             response_object = jsonify({
-                    "status" : 'failed',
+                    "status" : 'fail',
                     "message": 'Invalid payload'
                 })
             return response_object,400
@@ -88,7 +112,7 @@ def register():
 def email_login():
     if not request.json:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'Invalid payload'
         })
         return response_object,400
@@ -116,7 +140,7 @@ def email_login():
         return response_object,200
     else:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'Customer not exists'
         })
         return response_object,200
@@ -170,7 +194,7 @@ def customer_settings():
         customer_update._account_type = data['accountType']
     else:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'please check provided details'
         })
         return response_object,400
@@ -205,7 +229,7 @@ def general_settings():
         customer_update._number_display = data['numberDisplay']
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'please check provided details'
             })
         return response_object,400
@@ -215,7 +239,14 @@ def general_settings():
         print(e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
-            "data":request.json,
+            "data":{
+                "currency":data['currency'],
+                "dateDisplay":dateDisplay[data['dateDisplay']],
+                "emailId":data['emailId'],
+                "name":data['name'],
+                "numberDisplay":NumberDisplay[data["numberDisplay"]],
+                "timeDisplay":data['timeDisplay']
+            },
             "status" : 'success',
             "message": 'general settings updated'
         })
@@ -241,7 +272,7 @@ def update_customer():
         customer_update._website = data['website']
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'please check provided details'
             })
         return response_object,400

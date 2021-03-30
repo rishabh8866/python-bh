@@ -8,7 +8,6 @@ fields = {
 
 
 mapFields = {
-    "noOfGuests":"_no_of_guests",
     "noOfAdults": "no_of_adults",
     "price": "price",
     "tax": "tax",
@@ -32,6 +31,7 @@ def get_obj_from_request(apiData, customer):
             raise Exception(field + " not present")
     for field in fields["unique"]:
         if getattr(Rental, "check_" + field)(data[field]):
+            print("exceptionssssss")
             raise Exception(field + " ought to be unique")
     booking = Booking()
     for field in data.keys():
@@ -41,6 +41,30 @@ def get_obj_from_request(apiData, customer):
         print("Jasdeep setting " + field + " " + str(data[field]))
         setattr(booking, field, data[field])
     booking.customer_id = customer.id
+    print(booking)
     print("jasdeep booking made")
     print(booking)
     return booking
+
+
+# def get_obj_from_request(apiData,current_email):
+#     print("GET",current_email)
+#     # assume data is json
+#     data = {}
+#     for x in apiData:
+#       data[mapFields[x]] = apiData[x]
+#     for field in fields["primary"]:
+#         if field not in data.keys():
+#             raise Exception(field + " not present")
+#     for field in fields["unique"]:
+#         if getattr(Booking, "check_" + field)(data[field]):
+#             raise Exception(field + " ought to be unique")
+#     customer = Booking(current_email, name = data["name"])
+#     for field in data.keys():
+#         if not field in fields["secondary"] and not field in fields["primary"]:
+#             print(field + " field is not necessary")
+#             continue
+#         print("Jasdeep setting " + field + " " + str(data[field]))
+#         setattr(customer, field, data[field])
+#     print("jasdeep booking made")
+#     return customer

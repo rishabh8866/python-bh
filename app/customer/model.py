@@ -31,6 +31,10 @@ class Customer(db.Model):
 
     def __init__(self, email_id, **kwargs):
         self._email_id = email_id
+        self._language= "English"
+        self._time_display="H"
+        self._date_display="M3"
+        self._number_display="M1"
         if "name" in kwargs:
             self._name = kwargs["name"]
         self._created_at = datetime.utcnow()

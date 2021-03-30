@@ -21,6 +21,7 @@ def add_rental():
         # return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = request.json
     utils.clean_up_request(data)
+    print(data,g.customer)
     try:
         r = rental_mapper.get_obj_from_request(data, g.customer)
     except Exception as e:

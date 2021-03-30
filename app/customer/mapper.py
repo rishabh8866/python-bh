@@ -3,7 +3,7 @@ from app.customer.model import Customer
 
 fields = {
     "primary": ["email_id", "name"],
-    "secondary": ["number_of_rooms", "website", "property_type"],
+    "secondary": ["number_of_rooms", "website", "property_type","currency"],
     "unique": ["email_id"]
 }
 
@@ -26,7 +26,6 @@ mapFields = {
     "dateDisplay": "date_display",
     "numberDisplay": "number_display",
 }
-
 
 fieldToMap = {
     "id":"id",
