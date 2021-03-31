@@ -3,7 +3,7 @@ from app.customer.model import Customer
 
 fields = {
     "primary": ["email_id", "name"],
-    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of"],
+    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of","country"],
     "unique": ["email_id"]
 }
 

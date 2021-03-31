@@ -10,11 +10,11 @@ AUTH_VERIFICATION = '''<html>
 <body>
 Dear {name},
 
-The token is:
+To login please click on the link :
 
-<a href="http://beehaz.com/verify/{token}">Login</a>
+<a href="http://beehaz.com/verify/{token}">Login to Beehaz</a>
 
-If you have not requested a verification simply ignore this message.
+If you have not requested a login for Beehaz, please ignore this message.
 
 Sincerely,
 
@@ -48,9 +48,7 @@ def send_mail(subject, sender, recipients, body):
 
 def send_auth_email(user):
     token = str(user.generate_auth_token().decode("utf-8"))
-    message = ""
     send_mail('[BeeHaz] Log In',
-                message,
                app.config['ADMINS'][0],
                [user.email_id],
                AUTH_VERIFICATION.format(name = user.name, token = token))

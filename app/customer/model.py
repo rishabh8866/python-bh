@@ -114,6 +114,14 @@ class Customer(db.Model):
         self._currency = val
 
     @property
+    def country(self):
+        return self._country
+
+    @country.setter
+    def country(self, val):
+        self._country = val
+
+    @property
     def time_display(self):
         return self._time_display
 
@@ -228,7 +236,8 @@ class Customer(db.Model):
             "date_display": self.date_display,
             "time_display": self.time_display,
             "website": self.website,
-            "currency": self.currency
+            "currency": self.currency,
+            "country":self.country
         })
 
     def __repr__(self):

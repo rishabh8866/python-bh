@@ -5,6 +5,7 @@ import datetime
 class Booking(db.Model):
     __tablename__ = "booking"
     id                   =db.Column      (db.Integer, primary_key = True)
+    _title               =db.Column      (db.String(50), nullable = True)
     _no_of_adults        =db.Column      (db.Integer, nullable = False)
     _no_of_children      =db.Column      (db.Integer, nullable = False)
     _no_of_guests        =db.Column      (db.Integer, nullable = False)
@@ -24,6 +25,14 @@ class Booking(db.Model):
         self._payment_status = PaymentEnum.PARTIALLY_PAID
         self._no_of_children = 0
         self._source = SourceEnum.BEEHAZ
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, val):
+        self._title = val
 
     @property
     def no_of_guests(self):
@@ -145,6 +154,7 @@ class Booking(db.Model):
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
+            "title":self.title,
             "bookingType":self.booking_type,
             "price": self.price,
             "tax": self.tax,
