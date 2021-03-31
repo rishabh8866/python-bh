@@ -210,6 +210,7 @@ def customer_settings():
     # Find record by email..
     customer_update = Customer.query.filter_by(_email_id=g.customer._email_id).first()
     if customer_update:
+        customer_update._name = data['name']
         customer_update._language = data['language']
         customer_update._is_future_booking = data['isFutureBooking']
         customer_update._permissions = data['permissions']
