@@ -148,8 +148,8 @@ class Booking(db.Model):
 
     def half_serialize(self):
         return {
-            "no_of_adults": self.no_of_adults,
-            "no_of_children": self.no_of_children,
+            "noOfAdults": self.no_of_adults,
+            "noOfChildren": self.no_of_children,
         }
 
     def full_serialize(self):

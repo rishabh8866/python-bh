@@ -19,7 +19,7 @@ class Guest(db.Model):
     _language           =db.Column          (db.String(150))
     _notes              =db.Column          (db.Text)
     _customer_id        =db.Column          (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
-    _bookings           =db.relationship    ("Booking", secondary = "guest_bookings", backref = db.backref("guests", lazy = "dynamic"))
+    _bookings           =db.relationship    ("Booking", secondary = "guest_bookings",backref = db.backref("guests", lazy = "dynamic",cascade="all, delete"))
 
     def __init__(self, **kwargs):
         self._name = kwargs["name"]

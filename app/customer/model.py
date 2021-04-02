@@ -18,7 +18,7 @@ class Customer(db.Model):
     _website            =db.Column      (db.Text)
     _created_at         =db.Column      (db.DateTime())
     _currency           =db.Column      (db.String(25))
-    _country             =db.Column     (db.String(30))
+    _country            =db.Column      (db.String(30))
     _time_display       =db.Column      (db.Enum(TimeDisplayEnum))
     _date_display       =db.Column      (db.Enum(DateDisplayEnum))
     _customer_type      =db.Column      (db.Enum(TypeEnum))

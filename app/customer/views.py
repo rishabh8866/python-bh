@@ -101,10 +101,8 @@ def register():
                     "color": "yellow"
                 }
                 user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
-                print("\n\n",user.id)
                 gp = Group(name = data["groupName"], color = data["color"], customer_id = user.id)
             except Exception as e:
-                print("Jasdeep exception : " + str(e))
                 return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
             try:
                 db.session.add(gp)

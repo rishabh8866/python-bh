@@ -7,6 +7,7 @@ from app.booking import mapper as booking_mapper
 import app.views as common_views
 import constants,json
 from sqlalchemy import and_
+import datetime
 
 
 @booking.route("/", methods = ["POST"])
@@ -20,7 +21,10 @@ def add_booking():
     except Exception as e:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
+        # check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart >= data['depart'])).first()
         check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart >= data['depart'])).first()
+        # print("\n\nCHECK",type(check_booking._arrive))
+        # print("\n\nCHECK",check_booking._depart)
         if check_booking:
             data = {
                 "noOfAdults": check_booking._no_of_adults,
@@ -31,6 +35,8 @@ def add_booking():
                 "noOfGuests": check_booking._no_of_guests,
                 "checkInTime": check_booking._check_in_time,
                 "checkOutTime": check_booking._check_out_time,
+                "arrival": check_booking._arrive,
+                "depart": check_booking._depart,
                 "paymentStatus": check_booking._payment_status,
                 "source": check_booking._source,
             }
@@ -42,8 +48,48 @@ def add_booking():
                 })
             return response_object,200
         else:
-            db.session.add(b)
-            db.session.commit()
+            print('ELSE')
+            check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart <= data['depart'])).first()
+            print("\n\n\n\n",check_booking)
+            if check_booking:
+                start_date = datetime.datetime.strptime(check_booking._arrive, "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(check_booking._depart, "%Y-%m-%d")
+                d1 = datetime.datetime.strptime(data['arrive'], "%Y-%m-%d")
+                d2 = datetime.datetime.strptime(data['depart'], "%Y-%m-%d")
+                if (start_date <= d1 <= end_date):
+                    print('between')
+                    data = {
+                        "noOfAdults": check_booking._no_of_adults,
+                        "noOfChildrens": check_booking._no_of_children,
+                        "price": check_booking._price,
+                        "tax": check_booking._tax,
+                        "id":check_booking.id,
+                        "noOfGuests": check_booking._no_of_guests,
+                        "checkInTime": check_booking._check_in_time,
+                        "checkOutTime": check_booking._check_out_time,
+                        "arrival": check_booking._arrive,
+                        "depart": check_booking._depart,
+                        "paymentStatus": check_booking._payment_status,
+                        "source": check_booking._source,
+                    }
+                    jsonified_data = json.dumps(data,sort_keys=True,default=str)
+                    response_object = jsonify({
+                            "data":json.loads(jsonified_data),
+                            "status" : 'fail',
+                            "message": 'You have already booking'
+                        })
+                    return response_object,200
+                    
+                else:
+                    print('NO')
+                    db.session.add(b)
+                    db.session.commit()
+            else:
+                print('NOT IN RANGE')
+                db.session.add(b)
+                db.session.commit()
+            # db.session.add(b)
+            # db.session.commit()
         data["id"] = b.id
     except Exception as e:
         print('Ex',e)

@@ -27,8 +27,9 @@ def add_guest():
     try:
         db.session.add(guest)
         db.session.commit()
-        request.json["id"] = guest.id;
+        request.json["id"] = guest.id
     except Exception as e:
+        print(e)
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
         "guest" : request.json,
@@ -138,6 +139,6 @@ def add_guest_to_booking(bookingId):
     try:
         db.session.add(guest)
         db.session.commit()
-    except:
+    except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     return common_views.as_success(constants.view_constants.SUCCESS)

@@ -41,7 +41,7 @@ def add_rate():
     response_object = jsonify({
         "data": rate_mapper.get_response_object(r.full_serialize()),
         "status" : 'success',
-        "message": 'Successfully Added'
+        "message": 'Successfully Created'
     })
     return response_object,200
 
