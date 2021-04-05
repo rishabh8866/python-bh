@@ -16,7 +16,7 @@ class Rental(db.Model):
     _checkin_time       =db.Column      (db.String(30), nullable = False)
     _checkout_time      =db.Column      (db.String(30), nullable = False)
     _max_guests          =db.Column      (db.Integer)
-    _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id'), nullable = False)
+    _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id',), nullable = False)
     _group_id            =db.Column      (db.Integer, db.ForeignKey('group.id', ondelete='CASCADE'))
 
     def __init__(self, **kwargs):

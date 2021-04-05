@@ -2,6 +2,7 @@ from flask import jsonify, request, g
 from app import app, db, auth
 from app.rental import rental
 from app.rental.model import Rental
+from app.booking.model import Booking
 from app.rental import mapper as rental_mapper
 from app import views as common_views
 from app.rental import utils
@@ -40,6 +41,7 @@ def add_rental():
     })
     # return common_views.as_success(constants.view_constants.SUCCESS)
     return response_object,200
+
 
 @rental.route("/", methods = ["PUT"])
 @auth.login_required
@@ -83,6 +85,7 @@ def list_rentals():
         resp.append(rental_mapper.get_response_object(rental.full_serialize()))
     return jsonify({"rentals": resp})
 
+
 @rental.route("/<string:rentalId>", methods = ["DELETE"])
 @auth.login_required
 def delete_rental(rentalId):
@@ -92,8 +95,16 @@ def delete_rental(rentalId):
     gp = Rental.query.get(rental_id)
     if gp is not None:
         try:
-            db.session.delete(gp)
-            db.session.commit()
+            ckeck_in_booking = Booking.query.filter_by(_rental_id=rental_id).first()
+            if ckeck_in_booking:
+                    response_object = jsonify({
+                        "status" : 'failed',
+                        "message": 'Record not deleted,rental is in booking'
+                    })
+                    return response_object,200
+            else:        
+                db.session.delete(gp)
+                db.session.commit()
         except:
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         response_object = jsonify({
@@ -109,6 +120,7 @@ def delete_rental(rentalId):
             "message": 'Record not exists'
         })
         return response_object,200
+
 
 # Use to get a single record
 @rental.route("/<string:rentalId>", methods = ["GET"])

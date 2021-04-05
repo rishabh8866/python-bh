@@ -4,6 +4,10 @@ import constants
 from app.rental.enums import CountryEnum, StateEnum
 from app.guest.enum import NationalityEnum, LanguageEnum
 
+guest_bookings = db.Table("guest_bookings",
+                          db.Column("guest_id", db.Integer, db.ForeignKey("guest.id")),
+                          db.Column("booking_id", db.Integer, db.ForeignKey("booking.id", ondelete='CASCADE')))
+
 class Guest(db.Model):
     __tablename__ = "guest"
     id                  =db.Column          (db.Integer, primary_key = True)
@@ -19,7 +23,7 @@ class Guest(db.Model):
     _language           =db.Column          (db.String(150))
     _notes              =db.Column          (db.Text)
     _customer_id        =db.Column          (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
-    _bookings           =db.relationship    ("Booking", secondary = "guest_bookings",backref = db.backref("guests", lazy = "dynamic",cascade="all, delete"))
+    _bookings           =db.relationship    ("Booking", secondary = guest_bookings , lazy='dynamic',backref = db.backref("guests",cascade="all, delete",lazy='dynamic'))
 
     def __init__(self, **kwargs):
         self._name = kwargs["name"]
@@ -151,7 +155,3 @@ class Guest(db.Model):
             "notes": self.notes
         })
 
-guest_bookings = db.Table("guest_bookings",
-        db.Column("guest_id", db.Integer, db.ForeignKey("guest.id")),
-        db.Column("booking_id", db.Integer, db.ForeignKey("booking.id"))
-        )

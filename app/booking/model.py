@@ -20,6 +20,7 @@ class Booking(db.Model):
     _tax                 =db.Column      (db.Integer, nullable = False)
     _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE'))
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'))
+    
 
     def __init__(self):
         self._payment_status = PaymentEnum.PARTIALLY_PAID

@@ -2,6 +2,7 @@ from flask import jsonify, request, g
 from app import app, db, auth
 from app.booking import booking
 from app.booking.model import Booking
+from app.rental.model import Rental
 from app.booking import utils
 from app.booking import mapper as booking_mapper
 import app.views as common_views
@@ -21,85 +22,130 @@ def add_booking():
     except Exception as e:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
     try:
-        # check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart >= data['depart'])).first()
-        check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart >= data['depart'])).first()
-        # print("\n\nCHECK",type(check_booking._arrive))
-        # print("\n\nCHECK",check_booking._depart)
-        if check_booking:
-            data = {
-                "noOfAdults": check_booking._no_of_adults,
-                "noOfChildrens": check_booking._no_of_children,
-                "price": check_booking._price,
-                "tax": check_booking._tax,
-                "id":check_booking.id,
-                "noOfGuests": check_booking._no_of_guests,
-                "checkInTime": check_booking._check_in_time,
-                "checkOutTime": check_booking._check_out_time,
-                "arrival": check_booking._arrive,
-                "depart": check_booking._depart,
-                "paymentStatus": check_booking._payment_status,
-                "source": check_booking._source,
-            }
-            jsonified_data = json.dumps(data,sort_keys=True,default=str)
-            response_object = jsonify({
-                    "data":json.loads(jsonified_data),
-                    "status" : 'fail',
-                    "message": 'You have already booking'
-                })
-            return response_object,200
-        else:
-            print('ELSE')
-            check_booking = Booking.query.filter_by(_customer_id=b.customer_id).filter(and_(Booking._arrive <= data['arrive'], Booking._depart <= data['depart'])).first()
-            print("\n\n\n\n",check_booking)
-            if check_booking:
-                start_date = datetime.datetime.strptime(check_booking._arrive, "%Y-%m-%d")
-                end_date = datetime.datetime.strptime(check_booking._depart, "%Y-%m-%d")
-                d1 = datetime.datetime.strptime(data['arrive'], "%Y-%m-%d")
-                d2 = datetime.datetime.strptime(data['depart'], "%Y-%m-%d")
-                if (start_date <= d1 <= end_date):
-                    print('between')
-                    data = {
-                        "noOfAdults": check_booking._no_of_adults,
-                        "noOfChildrens": check_booking._no_of_children,
-                        "price": check_booking._price,
-                        "tax": check_booking._tax,
-                        "id":check_booking.id,
-                        "noOfGuests": check_booking._no_of_guests,
-                        "checkInTime": check_booking._check_in_time,
-                        "checkOutTime": check_booking._check_out_time,
-                        "arrival": check_booking._arrive,
-                        "depart": check_booking._depart,
-                        "paymentStatus": check_booking._payment_status,
-                        "source": check_booking._source,
-                    }
-                    jsonified_data = json.dumps(data,sort_keys=True,default=str)
-                    response_object = jsonify({
-                            "data":json.loads(jsonified_data),
-                            "status" : 'fail',
-                            "message": 'You have already booking'
-                        })
-                    return response_object,200
-                    
+        # check if booking availbale or not
+        booking_lists = Booking.query.filter_by(_customer_id=b.customer_id)
+        if booking_lists:
+            for booking_list in booking_lists:
+
+                # Get dates from DB
+                start_date = booking_list._arrive
+                end_date = booking_list._depart
+
+                get_post_arrive_date = data['arrive']
+                get_post_depart_date = data['depart']
+
+                if (start_date <= get_post_arrive_date <= end_date):
+                    # check in rental table
+                    rental_lists = Rental.query.filter_by(_customer_id=b.customer_id)
+                    for rental_list in rental_lists:
+                        # Convert dates from string to date format
+                        start_date = datetime.datetime.strptime(rental_list._checkin_time, "%Y-%m-%d %H:%M:%S").date()
+                        end_date = datetime.datetime.strptime(rental_list._checkout_time, "%Y-%m-%d %H:%M:%S").date()
+                        get_post_arrive_date = datetime.datetime.strptime(data['arrive'], "%Y-%m-%d").date()
+                        get_post_depart_date = datetime.datetime.strptime(data['depart'], "%Y-%m-%d").date()
+
+                        # Check if the booking date is in rental and not overlap
+                        if (start_date <= get_post_arrive_date <= end_date) or (start_date <= get_post_depart_date <= end_date):
+                            data = {
+                                "noOfAdults": booking_list._no_of_adults,
+                                "noOfChildrens": booking_list._no_of_children,
+                                "price": booking_list._price,
+                                "tax": booking_list._tax,
+                                "id":booking_list.id,
+                                "noOfGuests": booking_list._no_of_guests,
+                                "checkInTime": booking_list._check_in_time,
+                                "checkOutTime": booking_list._check_out_time,
+                                "arrival": booking_list._arrive,
+                                "depart": booking_list._depart,
+                                "paymentStatus": booking_list._payment_status,
+                                "source": booking_list._source,
+                            }
+                            jsonified_data = json.dumps(data,sort_keys=True,default=str)
+                            response_object = jsonify({
+                                "data": json.loads(jsonified_data),
+                                "status": 'fail',
+                                "message": 'You have already booking'
+                            })
+                            return response_object,200
+                        else:
+                            db.session.add(b)
+                            db.session.commit()
+                            response_object = jsonify({
+                                'booking': data,
+                                "status": "success",
+                                "message": 'Booking created'
+                            })
                 else:
-                    print('NO')
-                    db.session.add(b)
-                    db.session.commit()
-            else:
-                print('NOT IN RANGE')
-                db.session.add(b)
-                db.session.commit()
-            # db.session.add(b)
-            # db.session.commit()
-        data["id"] = b.id
-    except Exception as e:
-        print('Ex',e)
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-        'booking':data,
-        "status":"success",
-        "message":'Booking created'
-    })
-    return response_object,200
+                    booking_lists = Booking.query.filter_by(_customer_id=b.customer_id)
+                    for booking_list in booking_lists:
+
+                        # Get dates from DB
+                        start_date = booking_list._arrive
+                        end_date = booking_list._depart
+
+                        get_post_arrive_date = data['arrive']
+                        get_post_depart_date = data['depart']
+
+                        if (start_date <= get_post_arrive_date <= end_date):
+                            db.session.add(b)
+                            db.session.commit()
+                            response_object = jsonify({
+                                'booking': data,
+                                "status": "success",
+                                "message": 'Booking created'
+                            })
+                        else:
+                            # check in rental table if date is not match in Booking and rental
+                            rental_lists = Rental.query.filter_by(_customer_id=b.customer_id)
+                            for rental_list in rental_lists:
+                                start_date = datetime.datetime.strptime(rental_list._checkin_time, "%Y-%m-%d %H:%M:%S").date()
+                                end_date = datetime.datetime.strptime(rental_list._checkout_time, "%Y-%m-%d %H:%M:%S").date()
+                                get_post_arrive_date = datetime.datetime.strptime(data['arrive'], "%Y-%m-%d").date()
+                                get_post_depart_date = datetime.datetime.strptime(data['depart'], "%Y-%m-%d").date()
+                                if (start_date <= get_post_arrive_date <= end_date) or (start_date <= get_post_depart_date <= end_date):
+                                    data = {
+                                        "noOfAdults": booking_list._no_of_adults,
+                                        "noOfChildrens": booking_list._no_of_children,
+                                        "price": booking_list._price,
+                                        "tax": booking_list._tax,
+                                        "id":booking_list.id,
+                                        "noOfGuests": booking_list._no_of_guests,
+                                        "checkInTime": booking_list._check_in_time,
+                                        "checkOutTime": booking_list._check_out_time,
+                                        "arrival": booking_list._arrive,
+                                        "depart": booking_list._depart,
+                                        "paymentStatus": booking_list._payment_status,
+                                        "source": booking_list._source,
+                                    }
+                                    jsonified_data = json.dumps(data,sort_keys=True,default=str)
+                                    response_object = jsonify({
+                                        "data": json.loads(jsonified_data),
+                                        "status": 'fail',
+                                        "message": 'You have already booking'
+                                    })
+                                    return response_object,200
+                                else:
+                                    db.session.add(b)
+                                    db.session.commit()
+                                    response_object = jsonify({
+                                        'booking':data,
+                                        "status":"success",
+                                        "message":'Booking created'
+                                    })   
+        db.session.add(b)
+        db.session.commit()
+        response_object = jsonify({
+            'booking': data,
+            "status": "success",
+            "message": 'Booking created'
+        })
+        return response_object,200
+    except Exception as e: 
+        response_object = jsonify({
+            'error_message': e,
+            "status": "fail",
+        })
+
 
 @booking.route("/<string:bookingId>", methods = ["DELETE"])
 @auth.login_required

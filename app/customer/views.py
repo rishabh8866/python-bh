@@ -118,7 +118,7 @@ def register():
             return response_object,400
         
         #customer made send the email process
-        utils.send_mail(c)
+        # utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,
@@ -150,7 +150,7 @@ def email_login():
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
-        utils.send_mail(c)
+        # utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),
@@ -228,7 +228,7 @@ def customer_settings():
     response_object = jsonify({
             "data":request.json,
             "status" : 'success',
-            "message": 'Customer updated'
+            "message": 'Customer Settings updated'
         })
     return response_object,200
 
@@ -264,7 +264,7 @@ def general_settings():
     response_object = jsonify({
             "data":{
                 "currency":data['currency'],
-                "dateDisplay":dateDisplay[data['dateDisplay']],
+                "dateDisplay":data['dateDisplay'],
                 "emailId":data['emailId'],
                 "name":data['name'],
                 "numberDisplay":NumberDisplay[data["numberDisplay"]],
@@ -340,3 +340,4 @@ def delete_customer(Id):
             "message":"Customer not exists"
         })
         return response_object,200
+
