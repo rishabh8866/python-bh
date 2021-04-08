@@ -14,18 +14,6 @@ import json
 # Use to get a single record
 @inquiry.route("/", methods = ["GET"])
 def list_inquiry():
-    pass
-    # # inquiry_query = Rental.query.filter_by(_customer_id=33)
-    # # booking = Booking.query.filter_by(_customer_id=33)
-    # inquiry_query = Guest.query.filter_by(_customer_id=33)
-    # for iq in inquiry_query:
-    #     print(iq.id)
-    #     print(iq.guest_bookings)
-    
-    #     # print(iq._source)
-    #     # print(iq._rental_id)
-    #     # print(iq._rental_id._checkin_time)
-
-    # inquiry_query = Guest.query.join(guest_bookings,(guest_bookings.c.guest_id=))
-        
-   
+    inquiry_query = Guest.query.filter_by(_customer_id=34)
+    for i in inquiry_query:
+        print(i._name)

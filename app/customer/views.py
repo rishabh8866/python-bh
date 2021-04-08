@@ -75,7 +75,7 @@ def register():
             "status" : 'fail',
             "message": 'Invalid payload'
         })
-        return response_object,400
+        return response_object,200
     # check if user us already exists or not
     user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
     if user:
@@ -83,7 +83,7 @@ def register():
             "status" : 'fail',
             "message": 'That email is taken. Please choose another.'
         })
-        return response_object,400
+        return response_object,200
     else:
         data = utils.clean_up_request(request.json)
         try:
@@ -115,10 +115,10 @@ def register():
                     "status" : 'fail',
                     "message": 'Invalid payload'
                 })
-            return response_object,400
+            return response_object,200
         
         #customer made send the email process
-        # utils.send_mail(c)
+        utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,
@@ -136,8 +136,7 @@ def email_login():
             "status" : 'fail',
             "message": 'Invalid payload'
         })
-        return response_object,400
-        # return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+        return response_object,200
     data = utils.clean_up_request(request.json)
     email_id = data["emailId"]
     c = Customer.query.filter_by(_email_id = email_id).first()
@@ -150,7 +149,7 @@ def email_login():
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
-        # utils.send_mail(c)
+        utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),
@@ -220,7 +219,7 @@ def customer_settings():
             "status" : 'fail',
             "message": 'please check provided details'
         })
-        return response_object,400
+        return response_object,200
     try:
         db.session.commit()
     except Exception as e:
@@ -255,7 +254,7 @@ def general_settings():
                 "status" : 'fail',
                 "message": 'please check provided details'
             })
-        return response_object,400
+        return response_object,200
     try:
         db.session.commit()
     except Exception as e:
