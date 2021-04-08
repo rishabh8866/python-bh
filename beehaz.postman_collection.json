@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							},
 							{
@@ -27,7 +27,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"silver\",\r\n    \"postalCode\": \"395000\",\r\n    \"addressLine1\": \"my address_line1\",\r\n    \"addressLine2\": \"my address_line2\",\r\n    \"country\": \"India\",\r\n    \"maxGuests\": 5,\r\n    \"groupId\": 1,\r\n    \"currency\": \"inr\",\r\n    \"checkInTime\":\"10/25/06 14:30:59\",\r\n    \"checkOutTime\":\"10/25/06 14:30:59\"\r\n}",
+							"raw": "{\r\n    \"name\": \"silver\",\r\n    \"postalCode\": \"39005\",\r\n    \"addressLine1\": \"my address_line1\",\r\n    \"addressLine2\": \"my address_line2\",\r\n    \"country\": \"India\",\r\n    \"maxGuests\": 5,\r\n    \"currency\": \"inr\",\r\n    \"checkInTime\":\"2021-04-25 14:30:59\",\r\n    \"checkOutTime\":\"2021-04-30 14:30:59\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -60,7 +60,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
@@ -90,13 +90,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"10/25/06 14:30:59\",\r\n    \"checkOutTime\": \"10/25/06 14:30:59\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
+							"raw": "{\r\n    \"id\": 7,\r\n    \"name\": \"Gold\",\r\n    \"postalCode\": \"39001\",\r\n    \"addressLine1\": \"Test Address1\",\r\n    \"addressLine2\": \"Test Address2\",\r\n    \"country\": \"India\",\r\n    \"checkInTime\": \"2021-04-10 14:30:59\",\r\n    \"checkOutTime\": \"2021-04-15 14:30:59\",\r\n    \"maxGuests\": 3,\r\n    \"currency\": \"USD\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,12 +136,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rental/2",
+							"raw": "http://127.0.0.1:5000/api/rental/17",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -153,7 +153,7 @@
 							"path": [
 								"api",
 								"rental",
-								"2"
+								"17"
 							]
 						}
 					},
@@ -166,12 +166,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTM5MDA4NSwiZXhwIjoxNjE3OTgyMDg1fQ.eyJpZCI6MX0.-U-kFq92Nw23wYnJYEJovO005w2Ng8VDOyEpMlMj5Ylb56pvIZXGATjdqqxHfUtDwIq_0dProXpL8IIWc9M3dw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rental/1",
+							"raw": "http://127.0.0.1:5000/api/rental/6",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -183,7 +183,7 @@
 							"path": [
 								"api",
 								"rental",
-								"1"
+								"6"
 							]
 						}
 					},
@@ -201,7 +201,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"demringen\",\r\n    \"emailId\": \"demringen@hotmail.red\",\r\n    \"companyName\": \"demringen@hotmail.red company pvt\",\r\n    \"website\": \"demringen@hotmail.red.com\",\r\n    \"noOfUnits\": 5,\r\n    \"propertyType\": \"rented\"\r\n}",
+							"raw": "{\r\n    \"name\": \"gladistone\",\r\n    \"emailId\": \"gladistone.he@jncylp.com\",\r\n    \"companyName\": \"gladistone pvt ltd\",\r\n    \"website\": \"gladistone.com\",\r\n    \"noOfUnits\": 5,\r\n    \"propertyType\": \"other\",\r\n    \"country\":\"India\",\r\n    \"currency\":\"inr\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,7 +234,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"gladistone.he@jncylp.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,7 +267,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
@@ -297,13 +297,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjQzNDY4NSwiZXhwIjoxNjE5MDI2Njg1fQ.eyJpZCI6MX0.29S8QXCxskHNunODdd6CnZp13UQq2weKD19dyBYMw-n0M4O9QNDOF9VH6bGW40GXMAaYImtdi-8WqAv5JOU1Yw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"demringen\",\r\n    \"language\":\"English\",\r\n    \"permissions\":\"User\",\r\n    \"isFutureBooking\":false,\r\n    \"allowBookingFor\":\"years\",\r\n    \"accountType\":\"free\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"demringen_test\",\r\n    \"language\":\"English\",\r\n    \"permissions\":\"Admin\",\r\n    \"isFutureBooking\":false,\r\n    \"allowBookingFor\":\"months\",\r\n    \"accountType\":\"free\",\r\n    \"numberOf\":23\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,13 +336,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\": \"demringen\",\r\n    \"noOfUnits\": \"10\",\r\n    \"propertyType\": \"rented\",\r\n    \"website\": \"demringen.com\"\r\n}",
+							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\": \"demringen\",\r\n    \"noOfUnits\": \"10\",\r\n    \"propertyType\": \"hotel\",\r\n    \"website\": \"demringen.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -375,13 +375,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"tt\",\r\n    \"currency\":\"CAD\",\r\n    \"timeDisplay\":\"AM_PM\",\r\n    \"dateDisplay\":\"M10\",\r\n    \"numberDisplay\":\"M2\"\r\n}",
+							"raw": "\r\n{\r\n    \"emailId\":\"demringen@hotmail.red.com\",\r\n    \"name\":\"tt\",\r\n    \"currency\":\"CAD\",\r\n    \"timeDisplay\":\"AM_PM\",\r\n    \"dateDisplay\":\"M11\",\r\n    \"numberDisplay\":\"M2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -406,6 +406,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "deleteCustomer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTkwNSwiZXhwIjoxNjIwNDkxOTA1fQ.eyJpZCI6MzZ9.SJiw13NFNS-oXAPnR-qLPs_IiFZ8277AZdmHHjag2g8Xa0ajxAS82_Q_D4RWCvZ2_fUVIYlAqKTn7OwEPucx9A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/customer/36",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"customer",
+								"36"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -419,7 +449,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
@@ -449,7 +479,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzExNzY3NiwiZXhwIjoxNjE5NzA5Njc2fQ.eyJpZCI6MjF9.S_taGPA3yriunOHUCY1dp6hVfuqIVtvNLv_gRiFJwApxQXT7xOwa__68Sb-e2qm8B6QrZ_rpLbS0G4uXw3HLcw",
 								"type": "text"
 							}
 						],
@@ -569,13 +599,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzcyMDE3MywiZXhwIjoxNjIwMzEyMTczfQ.eyJpZCI6MzR9.dKvXWncggScJUKEaJbiPvL_p9YQl52jNvwW4e8Scxd4rWYdYZDFSrAZFtb-gGI4m2f6dusZCJZi-ypKOIVTSpg",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"my guest\",\r\n\t\"emailId\": \"myguest@gmail.com\",\r\n\t\"phoneNo\": \"1234567890\",\r\n\t\"customerId\": 1,\r\n\t\"secondaryEmailId\": \"2nd@gmail.com\",\r\n\t\"country\": \"xyz\",\r\n\t\"address\": \"address testing\",\r\n    \"postalCode\": \"147852\",\r\n    \"state\": \"abc\",\r\n    \"nationality\": \"avx\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"no notes\"\r\n}",
+							"raw": "{\r\n    \"name\": \"my guest\",\r\n\t\"emailId\": \"myguest@gmail.com\",\r\n\t\"phoneNo\": \"1234567890\",\r\n\t\"customerId\": 34,\r\n\t\"secondaryEmailId\": \"2nd@gmail.com\",\r\n\t\"country\": \"xyz\",\r\n\t\"address\": \"address testing\",\r\n    \"postalCode\": \"147852\",\r\n    \"state\": \"abc\",\r\n    \"nationality\": \"avx\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"no notes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -651,13 +681,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzcyMDE3MywiZXhwIjoxNjIwMzEyMTczfQ.eyJpZCI6MzR9.dKvXWncggScJUKEaJbiPvL_p9YQl52jNvwW4e8Scxd4rWYdYZDFSrAZFtb-gGI4m2f6dusZCJZi-ypKOIVTSpg",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"guestId\":1\r\n}",
+							"raw": "{\r\n    \"guestId\":13\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -665,7 +695,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/guest/addGuestByBookingId/2",
+							"raw": "http://127.0.0.1:5000/api/guest/addGuestByBookingId/43",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -678,7 +708,7 @@
 								"api",
 								"guest",
 								"addGuestByBookingId",
-								"2"
+								"43"
 							]
 						}
 					},
@@ -691,7 +721,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
 								"type": "text"
 							}
 						],
@@ -763,7 +793,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"test update\",\r\n\t\"emailId\": \"sefger\",\r\n\t\"phoneNo\": \"dfrtdbhgsdf\",\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gshg4ght\",\r\n\t\"address\": \"s5yghkc\",\r\n    \"postalCode\": \"3655\",\r\n    \"state\": \"hgfyut\",\r\n    \"nationality\": \"fu79ik \",\r\n    \"language\": \"yuog8\",\r\n    \"notes\": \"hkjuo\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"test update\",\r\n\t\"emailId\": \"testmyemail@test.com\",\r\n\t\"phoneNo\": \"dfrtdbhgsdf\",\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gshg4ght\",\r\n\t\"address\": \"s5yghkc\",\r\n    \"postalCode\": \"3655\",\r\n    \"state\": \"hgfyut\",\r\n    \"nationality\": \"fu79ik \",\r\n    \"language\": \"yuog8\",\r\n    \"notes\": \"hkjuo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -801,13 +831,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\": 1,\r\n    \"price\": 560,\r\n    \"tax\": 120,\r\n    \"noOfAdults\": 5,\r\n    \"checkInTime\": \"13:22\",\r\n    \"checkOutTime\": \"14:04\",\r\n    \"arrive\": \"2021-03-31\",\r\n    \"depart\": \"2021-03-31\",\r\n    \"noOfChildren\": 3,\r\n    \"source\": \"airbnb\",\r\n    \"noOfGuests\": 8,\r\n    \"bookingType\":\"booking\"\r\n}",
+							"raw": "{\r\n    \"rentalId\": 16,\r\n\t\"price\": 560,\r\n\t\"tax\": 120,\r\n\t\"noOfAdults\": 5,\r\n\t\"arrive\": \"2021-04-20\",\r\n    \"depart\": \"2021-04-25\",\r\n    \"checkInTime\": \"13:22\",\r\n    \"checkOutTime\": \"14:04\",\r\n    \"noOfChildren\": 3,\r\n    \"source\": \"beehaz\",\r\n    \"bookingType\":\"booking\",\r\n    \"noOfGuests\":8,\r\n    \"title\":\"Robert Smith || Partially paid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -840,12 +870,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/booking/5",
+							"raw": "http://127.0.0.1:5000/api/booking/56",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -857,7 +887,37 @@
 							"path": [
 								"api",
 								"booking",
-								"5"
+								"56"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_booking Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzExNzY3NiwiZXhwIjoxNjE5NzA5Njc2fQ.eyJpZCI6MjF9.S_taGPA3yriunOHUCY1dp6hVfuqIVtvNLv_gRiFJwApxQXT7xOwa__68Sb-e2qm8B6QrZ_rpLbS0G4uXw3HLcw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/booking/22",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"booking",
+								"22"
 							]
 						}
 					},
@@ -870,7 +930,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzgwOTE5NCwiZXhwIjoxNjIwNDAxMTk0fQ.eyJpZCI6MzV9.HDkQw8CLe4WiD-idI3zElcQGCqcbIslsFfU_Li1Fqdgvd6aEE3PVb68K5cImNv_Sze9zb7aWEFwAJRZ6lO3DpQ",
 								"type": "text"
 							}
 						],
@@ -904,13 +964,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzgwOTE5NCwiZXhwIjoxNjIwNDAxMTk0fQ.eyJpZCI6MzV9.HDkQw8CLe4WiD-idI3zElcQGCqcbIslsFfU_Li1Fqdgvd6aEE3PVb68K5cImNv_Sze9zb7aWEFwAJRZ6lO3DpQ",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":\"1\",\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
+							"raw": "{\r\n    \"rentalId\":\"15\",\r\n    \"usdPerGuest\":1,\r\n    \"dateRange\": \"Mar 18, 2021\",\r\n    \"minimumStayRequirement\": 1,\r\n    \"weekDays\": \"MON\",\r\n    \"dailyRate\": 50,\r\n    \"guestPerNight\": 2,\r\n    \"allowDiscount\": true,\r\n    \"weeklyDiscount\": 2,\r\n    \"monthlyDiscount\":1,\r\n    \"allowFixedRate\":true,\r\n    \"weekPrice\":10,\r\n    \"monthlyPrice\":25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -943,12 +1003,12 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzgwOTE5NCwiZXhwIjoxNjIwNDAxMTk0fQ.eyJpZCI6MzV9.HDkQw8CLe4WiD-idI3zElcQGCqcbIslsFfU_Li1Fqdgvd6aEE3PVb68K5cImNv_Sze9zb7aWEFwAJRZ6lO3DpQ",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rate/13",
+							"raw": "http://127.0.0.1:5000/api/rate/6",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -960,7 +1020,7 @@
 							"path": [
 								"api",
 								"rate",
-								"13"
+								"6"
 							]
 						}
 					},
@@ -1042,7 +1102,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjA4NzAwMCwiZXhwIjoxNjE4Njc5MDAwfQ.eyJpZCI6MX0.RQ5FV_Gv_yJJMSkXuEN7rU5IXNSfkWmhULx_q71ObwW6wSAy48m871z0WclyJAoyn-sdptszpZTevQ_955Odyw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
 								"type": "text"
 							}
 						],
@@ -1077,13 +1137,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzYzNTQ3MiwiZXhwIjoxNjIwMjI3NDcyfQ.eyJpZCI6MzJ9.lGz99kk2PzyX-KUsyFY8qD9NK6TKuUG7OeMzbyhrDgUPzqSsi23xxQkfwe5fF013ZLae-A0HLz9ohtslG94JTA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\":1,\r\n    \"name\":\"test\",\r\n    \"feeType\":\"fee_type\",\r\n    \"amount\": 10,\r\n    \"modality\":\"modality\"\r\n}",
+							"raw": "{\r\n    \"rentalId\":10,\r\n    \"name\":\"test\",\r\n    \"feeType\":\"fee_type\",\r\n    \"amount\": 10,\r\n    \"modality\":\"modality\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1212,15 +1272,28 @@
 		},
 		{
 			"name": "inquiry",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "auth_token",
-						"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNjY4NTIwMCwiZXhwIjoxNjE5Mjc3MjAwfQ.eyJpZCI6MX0.772B2cg1nQxGYr2Llzf2-7cbUhGlohX0V3bLo4bwKie5_le95xYJBmSjS7K1Hw0sqxaDQP1v-SvMyVC4sl7NvA",
-						"type": "text"
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\":\"34\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/api/inquiry",
 					"protocol": "http",
