@@ -34,6 +34,7 @@ def add_booking():
 
                 if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
                     data = {
+                            "rentalId": booking_list._rental_id,
                             "noOfAdults": booking_list._no_of_adults,
                             "noOfChildrens": booking_list._no_of_children,
                             "price": booking_list._price,
@@ -46,6 +47,7 @@ def add_booking():
                             "depart": booking_list._depart,
                             "paymentStatus": booking_list._payment_status,
                             "source": booking_list._source,
+                            "bookingType": booking_list._booking_type,
                         }
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
                     response_object = jsonify({
@@ -56,6 +58,24 @@ def add_booking():
                     return response_object,200
             db.session.add(b)
             db.session.commit()
+            db.session.flush()
+            booking_list = Booking.query.filter_by(id=b.id).first()
+            data = {
+                    "rentalId": booking_list._rental_id,
+                    "noOfAdults": booking_list._no_of_adults,
+                    "noOfChildrens": booking_list._no_of_children,
+                    "price": booking_list._price,
+                    "tax": booking_list._tax,
+                    "id":booking_list.id,
+                    "noOfGuests": booking_list._no_of_guests,
+                    "checkInTime": booking_list._check_in_time,
+                    "checkOutTime": booking_list._check_out_time,
+                    "arrival": booking_list._arrive,
+                    "depart": booking_list._depart,
+                    "paymentStatus": booking_list._payment_status,
+                    "source": booking_list._source,
+                    "bookingType": booking_list._booking_type,
+                }
             response_object = jsonify({
                 'booking': data,
                 "status": "success",
@@ -72,9 +92,26 @@ def add_booking():
                 })
                 return response_object,200
             else:
-
                 db.session.add(b)
                 db.session.commit()
+                db.session.flush()
+                booking_list = Booking.query.filter_by(id=b.id).first()
+                data = {
+                        "rentalId": booking_list._rental_id,
+                        "price": booking_list._price,
+                        "noOfAdults": booking_list._no_of_adults,
+                        "noOfChildrens": booking_list._no_of_children,
+                        "tax": booking_list._tax,
+                        "id":booking_list.id,
+                        "noOfGuests": booking_list._no_of_guests,
+                        "checkInTime": booking_list._check_in_time,
+                        "checkOutTime": booking_list._check_out_time,
+                        "arrival": booking_list._arrive,
+                        "depart": booking_list._depart,
+                        "paymentStatus": booking_list._payment_status,
+                        "source": booking_list._source,
+                        "bookingType": booking_list._booking_type,
+                    }
                 response_object = jsonify({
                     'booking': data,
                     "status": "success",
