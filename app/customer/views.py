@@ -98,7 +98,7 @@ def register():
             try:
                 data = {
                     "groupName": "Default",
-                    "color": "yellow"
+                    "color": "Yellow"
                 }
                 user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
                 gp = Group(name = data["groupName"], color = data["color"], customer_id = user.id)

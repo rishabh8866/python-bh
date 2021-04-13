@@ -17,6 +17,8 @@ class Booking(db.Model):
     _source              =db.Column      (db.Enum(SourceEnum), nullable = False)
     _price               =db.Column      (db.Integer, nullable = False)
     _booking_type        =db.Column      (db.String(150))
+    _status              =db.Column      (db.String(150))
+    _color               =db.Column      (db.String(150))
     _tax                 =db.Column      (db.Integer, nullable = False)
     _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE'))
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'))
@@ -92,6 +94,22 @@ class Booking(db.Model):
         self._payment_status = val
 
     @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, val):
+        self._status = val
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, val):
+        self._color = val
+
+    @property
     def source(self):
         return self._source
 
@@ -165,5 +183,7 @@ class Booking(db.Model):
             "rentalId":self.rental_id,
             "arrive":self.arrive,
             "depart":self.depart,
-            "id":self.id
+            "id":self.id,
+            "color":self.color,
+            "status":self.status
         })

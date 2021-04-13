@@ -48,6 +48,8 @@ def add_booking():
                             "paymentStatus": booking_list._payment_status,
                             "source": booking_list._source,
                             "bookingType": booking_list._booking_type,
+                            "status":booking_list._status,
+                            "color":booking_list._color
                         }
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
                     response_object = jsonify({
@@ -75,6 +77,8 @@ def add_booking():
                     "paymentStatus": booking_list._payment_status,
                     "source": booking_list._source,
                     "bookingType": booking_list._booking_type,
+                    "status":booking_list._status,
+                    "color":booking_list._color
                 }
             response_object = jsonify({
                 'booking': data,
@@ -111,6 +115,8 @@ def add_booking():
                         "paymentStatus": booking_list._payment_status,
                         "source": booking_list._source,
                         "bookingType": booking_list._booking_type,
+                        "status":booking_list._status,
+                        "color":booking_list._color
                     }
                 response_object = jsonify({
                     'booking': data,
@@ -130,13 +136,14 @@ def delete_booking(bookingId):
     booking = Booking.query.get(bookingId)
     if booking:
         try:
-            db.session.delete(booking)
+            # db.session.delete(booking)
+            booking._status = 'Cancelled'
             db.session.commit()
         except:
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
         response_object = jsonify({
             "status":"success",
-            "message":'Booking deleted',
+            "message":'Booking Cancelled',
             "id": bookingId
         })
         return response_object,200

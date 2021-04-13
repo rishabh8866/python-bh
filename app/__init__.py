@@ -39,6 +39,8 @@ def register_blueprints():
     from app.guest import guest
     from app.rate import rate
     from app.fee import fee
+    from app.subscribers import subscribers
+
     # from app.tax import tax
     from app.inquiry import inquiry
     app.register_blueprint(customer, url_prefix = "/api/customer")
@@ -50,6 +52,7 @@ def register_blueprints():
     app.register_blueprint(fee, url_prefix = "/api/fee")
     # app.register_blueprint(tax, url_prefix = "/api/tax")
     app.register_blueprint(inquiry, url_prefix = "/api/inquiry")
+    app.register_blueprint(subscribers, url_prefix = "/api/subscribers")
     
 
 register_blueprints()

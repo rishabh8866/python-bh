@@ -4,6 +4,7 @@ from app.rental import rental
 from app.rental.model import Rental
 from app.booking.model import Booking
 from app.rental import mapper as rental_mapper
+from app.rate import mapper as rate_mapper
 from app import views as common_views
 from app.rental import utils
 import constants
@@ -22,25 +23,57 @@ def add_rental():
         # return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = request.json
     utils.clean_up_request(data)
-    print(data,g.customer)
-    try:
-        r = rental_mapper.get_obj_from_request(data, g.customer)
-    except Exception as e:
-        print("Jasdeep db exception: " + str(e))
-        return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
-    try:
-        db.session.add(r)
-        db.session.commit()
-    except Exception as e:
-        print("Jasdeep db exception: " + str(e))
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-        "data": rental_mapper.get_response_object(r.full_serialize()),
-        "status" : 'success',
-        "message": 'Successfully Added'
-    })
-    # return common_views.as_success(constants.view_constants.SUCCESS)
-    return response_object,200
+    check_rental_limit = Rental.query.filter(Rental._customer_id==g.customer.id).count()
+    if check_rental_limit >= 10:
+        response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Maximum of 10 rentals allowed in free version. Please contact support if you wish to add more rentals.'
+        })
+        # return common_views.as_success(constants.view_constants.SUCCESS)
+        return response_object,200
+    else:
+        try:
+            r = rental_mapper.get_obj_from_request(data, g.customer)
+        except Exception as e:
+            print("Jasdeep db exception: " + str(e))
+            return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
+        try:
+            db.session.add(r)
+            db.session.commit()
+            db.session.flush()
+            try:
+                # Add default rate
+                rate_json = {
+                    "rentalId":r.id,
+                    "usdPerGuest":1,
+                    "dateRange": "",
+                    "minimumStayRequirement": 1,
+                    "weekDays": "MON",
+                    "dailyRate": 0,
+                    "guestPerNight": 2,
+                    "allowDiscount": False,
+                    "weeklyDiscount": 0,
+                    "monthlyDiscount":0,
+                    "allowFixedRate":False,
+                    "weekPrice":0,
+                    "monthlyPrice":0
+                }
+                default_rate = rate_mapper.get_obj_from_request(rate_json, g.customer)
+                db.session.add(default_rate)
+                db.session.commit()
+            except Exception as e:
+                print(e)
+            
+        except Exception as e:
+            print("Jasdeep db exception: " + str(e))
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "data": rental_mapper.get_response_object(r.full_serialize()),
+            "status" : 'success',
+            "message": 'Successfully Added'
+        })
+        # return common_views.as_success(constants.view_constants.SUCCESS)
+        return response_object,200
 
 
 @rental.route("/", methods = ["PUT"])
