@@ -3,7 +3,7 @@ from app.customer.model import Customer
 
 fields = {
     "primary": ["email_id", "name"],
-    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of","country"],
+    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of","country","check_in_time","check_out_time","daily_rate","minimum_stay_requirement"],
     "unique": ["email_id"]
 }
 
@@ -26,8 +26,13 @@ mapFields = {
     "dateDisplay": "date_display",
     "numberDisplay": "number_display",
     "numberOf":"number_of",
-    "country":"country"
+    "country":"country",
+    "checkInTime":"check_in_time",
+    "checkOutTime":"check_out_time",
+    "dailyRate":"daily_rate",
+    "minimumStayRequirement":"minimum_stay_requirement",
 }
+
 
 fieldToMap = {
     "id":"id",
@@ -49,7 +54,11 @@ fieldToMap = {
     "allow_booking_for":"allowBookingFor",
     "account_type":"accountType",
     "number_of":"numberOf",
-    "country" : "country"
+    "country" : "country",
+    "check_in_time":"checkInTime",
+    "check_out_time":"checkOutTime",
+    "daily_rate":"dailyRate",
+    "minimum_stay_requirement":"minimumStayRequirement",
 }
 
 def get_obj_from_request(apiData,current_email):

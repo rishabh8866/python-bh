@@ -124,7 +124,7 @@ def register():
             "data":request.json,
             "token": str(c.generate_auth_token().decode("utf-8")),
             "status" : 'success',
-            "message": 'Customer created'
+            "message": 'Account created successfully! Please check your email to log in.'
         })
         return response_object,200
 
@@ -161,7 +161,7 @@ def email_login():
     else:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'This email address is not registered in our system. Please check the spelling or create an account'
+            "message": 'This email address is not registered in our system. Please check the spelling or create an account.'
         })
         return response_object,200
 

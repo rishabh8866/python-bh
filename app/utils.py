@@ -52,3 +52,9 @@ def send_auth_email(user):
                app.config['ADMINS'][0],
                [user.email_id],
                AUTH_VERIFICATION.format(name = user.name, token = token))
+
+def send_subscribers_email(email_list):
+    print('\n\n\n\n\n\n\nemail list',email_list)
+    send_mail('[BeeHaz] New features',
+               app.config['ADMINS'][0],
+               email_list,'New features contents')
