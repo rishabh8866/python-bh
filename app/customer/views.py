@@ -122,7 +122,7 @@ def register():
             "data":request.json,
             "token": str(c.generate_auth_token().decode("utf-8")),
             "status" : 'success',
-            "message": 'Customer created'
+             "message": 'Account created successfully! Please check your email to log in.'
         })
         return response_object,200
 
@@ -184,7 +184,7 @@ def login_user_through_email(email_id, do_send_email = True):
     else:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'This email address is not registered in our system. Please check the spelling or create an account'
+            "message": 'This email address is not registered in our system. Please check the spelling or create an account.'
         })
         return response_object,200
 
@@ -326,7 +326,6 @@ def update_customer():
         db.session.commit()
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    # c = customer_mapper.get_obj_from_customer_info(c.full_serialize())
     c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())
     response_object = jsonify({
         "customer":c,

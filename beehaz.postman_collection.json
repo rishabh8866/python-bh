@@ -15,7 +15,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							},
 							{
@@ -60,7 +60,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -90,7 +90,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -141,7 +141,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/rental/17",
+							"raw": "http://127.0.0.1:5000/api/rental/28",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -153,7 +153,7 @@
 							"path": [
 								"api",
 								"rental",
-								"17"
+								"28"
 							]
 						}
 					},
@@ -201,7 +201,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"gladistone\",\r\n    \"emailId\": \"gladistone.he@jncylp.com\",\r\n    \"companyName\": \"gladistone pvt ltd\",\r\n    \"website\": \"gladistone.com\",\r\n    \"noOfUnits\": 5,\r\n    \"propertyType\": \"other\",\r\n    \"country\":\"India\",\r\n    \"currency\":\"inr\"\r\n}",
+							"raw": "{\r\n    \"name\": \"xarawov919\",\r\n    \"emailId\": \"xarawov919@vreagles.com\",\r\n    \"companyName\": \"xarawov919 pvt ltd\",\r\n    \"website\": \"xarawov919.com\",\r\n    \"noOfUnits\": 5,\r\n    \"propertyType\": \"other\",\r\n    \"country\":\"India\",\r\n    \"currency\":\"inr\",\r\n    \"checkInTime\":\"10:40\",\r\n    \"checkOutTime\":\"10:50\",\r\n    \"dailyRate\":0,\r\n    \"minimumStayRequirement\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,7 +267,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -297,7 +297,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -336,7 +336,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -375,7 +375,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -599,13 +599,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzcyMDE3MywiZXhwIjoxNjIwMzEyMTczfQ.eyJpZCI6MzR9.dKvXWncggScJUKEaJbiPvL_p9YQl52jNvwW4e8Scxd4rWYdYZDFSrAZFtb-gGI4m2f6dusZCJZi-ypKOIVTSpg",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"my guest\",\r\n\t\"emailId\": \"myguest@gmail.com\",\r\n\t\"phoneNo\": \"1234567890\",\r\n\t\"customerId\": 34,\r\n\t\"secondaryEmailId\": \"2nd@gmail.com\",\r\n\t\"country\": \"xyz\",\r\n\t\"address\": \"address testing\",\r\n    \"postalCode\": \"147852\",\r\n    \"state\": \"abc\",\r\n    \"nationality\": \"avx\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"no notes\"\r\n}",
+							"raw": "{\r\n    \"name\": \"my guest\",\r\n\t\"emailId\": \"myguest@gmail.com\",\r\n\t\"phoneNo\": \"1234567890\",\r\n\t\"customerId\": 37,\r\n\t\"secondaryEmailId\": \"2nd@gmail.com\",\r\n\t\"country\": \"xyz\",\r\n\t\"address\": \"address testing\",\r\n    \"postalCode\": \"147852\",\r\n    \"state\": \"abc\",\r\n    \"nationality\": \"avx\",\r\n    \"language\": \"english\",\r\n    \"notes\": \"no notes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -721,7 +721,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -787,13 +787,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNTQ3NzM1MywiZXhwIjoxNjE4MDY5MzUzfQ.eyJpZCI6MX0.QSKT3GYZPSxO1xPBSDw7jYkM0u40nuGqAwJONeGM9Bt7cZggDGGR-GSDi4OTN0m9Ek-y6KOeAkusLJJ5IWscDQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"test update\",\r\n\t\"emailId\": \"testmyemail@test.com\",\r\n\t\"phoneNo\": \"dfrtdbhgsdf\",\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gshg4ght\",\r\n\t\"address\": \"s5yghkc\",\r\n    \"postalCode\": \"3655\",\r\n    \"state\": \"hgfyut\",\r\n    \"nationality\": \"fu79ik \",\r\n    \"language\": \"yuog8\",\r\n    \"notes\": \"hkjuo\"\r\n}",
+							"raw": "{\r\n    \"id\": 14,\r\n    \"name\": \"test update\",\r\n\t\"emailId\": \"testmyemail@test.com\",\r\n\t\"phoneNo\": \"dfrtdbhgsdf\",\r\n\t\"secondaryEmailId\": \"\",\r\n\t\"country\": \"gshg4ght\",\r\n\t\"address\": \"s5yghkc\",\r\n    \"postalCode\": \"3655\",\r\n    \"state\": \"hgfyut\",\r\n    \"nationality\": \"fu79ik \",\r\n    \"language\": \"yuog8\",\r\n    \"notes\": \"hkjuo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -831,13 +831,13 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzg5OTk4MiwiZXhwIjoxNjIwNDkxOTgyfQ.eyJpZCI6Mzd9.TInqRmGIBfXWAW7aNRn9n6pmSN_z5DcqzNh_OVODVcVjpnhcCSlweaGwCOT8jA6mCLNRFOxy1dDiOnVhqW-0Aw",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rentalId\": 16,\r\n\t\"price\": 560,\r\n\t\"tax\": 120,\r\n\t\"noOfAdults\": 5,\r\n\t\"arrive\": \"2021-04-20\",\r\n    \"depart\": \"2021-04-25\",\r\n    \"checkInTime\": \"13:22\",\r\n    \"checkOutTime\": \"14:04\",\r\n    \"noOfChildren\": 3,\r\n    \"source\": \"beehaz\",\r\n    \"bookingType\":\"booking\",\r\n    \"noOfGuests\":8,\r\n    \"title\":\"Robert Smith || Partially paid\"\r\n}",
+							"raw": "{\r\n    \"rentalId\": 18,\r\n\t\"price\": 560,\r\n\t\"tax\": 120,\r\n\t\"noOfAdults\": 5,\r\n\t\"arrive\": \"2021-04-20\",\r\n    \"depart\": \"2021-04-25\",\r\n    \"checkInTime\": \"13:22\",\r\n    \"checkOutTime\": \"14:04\",\r\n    \"noOfChildren\": 3,\r\n    \"source\": \"beehaz\",\r\n    \"bookingType\":\"booking\",\r\n    \"noOfGuests\":8,\r\n    \"title\":\"Robert Smith || Partially paid\",\r\n    \"color\":\"green\",\r\n    \"status\":\"booked\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -875,7 +875,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/booking/56",
+							"raw": "http://127.0.0.1:5000/api/booking/68",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -887,7 +887,7 @@
 							"path": [
 								"api",
 								"booking",
-								"56"
+								"68"
 							]
 						}
 					},
@@ -930,7 +930,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzgwOTE5NCwiZXhwIjoxNjIwNDAxMTk0fQ.eyJpZCI6MzV9.HDkQw8CLe4WiD-idI3zElcQGCqcbIslsFfU_Li1Fqdgvd6aEE3PVb68K5cImNv_Sze9zb7aWEFwAJRZ6lO3DpQ",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -1102,7 +1102,7 @@
 						"header": [
 							{
 								"key": "auth_token",
-								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxNzI4OTcxOSwiZXhwIjoxNjE5ODgxNzE5fQ.eyJpZCI6MzB9.etfA-dwKAmDymAss5tY53WIK_IKgHEG68kBJYwM1FDSrw6WGUK-29-ziMYxpwhUcna6cKaSlM6SXwgWYMtOUfg",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
 								"type": "text"
 							}
 						],
@@ -1271,6 +1271,92 @@
 			]
 		},
 		{
+			"name": "subscribers",
+			"item": [
+				{
+					"name": "subscribers_list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/subscribers/list",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"subscribers",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "subscribers_add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth_token",
+								"value": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTYxODEyNTEwNSwiZXhwIjoxNjIwNzE3MTA1fQ.eyJpZCI6Mzd9.zmWSmCGvXC2Sd2Ta7DoUBc9TWX7XOwBN7kLD_7HY_PmYE4piYwYOaWc7tMFf4hJ57SzYM_kHPg8E6LF3EefiiA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailId\":\"xarawov919@vreagles.com\",\r\n    \"firstName\":\"abx\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/subscribers/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"subscribers",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "inquiry",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -1287,7 +1373,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"customerId\":\"34\"\r\n}",
+					"raw": "{\r\n    \"customerId\":\"37\",\r\n    \"dateFrom\":\"2021-04-20\",\r\n    \"dateTo\":\"2021-04-25\",\r\n    \"rentalId\":\"18\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
