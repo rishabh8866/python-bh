@@ -13,7 +13,7 @@ from app.subscribers import mapper as subscriber_mapper
 # TODO :
 # 1. Need to add email functinality and send email to all users.
 # 2. Need to add cancellation to unscubscribe
-@subscribers.route("/", methods = ["POST"])
+@subscribers.route("", methods = ["POST"])
 def add_subscribers():
     if not request.json:
         # If data is blank or invalid
@@ -58,17 +58,10 @@ def list_subscribers():
     list_resp = []
     for subscriber in subscribers_list:
         list_resp.append(subscriber.full_serialize())
-    emails = [r._email_id for r in db.session.query(Subscriber._email_id).distinct()]
-    try:
-        utils.send_mail(emails)
-        response_object =jsonify({
-            'status':'success',
-            'message':'Email send'
-        })
-        return response_object,200
-    except Exception as e:
-        response_object =jsonify({
-            'status':'fail',
-            'message':'Email send Not send'
-        })
-        return response_object,200
+    
+    response_object =jsonify({
+        'subscribers' : list_resp,
+        'status':'success',
+        'message':'all subscribers'
+    })
+    return response_object,200

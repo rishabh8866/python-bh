@@ -2,7 +2,7 @@ from flask import jsonify, request, g
 from app import app, db, auth
 from app.customer import customer
 from app.group.model import Group
-from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum
+from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum, OauthTypeEnum
 from app.customer import mapper as customer_mapper
 from app.customer import utils
 from app import views as common_views
@@ -67,7 +67,6 @@ def before_request():
 def index():
     return jsonify({"msg": "success"})
 
-
 @customer.route("/register", methods = ["POST"])
 def register():
     if not request.json:
@@ -109,14 +108,13 @@ def register():
                 db.session.commit()
             except:
                 return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-            
+
         except Exception as e:
             response_object = jsonify({
                     "status" : 'fail',
                     "message": 'Invalid payload'
                 })
             return response_object,200
-        
         #customer made send the email process
         utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
@@ -124,9 +122,29 @@ def register():
             "data":request.json,
             "token": str(c.generate_auth_token().decode("utf-8")),
             "status" : 'success',
-            "message": 'Account created successfully! Please check your email to log in.'
+            "message": 'Customer created'
         })
         return response_object,200
+
+
+@customer.route("/oauth/login", methods = ["GET"])
+def oauth_login():
+    type = request.args.get('type')
+    return jsonify({
+        "data": {
+            "uri": utils.get_oauth_url(type, request.base_url + "/callback")
+            }
+        }), 302
+
+@customer.route("/oauth/login/callback", methods = ["GET"])
+def oauth_login_callback():
+    code = request.args.get("code")
+    type = OauthTypeEnum.GOOGLE
+    # facebook login
+    if "state" in request.args and request.args.get("state") == "abc":
+        type = OauthTypeEnum.FACEBOOK
+    email = utils.get_user_email_from_oauth(code, request.url, request.base_url, type)
+    return login_user_through_email(email, False)
 
 
 @customer.route("/login", methods = ["POST"])
@@ -139,6 +157,10 @@ def email_login():
         return response_object,200
     data = utils.clean_up_request(request.json)
     email_id = data["emailId"]
+    return login_user_through_email(email_id)
+
+
+def login_user_through_email(email_id, do_send_email = True):
     c = Customer.query.filter_by(_email_id = email_id).first()
     if c:
         data = {
@@ -149,7 +171,8 @@ def email_login():
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
         }
-        utils.send_mail(c)
+        if do_send_email:
+            utils.send_mail(c)
         jsonified_data = json.dumps(data)
         response_object = jsonify({
                 "data":json.loads(jsonified_data),
@@ -161,20 +184,20 @@ def email_login():
     else:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'This email address is not registered in our system. Please check the spelling or create an account.'
+            "message": 'This email address is not registered in our system. Please check the spelling or create an account'
         })
         return response_object,200
+
 
 
 @customer.route("/login/<string:auth_token>", methods = ["GET"])
 def login(auth_token):
     if not auth_token:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    print("Jasdeep auth token is " + auth_token)
     c = Customer.verify_auth_token(auth_token).half_serialize()
     if not c:
         return common_views.not_authenticated(constants.view_constants.TOKEN_NOT_VALID)
-    c = customer_mapper.get_obj_from_customer_info(c)   
+    c = customer_mapper.get_obj_from_customer_info(c)
     return jsonify({"user": c, "success": constants.view_constants.USER_LOGGED_IN})
 
 
@@ -183,7 +206,7 @@ def login(auth_token):
 def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())    
+    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())
     response_object = jsonify({
         "customer":c,
         "status" : 'success',
@@ -273,7 +296,7 @@ def general_settings():
             "message": 'general settings updated'
         })
     return response_object,200
-  
+
 
 @customer.route("/updateCustomer", methods = ["PUT"])
 @auth.login_required
@@ -303,8 +326,8 @@ def update_customer():
         db.session.commit()
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    # c = customer_mapper.get_obj_from_customer_info(c.full_serialize())  
-    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())    
+    # c = customer_mapper.get_obj_from_customer_info(c.full_serialize())
+    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())
     response_object = jsonify({
         "customer":c,
         "status" : 'success',
@@ -339,4 +362,3 @@ def delete_customer(Id):
             "message":"Customer not exists"
         })
         return response_object,200
-

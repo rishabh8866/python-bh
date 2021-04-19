@@ -5,6 +5,7 @@ from flask_script import Manager
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from flask_mail import Mail
+from oauthlib.oauth2 import WebApplicationClient
 
 
 app = Flask(__name__)
@@ -15,6 +16,16 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 auth = HTTPBasicAuth()
 mail = Mail(app)
+oauth_vars = {
+    "client_id": app.config["GOOGLE_CLIENT_ID"],
+    "discovery_url": app.config["GOOGLE_DISCOVERY_URL"],
+    "client_secret": app.config["GOOGLE_CLIENT_SECRET"],
+    "social_id": app.config["FACEBOOK_OAUTH_CLIENT_ID"],
+    "social_secret": app.config["FACEBOOK_OAUTH_CLIENT_SECRET"],
+    "social_url": app.config["FACEBOOK_DISCOVERY_URL"]
+}
+oauth_google_client = WebApplicationClient(oauth_vars["client_id"])
+
 
 if app.config['MAIL_SERVER']:
     mail_auth = None
@@ -53,6 +64,6 @@ def register_blueprints():
     # app.register_blueprint(tax, url_prefix = "/api/tax")
     app.register_blueprint(inquiry, url_prefix = "/api/inquiry")
     app.register_blueprint(subscribers, url_prefix = "/api/subscribers")
-    
+
 
 register_blueprints()

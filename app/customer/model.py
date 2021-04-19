@@ -26,12 +26,8 @@ class Customer(db.Model):
     _language           =db.Column      (db.String(250))
     _permissions        =db.Column      (db.String(250),default="user")
     _is_future_booking  =db.Column      (db.Boolean,default=False)
-    _allow_booking_for  =db.Column      (db.String(250))
-    _account_type       =db.Column      (db.String(250))
-    _check_in_time      =db.Column      (db.String(250))
-    _check_out_time     =db.Column      (db.String(250))
-    _daily_rate         =db.Column    (db.Integer)
-    _minimum_stay_requirement         =db.Column  (db.Integer)
+    _allow_booking_for  =db.Column     (db.String(250))
+    _account_type       =db.Column     (db.String(250))
     rentals             =db.relationship('Rental', cascade='all,delete', backref='customer', lazy=True)
 
 
@@ -197,41 +193,6 @@ class Customer(db.Model):
     @account_type.setter
     def account_type(self, val):
         self._account_type = val
-
-    @property
-    def check_in_time(self):
-        return self._check_in_time
-
-    @check_in_time.setter
-    def check_in_time(self,val):
-        self._check_in_time  = val
-
-    @property
-    def check_out_time(self):
-        return self._check_out_time
-
-    @check_out_time.setter
-    def check_out_time(self,val):
-        self._check_out_time  = val
-
-
-    @property
-    def daily_rate(self):
-        return self._daily_rate
-
-    @daily_rate.setter
-    def daily_rate(self,val):
-        self._daily_rate  = val
-
-
-    @property
-    def minimum_stay_requirement(self):
-        return self._minimum_stay_requirement
-
-    @minimum_stay_requirement.setter
-    def minimum_stay_requirement(self,val):
-        self._minimum_stay_requirement  = val
-
     
     def generate_auth_token(self):
         serial_token = Serializer(app.config[constants.SECRET_KEY], expires_in = constants.MS.MONTH)

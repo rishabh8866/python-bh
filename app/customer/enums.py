@@ -6,7 +6,7 @@ class CurrencyEnum(enum.Enum):
     EUR = "EUR"
     CHF = "CHF"
     GDP = "GDP"
-    
+
 
 class TimeDisplayEnum(str,enum.Enum):
     AM_PM = "AM_PM"
@@ -40,3 +40,6 @@ class DateDisplayEnum(str,enum.Enum):
     M10 = "MMM DD 'YY"
     M11 = "DD/MM/YYYY"
 
+class OauthTypeEnum(str, enum.Enum):
+    GOOGLE = "google"
+    FACEBOOK = "facebook"
