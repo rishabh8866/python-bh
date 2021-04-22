@@ -9,6 +9,8 @@ import constants
 from app.rental.model import Rental
 import json
 
+from app.group.model import Group
+
 @rate.route("/", methods = ["POST"])
 @auth.login_required
 def add_rate():
@@ -150,3 +152,48 @@ def  get_all_rate():
         "message": 'Successfully fetched'
     })
     return response_object,200
+
+
+# Use to get a single record
+@rate.route("/getRatesByRentalId/<string:rentalId>", methods = ["GET"])
+@auth.login_required
+def get_rates_by_rental(rentalId):
+    if not rentalId:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    rate_lists = Rate.query.filter(Rate._rental_id==rentalId)
+    for rate_list in rate_lists:
+        print(rate_list._group_id)
+        if rate_list._group_id !=None:
+            group= Group.query.get(rate_list._group_id)
+            groupName = group._name
+        else:
+            groupName= ""
+        data = {
+            "id":rate_list.id,
+            "rentalId":rate_list._rental_id,
+            "dateRange": rate_list._date_range,
+            "minimumStayRequirement":rate_list._minimum_stay_requirement,
+            "dailyRate":rate_list._daily_rate,
+            "guestPerNight":rate_list._guest_per_night ,
+            "usdPerGuest":rate_list._usd_per_guest ,
+            "allowDiscount":rate_list._allow_discount,
+            "weeklyDiscount":rate_list._weekly_discount,
+            "monthlyDiscount":rate_list._monthly_discount,
+            "allowFixedRate":rate_list._allow_fixed_rate,
+            "weekPrice":rate_list._week_price,
+            "monthlyPrice":rate_list._monthly_price,
+            "groupName":groupName,
+        }
+        jsonified_data = json.dumps(data)
+        response_object = jsonify({
+                "data":json.loads(jsonified_data),
+                "status" : 'Success',
+                "message": 'Record fetch successfully'
+            })
+        return response_object,200
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'Record not exists'
+            })
+        return response_object,200

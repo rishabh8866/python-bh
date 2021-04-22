@@ -28,6 +28,7 @@ class Booking(db.Model):
         self._payment_status = PaymentEnum.PARTIALLY_PAID
         self._no_of_children = 0
         self._source = SourceEnum.BEEHAZ
+        self._status = "Booked"
 
     @property
     def title(self):

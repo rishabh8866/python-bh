@@ -13,6 +13,8 @@ from app.group import group
 from app.group.model import Group
 from app.group import mapper as group_mapper
 
+from app.rental.model import Rental
+
 NumberDisplay={
     "M1":"1,000.00",
     "M2":"1'000.00",
@@ -95,18 +97,25 @@ def register():
 
             # Creating default group when user creating
             try:
-                data = {
+                group_data = {
                     "groupName": "Default",
                     "color": "Yellow"
                 }
                 user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
-                gp = Group(name = data["groupName"], color = data["color"], customer_id = user.id)
+                gp = Group(name = group_data["groupName"], color = group_data["color"], customer_id = user.id)
             except Exception as e:
                 return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
             try:
                 db.session.add(gp)
                 db.session.commit()
-            except:
+
+                # Bulk default rental creation up to noOfUnits passed by the user at signup time
+                for i in range(1,data['noOfUnits']+1):
+                    r = Rental(name="Rental {0}".format(i), address_line1="", postal_code="", country=data['country'], max_guests="4", currency=data['currency'],
+                               checkin_time=data['checkInTime'], checkout_time=data['checkOutTime'], customer_id=user.id, group_id=gp.id)
+                    db.session.add(r)
+                    db.session.commit()
+            except Exception as e:
                 return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
 
         except Exception as e:
@@ -206,14 +215,33 @@ def login(auth_token):
 def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
-    c = customer_mapper.get_obj_from_customer_info(g.customer.full_serialize())
+    c = Customer.query.get(g.customer.id)
+    customer_data = {
+        "accountType": c._account_type,
+        "allowBookingFor": c._allow_booking_for,
+        "country": c._country,
+        "createdAt": c._created_at,
+        "currency": c._currency,
+        "customerType": c._customer_type,
+        "dateDisplay":c._date_display.name,
+        "emailId": c._email_id,
+        "id": c.id,
+        "isFutureBooking": c._is_future_booking,
+        "language": c._language,
+        "name": c._name,
+        "noOfUnits": c._number_of_rooms,
+        "numberDisplay": c._number_display,
+        "permissions": c._permissions,
+        "propertyType": c._property_type,
+        "timeDisplay": c._time_display,
+        "website": c._website
+    }
     response_object = jsonify({
-        "customer":c,
+        "customer":customer_data,
         "status" : 'success',
         "message": 'Customer fetched'
     })
     return response_object,200
-    # return jsonify({"customer": c})
 
 
 # Current users settings.

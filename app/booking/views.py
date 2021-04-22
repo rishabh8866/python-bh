@@ -3,6 +3,7 @@ from app import app, db, auth
 from app.booking import booking
 from app.booking.model import Booking
 from app.rental.model import Rental
+from app.guest.model import Guest
 from app.booking import utils
 from app.booking import mapper as booking_mapper
 import app.views as common_views
@@ -32,7 +33,7 @@ def add_booking():
                 get_post_arrive_date = data['arrive']
                 get_post_depart_date = data['depart']
 
-                if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
+                if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
                     data = {
                             "rentalId": booking_list._rental_id,
                             "noOfAdults": booking_list._no_of_adults,
@@ -165,3 +166,30 @@ def list_booking():
     for booking in bookings:
         list_resp.append(booking.full_serialize())
     return jsonify({"booking": list_resp})
+
+
+@booking.route("/getBookingByGuestId/<string:guestId>", methods = ["GET"])
+@auth.login_required
+def get_booking_by_guest_id(guestId):
+    if not guestId:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    g = Guest.query.get(int(guestId))
+    if g:
+        try:
+            list_resp = []
+            for booking in g._bookings:
+                list_resp.append(booking.full_serialize())
+        except:
+            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+        response_object = jsonify({
+            "status" : 'success',
+            "message": 'All bookings',
+            "booking": list_resp
+        })
+        return response_object,200
+    else:
+        response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Guest not exists'
+        })
+        return response_object,200

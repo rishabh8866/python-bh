@@ -20,7 +20,7 @@ mapFields = {
     "allowDiscount": "allow_discount",
     "weeklyDiscount": "weekly_discount",
     "monthlyDiscount":"monthly_discount",
-    "allowFixedRate":"allowFixedRate",
+    "allowFixedRate":"allow_fixed_rate",
     "weekPrice":"week_price",
     "monthlyPrice":"monthly_price",
     "groupId": "group_id",

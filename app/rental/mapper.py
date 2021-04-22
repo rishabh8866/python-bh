@@ -3,7 +3,7 @@ from app.group.model import Group
 
 fields = {
     "primary": ["name", "address_line1", "postal_code"],
-    "secondary": ["address_line2", "country", "max_guests", "currency","checkin_time","checkout_time"],
+    "secondary": ["address_line2", "max_guests", "currency","checkin_time","checkout_time"],
     "unique": []
 }
 
@@ -48,7 +48,8 @@ def get_obj_from_request(apiData, customer):
     for field in fields["unique"]:
         if getattr(Rental, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    rental = Rental(name = data["name"], address_line1 = data["address_line1"],checkin_time=data['checkin_time'], checkout_time=data['checkout_time'],postal_code = "postal_code")
+    rental = Rental(name=data["name"], address_line1=data["address_line1"], checkin_time=data['checkin_time'], checkout_time=data['checkout_time'],
+                    postal_code="postal_code", country=data['country'], currency=data['currency'], max_guests=data['max_guests'],customer_id=customer.id,group_id=None)
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")

@@ -38,10 +38,6 @@ def list_inquiry():
             a = datetime.strptime(booking_list._arrive, date_format)
             b = datetime.strptime(booking_list._depart, date_format)
             delta = b - a  # number of nights.
-
-            # Count net amount here..
-
-
             data = {
                 "bookingNumber":booking_list.id,
                 "channel":booking_list._source,

@@ -23,6 +23,14 @@ class Rental(db.Model):
         self._name = kwargs["name"]
         self._address_line1 = kwargs["address_line1"]
         self._postal_code = kwargs["postal_code"]
+        self._country = kwargs['country']
+        self._currency = kwargs['currency']
+        self._checkin_time = kwargs['checkin_time']
+        self._checkout_time = kwargs['checkout_time']
+        self._max_guests = kwargs['max_guests']
+        self._customer_id = kwargs["customer_id"]
+        self._group_id = kwargs["group_id"]
+
 
     @property
     def address_line1(self):
@@ -96,21 +104,21 @@ class Rental(db.Model):
     def checkout_time(self, val):
         self._checkout_time = val
 
-    @property
-    def customer_id(self):
-        return self._customer_id
+    # @property
+    # def customer_id(self):
+    #     return self._customer_id
 
-    @customer_id.setter
-    def customer_id(self, val):
-        self._customer_id = val
+    # @customer_id.setter
+    # def customer_id(self, val):
+    #     self._customer_id = val
 
-    @property
-    def group_id(self):
-        return self._group_id
+    # @property
+    # def group_id(self):
+    #     return self._group_id
 
-    @group_id.setter
-    def group_id(self, val):
-        self._group_id = val
+    # @group_id.setter
+    # def group_id(self, val):
+    #     self._group_id = val
 
     @property
     def max_guests(self):
@@ -125,7 +133,6 @@ class Rental(db.Model):
             "id": self.id,
             "address_line1": self.address_line1,
             "name": self.name,
-            "group_id": self.group_id
         }
 
     def full_serialize(self):

@@ -1,7 +1,7 @@
 from flask import jsonify, request, g
 from app import app, db, auth
 from app.guest import guest
-from app.guest.model import Guest
+from app.guest.model import Guest,guest_bookings
 from app.guest import utils
 from app.booking.model import Booking
 from app import views as common_views
@@ -57,6 +57,10 @@ def delete_guest(guestId):
     g = Guest.query.get(int(guestId))
     if g:
         try:
+            # Cancelled booking when guest deleted
+            for booking in g._bookings:
+                booking._status = 'Cancelled'
+                db.session.commit()
             db.session.delete(g)
             db.session.commit()
         except:

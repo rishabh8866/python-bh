@@ -41,6 +41,10 @@ class Customer(db.Model):
         self._time_display="H"
         self._date_display="M3"
         self._number_display="M1"
+        self._is_future_booking=True
+        self._allow_booking_for="months"
+        self._number_of=1
+        self._account_type="Free"
         if "name" in kwargs:
             self._name = kwargs["name"]
         self._created_at = datetime.utcnow()

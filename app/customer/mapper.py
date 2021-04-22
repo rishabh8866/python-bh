@@ -3,13 +3,13 @@ from app.customer.model import Customer
 
 fields = {
     "primary": ["email_id", "name"],
-    "secondary": ["no_of_guests","no_of_children", "check_in_time", "check_out_time", "payment_status", "source", "arrive", "depart","booking_type","title","status","color"],
+    "secondary": ["number_of_rooms", "website", "property_type","currency","number_of","country","check_in_time","check_out_time","daily_rate","minimum_stay_requirement"],
     "unique": ["email_id"]
 }
 
 
 mapFields = {
-     "id":"id",
+    "id":"id",
     "emailId": "email_id",
     "name": "name",
     "noOfUnits": "number_of_rooms",
@@ -99,4 +99,3 @@ def get_obj_from_customer_info(data):
     for x in data:
         apiData[fieldToMap[x]] = data[x]
     return apiData  
-
