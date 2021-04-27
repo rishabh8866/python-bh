@@ -51,6 +51,10 @@ def get_obj_from_request(apiData, customer):
     return booking
 
 
+
+def get_response_object(data):
+    return apiData  
+
 # def get_obj_from_request(apiData,current_email):
 #     print("GET",current_email)
 #     # assume data is json

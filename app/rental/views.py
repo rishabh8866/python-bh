@@ -10,6 +10,9 @@ from app.rental import utils
 import constants
 import json
 
+from app.rate.model import Rate
+from app.rate import mapper as rate_mapper
+
 @rental.route("/", methods = ["POST"])
 @auth.login_required
 def add_rental():
@@ -43,22 +46,8 @@ def add_rental():
             db.session.flush()
             try:
                 # Add default rate
-                rate_json = {
-                    "rentalId":r.id,
-                    "usdPerGuest":1,
-                    "dateRange": "",
-                    "minimumStayRequirement": 1,
-                    "weekDays": "MON",
-                    "dailyRate": 0,
-                    "guestPerNight": 2,
-                    "allowDiscount": False,
-                    "weeklyDiscount": 0,
-                    "monthlyDiscount":0,
-                    "allowFixedRate":False,
-                    "weekPrice":0,
-                    "monthlyPrice":0
-                }
-                default_rate = rate_mapper.get_obj_from_request(rate_json, g.customer)
+                default_rate = Rate(rental_id=r.id, usd_per_guest=1, date_range="", minimum_stay_requirement=1, week_days="MON", daily_rate=0, guest_per_night=2,
+                                    allow_discount=False, weekly_discount=0, monthly_discount=0, allow_fixed_rate=False, week_price=0, monthly_price=0, customer_id=g.customer.id, group_id=None)
                 db.session.add(default_rate)
                 db.session.commit()
             except Exception as e:

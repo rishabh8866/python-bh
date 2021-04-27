@@ -143,5 +143,6 @@ class Rental(db.Model):
             "checkout_time": self.checkout_time,
             "max_guests": self.max_guests,
             "currency": self.currency,
-            "country": self.country
+            "country": self.country,
+            "group_id": self._group_id,
         })

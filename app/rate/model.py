@@ -26,6 +26,19 @@ class Rate(db.Model):
         self._week_days = kwargs["week_days"]
         self._daily_rate = kwargs["daily_rate"]
         self._minimum_stay_requirement = kwargs["minimum_stay_requirement"]
+        self._date_range = kwargs["date_range"]
+        self._guest_per_night = kwargs["guest_per_night"]
+        self._usd_per_guest = kwargs["usd_per_guest"]
+        self._allow_discount = kwargs["allow_discount"]
+        self._weekly_discount = kwargs["weekly_discount"]
+        self._monthly_discount = kwargs["monthly_discount"]
+        self._allow_fixed_rate = kwargs["allow_fixed_rate"]
+        self._week_price = kwargs["week_price"]
+        self._monthly_price = kwargs["monthly_price"]
+        self._customer_id = kwargs["customer_id"]
+        self._rental_id = kwargs["rental_id"]
+        self._group_id = kwargs["group_id"]
+        
 
     @property
     def date_range(self):

@@ -158,6 +158,68 @@ def delete_booking(bookingId):
         })
         return response_object,200
 
+
+@booking.route("/", methods = ["PUT"])
+@auth.login_required
+def edit_booking():
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    booking_update = Booking.query.get(request.json['id'])
+    if  booking_update:
+        booking_update._rental_id = data['rentalId']
+        booking_update._price = data['price']
+        booking_update._tax = data['tax']
+        booking_update._no_of_adults = data['noOfAdults'] 
+        booking_update._arrive = data['arrive']
+        booking_update._depart = data['depart']
+        booking_update._check_in_time = data['checkInTime']
+        booking_update._check_out_time = data['checkOutTime']
+        booking_update._no_of_children = data['noOfChildren']
+        booking_update._source = data['source']
+        booking_update._booking_type = data['bookingType']
+        booking_update._no_of_guests = data['noOfGuests']
+        booking_update._title = data['title']
+        booking_update._color = data['color']
+        booking_update._status = data['status']
+    else:
+        response_object = jsonify({
+                "status" : 'failed',
+                "message": 'record not exists'
+        })
+        return response_object,200
+    try:
+        db.session.commit()
+        cust_data = {
+            "rentalId":data['rentalId'],
+            "price": data['price'],
+            "noOfAdults": data['noOfAdults'] ,
+            "noOfChildren": data['noOfChildren'],
+            "tax": data['tax'],
+            "id":data['id'],
+            "noOfGuests": data['noOfGuests'],
+            "checkInTime": data['checkInTime'],
+            "checkOutTime": data['checkOutTime'],
+            "arrive": data['arrive'],
+            "depart": data['depart'],
+            "paymentStatus": data['bookingType'],
+            "source": data['source'],
+            "bookingType":  data['bookingType'],
+            "status":data['status'],
+            "color":data['color'],
+            "title":data['title'],
+        }
+    except Exception as e:
+        print(e)
+        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+    response_object = jsonify({
+            "data":cust_data,
+            "status" : 'success',
+            "message": 'Booking updated'
+        })
+    return response_object,200
+
+
 @booking.route("/", methods = ["GET"])
 @auth.login_required
 def list_booking():

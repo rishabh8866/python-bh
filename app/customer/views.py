@@ -14,6 +14,8 @@ from app.group.model import Group
 from app.group import mapper as group_mapper
 
 from app.rental.model import Rental
+from app.rate.model import Rate
+from app.rate import mapper as rate_mapper
 
 NumberDisplay={
     "M1":"1,000.00",
@@ -69,6 +71,7 @@ def before_request():
 def index():
     return jsonify({"msg": "success"})
 
+
 @customer.route("/register", methods = ["POST"])
 def register():
     if not request.json:
@@ -82,7 +85,7 @@ def register():
     if user:
         response_object = jsonify({
             "status" : 'fail',
-            "message": 'That email is taken. Please choose another.'
+            "message": 'This email is alredy associated with an account. Please sign in or choose another email address.'
         })
         return response_object,200
     else:
@@ -115,6 +118,15 @@ def register():
                                checkin_time=data['checkInTime'], checkout_time=data['checkOutTime'], customer_id=user.id, group_id=gp.id)
                     db.session.add(r)
                     db.session.commit()
+                    db.session.flush()
+                    try:
+                        # Add default rate
+                        default_rate = Rate(rental_id=r.id, usd_per_guest=1, date_range="", minimum_stay_requirement=data['minimumStayRequirement'], week_days="MON", daily_rate=data[
+                                            'dailyRate'], guest_per_night=2, allow_discount=False, weekly_discount=0, monthly_discount=0, allow_fixed_rate=False, week_price=0, monthly_price=0, customer_id=user.id, group_id=gp.id)
+                        db.session.add(default_rate)
+                        db.session.commit()
+                    except Exception as e:
+                        print(e)
             except Exception as e:
                 return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
 
@@ -144,6 +156,7 @@ def oauth_login():
             "uri": utils.get_oauth_url(type, request.base_url + "/callback")
             }
         }), 302
+
 
 @customer.route("/oauth/login/callback", methods = ["GET"])
 def oauth_login_callback():
@@ -196,7 +209,6 @@ def login_user_through_email(email_id, do_send_email = True):
             "message": 'This email address is not registered in our system. Please check the spelling or create an account.'
         })
         return response_object,200
-
 
 
 @customer.route("/login/<string:auth_token>", methods = ["GET"])
@@ -273,10 +285,21 @@ def customer_settings():
         return response_object,200
     try:
         db.session.commit()
+        cust_data = {
+            "id":g.customer.id,
+            "accountType": data['accountType'],
+            "allowBookingFor":  data['allowBookingFor'],
+            "emailId": "demringen@hotmail.red.com",
+            "isFutureBooking": data['isFutureBooking'],
+            "language": data['name'],
+            "name": data['name'],
+            "numberOf": data['numberOf'],
+            "permissions":  data['permissions']
+        }
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
-            "data":request.json,
+            "data":cust_data,
             "status" : 'success',
             "message": 'Customer Settings updated'
         })
@@ -313,6 +336,7 @@ def general_settings():
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     response_object = jsonify({
             "data":{
+                "id": g.customer.id,
                 "currency":data['currency'],
                 "dateDisplay":data['dateDisplay'],
                 "emailId":data['emailId'],

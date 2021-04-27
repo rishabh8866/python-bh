@@ -126,10 +126,18 @@ def get_guests_for_booking(bookingId):
     if not bookingId:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     booking = Booking.query.get(int(bookingId))
-    resp = []
-    for guest in booking.guests:
-        resp.append(guest.half_serialize())
-    return jsonify({"guests": resp})
+    if booking:
+        resp = []
+        for guest in booking.guests:
+            resp.append(guest.half_serialize())
+        return jsonify({"guests": resp})
+    else:
+        response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Record not exists'
+        })
+        return response_object,200
+
 
 @guest.route("/addGuestByBookingId/<string:bookingId>", methods = ["POST"])
 @auth.login_required
