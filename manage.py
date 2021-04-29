@@ -3,7 +3,7 @@ from flask_migrate import MigrateCommand
 
 @manager.command
 def runserver():
-    app.run(host = '0.0.0.0')
+    app.run()
 
 manager.add_command('db', MigrateCommand)
 

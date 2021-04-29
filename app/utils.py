@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 from app import app
 from flask_mail import Message
 from app import mail
+from flask_mail import Mail
 
 
 AUTH_VERIFICATION = '''<html>
@@ -41,6 +42,29 @@ def clean_up_request(data):
     return data1
 
 def send_mail(subject, sender, recipients, body):
+    app.config.update(dict(
+    MAIL_SERVER = app.config['MAIL_SERVER_GMAIL'],
+    MAIL_PORT = app.config['MAIL_PORT_GMAIL'],
+    MAIL_USE_TLS = app.config['MAIL_USE_TLS_GMAIL'],
+    MAIL_USERNAME = app.config['MAIL_USERNAME_GMAIL'],
+    MAIL_PASSWORD = app.config['MAIL_PASSWORD_GMAIL'],
+    MAIL_USE_SSL =  app.config['MAIL_USE_SSL_GMAIL'],
+    ))
+    mail = Mail(app)
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.html = body
+    mail.send(msg)
+
+def send_mail_ZOHO(subject, sender, recipients, body):
+    app.config.update(dict(
+    MAIL_SERVER = app.config['MAIL_SERVER'],
+    MAIL_PORT = app.config['MAIL_PORT'],
+    MAIL_USE_TLS = app.config['MAIL_USE_TLS'],
+    MAIL_USERNAME = app.config['MAIL_USERNAME'],
+    MAIL_PASSWORD = app.config['MAIL_PASSWORD'],
+    MAIL_USE_SSL =  app.config['MAIL_USE_SSL'],
+    ))
+    mail.init_app(app)  
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.html = body
     mail.send(msg)
@@ -55,6 +79,6 @@ def send_auth_email(user):
 
 def send_subscribers_email(email_list):
     print('\n\n\n\n\n\n\nemail list',email_list)
-    send_mail('[BeeHaz] New features',
+    send_mail_ZOHO('[BeeHaz] New features',
                app.config['ADMINS'][0],
                email_list,'New features contents')
