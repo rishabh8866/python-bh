@@ -38,6 +38,14 @@ def add_fee():
     })
     return response_object,200
 
+@fee.route("/", methods = ["GET"])
+@auth.login_required
+def get_all_fees():
+    fees = Fee.query.filter(Fee._customer_id==g.customer.id)
+    list_resp = []
+    for fee in fees:
+        list_resp.append(fee.full_serialize())
+    return jsonify({"fee": list_resp})
 
 @fee.route("/", methods = ["PUT"])
 @auth.login_required

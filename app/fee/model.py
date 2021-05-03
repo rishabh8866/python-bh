@@ -83,5 +83,6 @@ class Fee(db.Model):
             "name"     : self._name,                   
             "fee_type" : self._fee_type,
             "amount"     : self._amount,               
+            "id"  : self.id,
             "modality"  : self._modality                  
         }

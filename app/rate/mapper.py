@@ -9,7 +9,7 @@ fields = {
 }
 
 mapFields = {
-    "rateId":"rate_id",
+    "id":"rate_id",
     "rentalId":"rental_id",
     "dateRange": "date_range",
     "minimumStayRequirement": "minimum_stay_requirement",
@@ -56,7 +56,8 @@ def get_obj_from_request(apiData, customer):
     for field in fields["unique"]:
         if getattr(Rate, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    rate = Rate(week_days = data["week_days"],date_range=data['date_range'], daily_rate = data["daily_rate"], minimum_stay_requirement = "minimum_stay_requirement")
+    rate = Rate(rental_id=data['rental_id'],usd_per_guest=1, date_range="", minimum_stay_requirement=10, week_days="MON", daily_rate="", guest_per_night=2,
+                                    allow_discount=False, weekly_discount=0, monthly_discount=0, allow_fixed_rate=False, week_price=0, monthly_price=0, customer_id=customer.id,group_id=None)
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")

@@ -83,7 +83,7 @@ def update_obj_from_request(apiData):
         gp_id = int(data["group_id"])
         gp = Group.query.get(gp_id)
         if gp:
-            rental.group_id = gp_id
+            rental._group_id = gp_id
     return rental
 
 def get_response_object(data):

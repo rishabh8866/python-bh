@@ -192,6 +192,10 @@ def login_user_through_email(email_id, do_send_email = True):
             "emailId": c._email_id,
             "name": c._name,
             "noOfUnits": c._number_of_rooms,
+            "checkInTime":c._check_in_time,
+            "checkOutTime":c._check_out_time,
+            "country":c._country,
+            "minimumStayRequirement":c._minimum_stay_requirement
         }
         if do_send_email:
             utils.send_mail(c)

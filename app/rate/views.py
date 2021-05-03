@@ -197,3 +197,29 @@ def get_rates_by_rental(rentalId):
                 "message": 'Record not exists'
             })
         return response_object,200
+
+
+# Multiple Rate update based on Rental id..
+@rate.route("/multiple", methods = ["PUT"])
+@auth.login_required
+def multiple_update_rate():
+    try:
+        dataJson = request.json
+        list_resp = []
+        for data in dataJson:
+            # Add default rate
+            rates_lists = Rate.query.filter_by(_rental_id=data['rentalId'])
+            for row in rates_lists:  # all() is extra
+                row._minimum_stay_requirement = data['minimumStayRequirement']
+                rates = Rate.query.filter(Rate._customer_id == g.customer.id,Rate._rental_id==data['rentalId'])
+            for rate in rates:
+                list_resp.append(rate_mapper.get_response_object(rate.full_serialize()))
+            db.session.commit()
+        response_object = jsonify({
+            "data": list_resp,
+            "status" : 'success',
+            "message": 'Successfully updated'
+        })
+        return response_object,200
+    except Exception as e:
+        print(e)

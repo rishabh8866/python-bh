@@ -270,7 +270,11 @@ class Customer(db.Model):
             "is_future_booking":self._is_future_booking,
             "allow_booking_for":self.allow_booking_for,
             "account_type":self.account_type,
-            "property_type":self.property_type
+            "property_type":self.property_type,
+            "check_in_time":self.check_in_time,
+            "check_out_time":self.check_out_time,
+            "_minimum_stay_requirement":self.minimum_stay_requirement,
+            "country":self.country
         }
 
     def full_serialize(self):
@@ -280,7 +284,6 @@ class Customer(db.Model):
             "time_display": self.time_display,
             "website": self.website,
             "currency": self.currency,
-            "country":self.country
         })
 
     def __repr__(self):

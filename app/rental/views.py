@@ -46,7 +46,7 @@ def add_rental():
             db.session.flush()
             try:
                 # Add default rate
-                default_rate = Rate(rental_id=r.id, usd_per_guest=1, date_range="", minimum_stay_requirement=1, week_days="MON", daily_rate=0, guest_per_night=2,
+                default_rate = Rate(rental_id=r.id, usd_per_guest=1, date_range="", minimum_stay_requirement=g.customer._minimum_stay_requirement, week_days="MON", daily_rate=g.customer._daily_rate, guest_per_night=2,
                                     allow_discount=False, weekly_discount=0, monthly_discount=0, allow_fixed_rate=False, week_price=0, monthly_price=0, customer_id=g.customer.id, group_id=None)
                 db.session.add(default_rate)
                 db.session.commit()

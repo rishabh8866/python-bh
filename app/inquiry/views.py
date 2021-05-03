@@ -28,7 +28,7 @@ def list_inquiry():
     data = utils.clean_up_request(request.json)
     # check blank values
     d = []
-    if data['dateFrom'] == "" and data['dateTo']=="" and data['rentalId']=="":
+    if data['dateFrom'] == None and data['dateTo']==None and data['rentalId']==None:
         booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
         guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
         for booking_list in booking_lists:
@@ -66,7 +66,7 @@ def list_inquiry():
                 "message": 'Records found'
             })
             return response_object,200
-    elif data['rentalId']!="" and data['dateFrom'] == "" and data['dateTo'] == "":
+    elif data['rentalId']!=None and data['dateFrom'] == None and data['dateTo'] == None:
         booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'],Booking._rental_id==data['rentalId'])
         guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
         for booking_list in booking_lists:
@@ -104,8 +104,8 @@ def list_inquiry():
                 "message": 'Records found'
             })
             return response_object,200
-    elif data['dateFrom'] != "" and data['dateTo'] != "" and data['rentalId']=="":
-        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
+    elif data['dateFrom'] != None and data['dateTo'] != None and data['rentalId'] != None:
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'],Booking._rental_id==data['rentalId'])
         guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
         
         get_post_arrive_date = data['dateFrom']
@@ -151,17 +151,18 @@ def list_inquiry():
                 "message": 'Records found'
             })
             return response_object,200
-    else:
-        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'],Booking._rental_id==data['rentalId'])
+    elif data['dateFrom'] != None and data['dateTo'] == None and data['rentalId'] == None:
+        # 'datefrom chee and dateto and rentalid nathi'
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
         guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
         
         get_post_arrive_date = data['dateFrom']
-        get_post_depart_date = data['dateTo']
+        get_post_depart_date = Booking.query.filter(Booking._customer_id==data['customerId']).order_by(Booking.id.desc()).first()._depart
+        
 
         for booking_list in booking_lists:
             start_date = booking_list._arrive
             end_date = booking_list._depart
-
             if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
                 # Find number of nights
                 date_format = "%Y-%m-%d"
@@ -175,8 +176,204 @@ def list_inquiry():
                     "checkInTime":booking_list._check_in_time,
                     "checkOutTime":booking_list._check_out_time,
                     "nights":str(delta.days),
+                    
                     "netAmount": booking_list._price,
                     "createdDate": "2021-01-1",
+                    
+                    "paymentStatus": booking_list._payment_status,
+                    "status": booking_list._status,
+                    "arrive":booking_list._arrive,
+                    "depart":booking_list._depart,
+                    "rentalId":booking_list._rental_id,
+                }
+                d.append(data)
+        if d == []:
+            response_object = jsonify({
+                "status" : 'fail',
+                "message": 'Records not found'
+            })
+            return response_object,200
+        else:
+            response_object = jsonify({
+                "data":d,
+                "status" : 'success',
+                "message": 'Records found'
+            })
+            return response_object,200
+    elif data['dateFrom'] == None and data['dateTo'] != None and data['rentalId'] == None:
+        # 'datefrom chee and dateto and rentalid nathi'
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
+        guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
+        
+        get_post_arrive_date = Booking.query.filter(Booking._customer_id==data['customerId']).first()._arrive
+        get_post_depart_date = data['dateTo']
+
+        for booking_list in booking_lists:
+            start_date = booking_list._arrive
+            end_date = booking_list._depart
+            if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
+                # Find number of nights
+                date_format = "%Y-%m-%d"
+                a = datetime.strptime(booking_list._arrive, date_format)
+                b = datetime.strptime(booking_list._depart, date_format)
+                delta = b - a  # number of nights.
+                data = {
+                    "bookingNumber":booking_list.id,
+                    "channel":booking_list._source,
+                    "guestName":guest_name.name,
+                    "checkInTime":booking_list._check_in_time,
+                    "checkOutTime":booking_list._check_out_time,
+                    "nights":str(delta.days),
+                    
+                    "netAmount": booking_list._price,
+                    "createdDate": "2021-01-1",
+                    
+                    "paymentStatus": booking_list._payment_status,
+                    "status": booking_list._status,
+                    "arrive":booking_list._arrive,
+                    "depart":booking_list._depart,
+                    "rentalId":booking_list._rental_id,
+                }
+                d.append(data)
+        if d == []:
+            response_object = jsonify({
+                "status" : 'fail',
+                "message": 'Records not found'
+            })
+            return response_object,200
+        else:
+            response_object = jsonify({
+                "data":d,
+                "status" : 'success',
+                "message": 'Records found'
+            })
+            return response_object,200    
+    elif data['dateFrom'] != None and data['dateTo'] == None and data['rentalId'] != None:
+        #'datefrom and rentalid  chee and dateto nathi'
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'],Booking._rental_id==data['rentalId'])
+        guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
+        
+        get_post_arrive_date = data['dateFrom']
+        get_post_depart_date = Booking.query.filter(Booking._customer_id==data['customerId']).order_by(Booking.id.desc()).first()._depart
+        
+        for booking_list in booking_lists:
+            start_date = booking_list._arrive
+            end_date = booking_list._depart
+            if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
+                # Find number of nights
+                date_format = "%Y-%m-%d"
+                a = datetime.strptime(booking_list._arrive, date_format)
+                b = datetime.strptime(booking_list._depart, date_format)
+                delta = b - a  # number of nights.
+                data = {
+                    "bookingNumber":booking_list.id,
+                    "channel":booking_list._source,
+                    "guestName":guest_name.name,
+                    "checkInTime":booking_list._check_in_time,
+                    "checkOutTime":booking_list._check_out_time,
+                    "nights":str(delta.days),
+                    
+                    "netAmount": booking_list._price,
+                    "createdDate": "2021-01-1",
+                    
+                    "paymentStatus": booking_list._payment_status,
+                    "status": booking_list._status,
+                    "arrive":booking_list._arrive,
+                    "depart":booking_list._depart,
+                    "rentalId":booking_list._rental_id,
+                }
+                d.append(data)
+        if d == []:
+            response_object = jsonify({
+                "status" : 'fail',
+                "message": 'Records not found'
+            })
+            return response_object,200
+        else:
+            response_object = jsonify({
+                "data":d,
+                "status" : 'success',
+                "message": 'Records found'
+            })
+            return response_object,200
+    elif data['dateFrom'] == None and data['dateTo'] != None and data['rentalId'] != None:
+        #'datefrom and rentalid  chee and dateto nathi'
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'],Booking._rental_id==data['rentalId'])
+        guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
+        
+        get_post_arrive_date = Booking.query.filter(Booking._customer_id==data['customerId']).first()._arrive
+        get_post_depart_date = data['dateTo']
+        
+
+        for booking_list in booking_lists:
+            start_date = booking_list._arrive
+            end_date = booking_list._depart
+            if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
+                # Find number of nights
+                date_format = "%Y-%m-%d"
+                a = datetime.strptime(booking_list._arrive, date_format)
+                b = datetime.strptime(booking_list._depart, date_format)
+                delta = b - a  # number of nights.
+                data = {
+                    "bookingNumber":booking_list.id,
+                    "channel":booking_list._source,
+                    "guestName":guest_name.name,
+                    "checkInTime":booking_list._check_in_time,
+                    "checkOutTime":booking_list._check_out_time,
+                    "nights":str(delta.days),
+                    
+                    "netAmount": booking_list._price,
+                    "createdDate": "2021-01-1",
+                    
+                    "paymentStatus": booking_list._payment_status,
+                    "status": booking_list._status,
+                    "arrive":booking_list._arrive,
+                    "depart":booking_list._depart,
+                    "rentalId":booking_list._rental_id,
+                }
+                d.append(data)
+        if d == []:
+            response_object = jsonify({
+                "status" : 'fail',
+                "message": 'Records not found'
+            })
+            return response_object,200
+        else:
+            response_object = jsonify({
+                "data":d,
+                "status" : 'success',
+                "message": 'Records found'
+            })
+            return response_object,200
+    elif data['dateFrom'] != None and data['dateTo'] != None and data['rentalId'] == None:
+        #'datefrom and rentalid  chee and dateto nathi'
+        booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
+        guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
+        
+        get_post_arrive_date = data['dateFrom']
+        get_post_depart_date = data['dateTo']
+        
+
+        for booking_list in booking_lists:
+            start_date = booking_list._arrive
+            end_date = booking_list._depart
+            if (start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date) :
+                # Find number of nights
+                date_format = "%Y-%m-%d"
+                a = datetime.strptime(booking_list._arrive, date_format)
+                b = datetime.strptime(booking_list._depart, date_format)
+                delta = b - a  # number of nights.
+                data = {
+                    "bookingNumber":booking_list.id,
+                    "channel":booking_list._source,
+                    "guestName":guest_name.name,
+                    "checkInTime":booking_list._check_in_time,
+                    "checkOutTime":booking_list._check_out_time,
+                    "nights":str(delta.days),
+                    
+                    "netAmount": booking_list._price,
+                    "createdDate": "2021-01-1",
+                    
                     "paymentStatus": booking_list._payment_status,
                     "status": booking_list._status,
                     "arrive":booking_list._arrive,
