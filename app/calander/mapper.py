@@ -1,42 +1,32 @@
-from app.rental.model import Rental
+from app.tax.model import Tax
 from app.group.model import Group
+from app.rental.model import Rental
 
 fields = {
-    "primary": ["name", "address_line1", "postal_code"],
-    "secondary": ["address_line2", "max_guests", "currency","checkin_time","checkout_time"],
+    "primary": ["name", "fee_type",],
+    "secondary": ["amount","modality",],
     "unique": []
 }
 
-
 mapFields = {
-    "id":"rental_id",
-    "name": "name",
-    "postalCode": "postal_code",
-    "addressLine1": "address_line1",
-    "addressLine2": "address_line2",
-    "country": "country",
-    "checkInTime": "checkin_time",
-    "checkOutTime": "checkout_time",
-    "maxGuests": "max_guests",
+    "id":"fee_id",
+    "rentalId":"rental_id",
     "groupId": "group_id",
-    "currency": "currency",
+    "name":"name",
+    "feeType":"fee_type",
+    "amount":"amount",
 }
 
-
-fieldToMap = {
-    "rental_id":"rentalId",
-    "name": "name",
-    "postal_code": "postalCode",
-    "address_line1": "addressLine1",
-    "address_line2": "addressLine2",
-    "country": "country",
-    "checkin_time": "checkInTime",
-    "checkout_time": "checkOutTime",
+fieldToMap= {
     "id": "id",
+    "fee_id":"feeId",
+    "rental_id":"rentalId",
     "group_id": "groupId",
-    "currency": "currency",
-    "max_guests": "maxGuests",
+    "name":"name",
+    "fee_type":"feeType",
+    "amount":"amount",
 }
+
 
 def get_obj_from_request(apiData, customer):
     data = {}
@@ -46,51 +36,53 @@ def get_obj_from_request(apiData, customer):
         if field not in data.keys():
             raise Exception(field + " not present")
     for field in fields["unique"]:
-        if getattr(Rental, "check_" + field)(data[field]):
+        if getattr(Fee, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    if "group_id" in data:
-        gp = Group.query.get(int(data["group_id"]))
-        if gp:
-            gp_id = int(data["group_id"])
-        else:
-            gp_id = None
-    rental = Rental(name=data["name"], address_line1=data["address_line1"], checkin_time=data['checkin_time'], checkout_time=data['checkout_time'],
-                    postal_code="postal_code", country=data['country'], currency=data['currency'], max_guests=data['max_guests'],customer_id=customer.id,group_id=gp_id)
+    tax = Tax(name = data["name"], fee_type = data["fee_type"])
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")
             continue
         print("Jasdeep setting " + field + " " + str(data[field]))
-        setattr(rental, field, data[field])
-    rental.customer_id = customer.id
+        setattr(tax, field, data[field])
+    tax.customer_id = customer.id
     if "group_id" in data:
         gp_id = int(data["group_id"])
         gp = Group.query.get(gp_id)
         if gp:
-            rental.group_id = gp_id
-    print("jasdeep rental made")
-    return rental
+            tax.group_id = gp_id
+    if "rental_id" in data:
+        r_id = int(data["rental_id"])
+        rid = Rental.query.get(r_id)
+        if rid:
+            tax.rental_id = r_id
+    return tax
 
 def update_obj_from_request(apiData):
     data = {}
     for x in apiData:
       data[mapFields[x]] = apiData[x]
     for field in fields["unique"]:
-        if getattr(Rental, "check_" + field)(data[field]):
+        if getattr(Tax, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
-    rental = Rental.query.get(int(data["rental_id"]))
+    tax = Tax.query.get(int(data["tax_id"]))
     for field in data.keys():
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")
             continue
         print("Jasdeep setting " + field + " " + str(data[field]))
-        setattr(rental, field, data[field])
+        setattr(tax, field, data[field])
     if "group_id" in data:
         gp_id = int(data["group_id"])
         gp = Group.query.get(gp_id)
         if gp:
-            rental._group_id = gp_id
-    return rental
+            tax.group_id = gp_id
+    if "rental_id" in data:
+        r_id = int(data["rental_id"])
+        rid = Tax.query.get(r_id)
+        if rid:
+            tax.rental_id = r_id
+    return tax
 
 def get_response_object(data):
     apiData = {}

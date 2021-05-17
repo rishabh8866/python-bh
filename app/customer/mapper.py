@@ -31,6 +31,12 @@ mapFields = {
     "checkOutTime":"check_out_time",
     "dailyRate":"daily_rate",
     "minimumStayRequirement":"minimum_stay_requirement",
+    "invoiceName":"invoice_name",
+    "address1":"address1",
+    "address2":"address2",
+    "invoiceText":"invoice_text",
+    "invoiceFooter":"invoice_footer",
+    "country":"country"
 }
 
 fieldToMap = {
@@ -58,6 +64,12 @@ fieldToMap = {
     "check_out_time":"checkOutTime",
     "daily_rate":"dailyRate",
     "minimum_stay_requirement":"minimumStayRequirement",
+    "invoice_name":"invoiceName",
+    "address1":"address1",
+    "address2":"address2",
+    "invoice_text":"invoiceText",
+    "invoice_footer":"invoiceFooter",
+    "country":"country"
 }
 
 def get_obj_from_request(apiData,current_email):
@@ -65,6 +77,7 @@ def get_obj_from_request(apiData,current_email):
     # assume data is json
     data = {}
     for x in apiData:
+      print(x)
       data[mapFields[x]] = apiData[x]
     for field in fields["primary"]:
         if field not in data.keys():

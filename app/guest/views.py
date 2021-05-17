@@ -154,3 +154,21 @@ def add_guest_to_booking(bookingId):
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     return common_views.as_success(constants.view_constants.SUCCESS)
+
+
+@guest.route("/addGuestByBookingId/<string:bookingId>", methods = ["PUT"])
+@auth.login_required
+def update_guest_to_booking(bookingId):
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    guest = Guest.query.get(int(data["guestId"]))
+    if guest:
+        db.engine.execute('UPDATE guest_bookings SET guest_id={0} WHERE booking_id={1}'.format(data['guestId'],bookingId))
+        return common_views.as_success(constants.view_constants.SUCCESS)
+    else:
+        response_object = jsonify({
+            "status" : 'fail',
+            "message": 'Guest Record not exists'
+        })
+        return response_object,200

@@ -108,11 +108,13 @@ def get_single_fee(feeId):
     fee_id = feeId
     gp = Fee.query.get(feeId)
     if gp: 
-        data = {        
+        data = {             
+            "rentalId"  : gp._rental_id,          
             "name"     : gp._name,                   
             "feeType" : gp._fee_type,
             "amount"     : gp._amount,               
-            "modality"  : gp._modality         
+            "id"  : gp.id,
+            "modality"  : gp._modality          
         }
         jsonified_data = json.dumps(data)
         response_object = jsonify({

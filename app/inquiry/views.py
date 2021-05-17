@@ -30,13 +30,14 @@ def list_inquiry():
     d = []
     if data['dateFrom'] == None and data['dateTo']==None and data['rentalId']==None:
         booking_lists = Booking.query.filter(Booking._customer_id==data['customerId'])
-        guest_name = Guest.query.filter(Booking._customer_id==data['customerId']).first()
-        for booking_list in booking_lists:
+        guest_names = Guest.query.filter(Booking._customer_id==data['customerId'])
+        
+        for booking_list,guest_name in zip(booking_lists,guest_names):
             date_format = "%Y-%m-%d"
             a = datetime.strptime(booking_list._arrive, date_format)
             b = datetime.strptime(booking_list._depart, date_format)
             delta = b - a  # number of nights.
-            
+            rental = Rental.query.get(booking_list._rental_id)
             data = {
                 "bookingNumber":booking_list.id,
                 "channel":booking_list._source,
@@ -51,6 +52,9 @@ def list_inquiry():
                 "arrive":booking_list._arrive,
                 "depart":booking_list._depart,
                 "rentalId":booking_list._rental_id,
+                "rentalName":rental.name,
+                "currency":rental._currency,
+                "createdAt":booking_list._created_at
             }
             d.append(data)
         if d == []:

@@ -1,3 +1,4 @@
+from os import pathsep
 from flask import jsonify, request, g
 from app import app, db, auth
 from app.rate import rate
@@ -10,6 +11,7 @@ from app.rental.model import Rental
 import json
 
 from app.group.model import Group
+from app.customer.model import Customer
 
 @rate.route("/", methods = ["POST"])
 @auth.login_required
@@ -208,13 +210,23 @@ def multiple_update_rate():
         list_resp = []
         for data in dataJson:
             # Add default rate
-            rates_lists = Rate.query.filter_by(_rental_id=data['rentalId'])
-            for row in rates_lists:  # all() is extra
-                row._minimum_stay_requirement = data['minimumStayRequirement']
-                rates = Rate.query.filter(Rate._customer_id == g.customer.id,Rate._rental_id==data['rentalId'])
-            for rate in rates:
-                list_resp.append(rate_mapper.get_response_object(rate.full_serialize()))
-            db.session.commit()
+            try:
+                rates_lists = Rate.query.filter_by(_rental_id=data['rentalId'])
+                for row in rates_lists:  # all() is extra
+                    row._minimum_stay_requirement = data['minimumStayRequirement']
+                    row._daily_rate = data['dailyRate']
+                    rates = Rate.query.filter(Rate._customer_id == g.customer.id,Rate._rental_id==data['rentalId'])
+                for rate in rates:
+                    list_resp.append(rate_mapper.get_response_object(rate.full_serialize()))
+                db.session.commit()
+            except:
+                for key,value in data.items():
+                    if 'default' in key:
+                        customer_update = Customer.query.filter_by(id=g.customer.id).first()
+                        if customer_update:
+                            customer_update._minimum_stay_requirement = data['default']['minimumStayRequirement']
+                            customer_update._daily_rate = data['default']['dailyRate']
+                            db.session.commit()    
         response_object = jsonify({
             "data": list_resp,
             "status" : 'success',

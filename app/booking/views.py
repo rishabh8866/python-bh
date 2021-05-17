@@ -52,6 +52,7 @@ def add_booking():
                             "status":booking_list._status,
                             "color":booking_list._color,
                             "title":booking_list._title,
+                            "nights":booking_list._nights
                         }
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
                     response_object = jsonify({
@@ -82,6 +83,7 @@ def add_booking():
                     "status":booking_list._status,
                     "color":booking_list._color,
                     "title":booking_list._title,
+                    "nights":booking_list._nights
                 }
             response_object = jsonify({
                 'booking': data,
@@ -121,6 +123,7 @@ def add_booking():
                         "status":booking_list._status,
                         "color":booking_list._color,
                         "title":booking_list._title,
+                        "nights":booking_list._nights
                     }
                 response_object = jsonify({
                     'booking': data,
@@ -167,6 +170,31 @@ def edit_booking():
     data = utils.clean_up_request(request.json)
     booking_update = Booking.query.get(request.json['id'])
     if  booking_update:
+        # Check here double booking
+        booking_lists = Booking.query.filter_by(_customer_id=g.customer.id,_rental_id=data['rentalId']).all()
+        if booking_lists:
+            for booking_list in booking_lists:
+                # Get dates from DB
+                start_date = booking_list._arrive
+                end_date = booking_list._depart
+
+                get_post_arrive_date = data['arrive']
+                get_post_depart_date = data['depart']
+
+                if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
+                    jsonified_data = json.dumps(data,sort_keys=True,default=str)
+                    response_object = jsonify({
+                        "data": json.loads(jsonified_data),
+                        "status": 'fail',
+                        "message": 'Double bookings not avaiable,please change date or rental'
+                    })
+                    return response_object,200 
+        else:
+            response_object = jsonify({
+                "status": 'failed',
+                "message": 'rental not exists.'
+            })
+            return response_object,200 
         booking_update._rental_id = data['rentalId']
         booking_update._price = data['price']
         booking_update._tax = data['tax']

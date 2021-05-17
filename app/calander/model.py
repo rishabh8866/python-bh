@@ -2,16 +2,15 @@ from app import app, db
 from app.rate.enums import WeekdaysEnum
 import json
 
-class Fee(db.Model):
-    __tablename__ = "fee"
+class Tax(db.Model):
+    __tablename__ = "tax"
     id                         =db.Column      (db.Integer, primary_key = True)
     _customer_id               =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
-    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id', ondelete='CASCADE'),nullable=True)
+    _rental_id                 =db.Column      (db.Integer, db.ForeignKey('rental.id', ondelete='CASCADE'),nullable=False)
     _group_id                  =db.Column      (db.Integer, db.ForeignKey('group.id', ondelete='CASCADE'),nullable=True)
     _name                      =db.Column      (db.String(150))
     _fee_type                  =db.Column      (db.String(150))
     _amount                    =db.Column      (db.Integer)     
-    _modality                  =db.Column      (db.String(150))
     
 
     def __init__(self, **kwargs):
@@ -39,17 +38,10 @@ class Fee(db.Model):
     def amount(self):
         return self._amount
 
-    @amount.setter
+    @fee_type.setter
     def amount(self, val):
         self._amount = val
     
-    @property
-    def modality(self):
-        return self._modality
-
-    @modality.setter
-    def modality(self, val):
-        self._modality = val
 
     @property
     def customer_id(self):
@@ -78,10 +70,10 @@ class Fee(db.Model):
 
     def full_serialize(self):
         return {
-            "rentalId"  : self._rental_id,           
+            "customer_id"   : self._customer_id, 
+            "rental_id"  : self._rental_id,                      
             "name"     : self._name,                   
-            "feeType" : self._fee_type,
-            "amount"     : self._amount,               
-            "id"  : self.id,
-            "modality"  : self._modality                  
+            "fee_type" : self._fee_type,
+            "amount"     : self._amount,                            
         }
+		

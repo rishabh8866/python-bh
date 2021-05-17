@@ -1,4 +1,5 @@
 from flask import jsonify, request, g
+from flask.globals import session
 from app import app, db, auth
 from app.customer import customer
 from app.group.model import Group
@@ -16,6 +17,8 @@ from app.group import mapper as group_mapper
 from app.rental.model import Rental
 from app.rate.model import Rate
 from app.rate import mapper as rate_mapper
+
+from app.invoice.model import Invoice
 
 NumberDisplay={
     "M1":"1,000.00",
@@ -232,6 +235,7 @@ def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
     c = Customer.query.get(g.customer.id)
+    invoice = Invoice.query.filter_by(_customer_id=g.customer.id).first()
     customer_data = {
         "accountType": c._account_type,
         "allowBookingFor": c._allow_booking_for,
@@ -250,7 +254,16 @@ def get_customer():
         "permissions": c._permissions,
         "propertyType": c._property_type,
         "timeDisplay": c._time_display,
-        "website": c._website
+        "website": c._website,
+        "invoiceName":invoice._name,
+        "address1":invoice._address1,
+        "address2":invoice._address2,
+        "invoiceText":invoice._invoice_text,
+        "invoiceFooter":invoice._invoice_footer,
+        "country":{
+            "label":invoice._country_label,
+            "value":invoice._country_value,
+        }
     }
     response_object = jsonify({
         "customer":customer_data,
@@ -327,6 +340,25 @@ def general_settings():
         customer_update._time_display = data['timeDisplay']
         customer_update._date_display = data['dateDisplay']
         customer_update._number_display = data['numberDisplay']
+
+        # Check if record exists in invoice table,if exists then update else add as new record
+        invoice_update = Invoice.query.filter_by(_customer_id=g.customer.id).first()
+        if invoice_update:
+            invoice_update._name =data['invoiceName']
+            invoice_update._address1 =data['address1']
+            invoice_update._address2 =data['address2']
+            invoice_update._country_label=data['country']['label']
+            invoice_update._country_value=data['country']['value']
+            invoice_update._invoice_text=data['invoiceText']
+            invoice_update._invoice_footer=data['invoiceFooter']
+            db.session.commit()
+        else:
+            # Create new Record in DB if not available
+            invoice = Invoice(customer_id=g.customer.id,name=data['invoiceName'],address1=data['address1'],\
+                address2=data['address2'],country_label=data['country']['label'],country_value=data['country']['value'],\
+                    invoice_text=data['invoiceText'],invoice_footer=data['invoiceFooter'])
+            db.session.add(invoice)
+            db.session.commit()
     else:
         response_object = jsonify({
                 "status" : 'fail',
@@ -346,7 +378,16 @@ def general_settings():
                 "emailId":data['emailId'],
                 "name":data['name'],
                 "numberDisplay":NumberDisplay[data["numberDisplay"]],
-                "timeDisplay":data['timeDisplay']
+                "timeDisplay":data['timeDisplay'],
+                "invoiceName":data['invoiceName'],
+                "address1":data['address1'],
+                "address2":data['address2'],
+                "invoiceText":data['invoiceText'],
+                "invoiceFooter":data['invoiceFooter'],
+                "country":{
+                    "label":data['country']['label'],
+                    "value":data['country']['value']
+                }
             },
             "status" : 'success',
             "message": 'general settings updated'

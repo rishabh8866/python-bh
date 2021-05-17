@@ -1,6 +1,6 @@
 from app import app, db
 from app.booking.enum import PaymentEnum, SourceEnum
-import datetime
+from datetime import datetime
 
 class Booking(db.Model):
     __tablename__ = "booking"
@@ -13,11 +13,13 @@ class Booking(db.Model):
     _depart              =db.Column      (db.String(50), nullable = True)
     _check_in_time       =db.Column      (db.String(150))
     _check_out_time      =db.Column      (db.String(150))
-    _payment_status      =db.Column      (db.Enum(PaymentEnum), nullable = False)
+    _payment_status      =db.Column      (db.String(150), nullable = False)
     _source              =db.Column      (db.Enum(SourceEnum), nullable = False)
     _price               =db.Column      (db.Integer, nullable = False)
     _booking_type        =db.Column      (db.String(150))
     _status              =db.Column      (db.String(150))
+    _created_at          =db.Column      (db.DateTime())
+    _nights             =db.Column       (db.Integer, nullable = False)
     _color               =db.Column      (db.String(150))
     _tax                 =db.Column      (db.Integer, nullable = False)
     _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE'))
@@ -25,10 +27,19 @@ class Booking(db.Model):
     
 
     def __init__(self):
-        self._payment_status = PaymentEnum.PARTIALLY_PAID
+        # self._payment_status = PaymentEnum.PARTIALLY_PAID
         self._no_of_children = 0
         self._source = SourceEnum.BEEHAZ
         self._status = "Booked"
+        self._created_at = datetime.utcnow()
+
+    @property
+    def nights(self):
+        return self._nights
+
+    @nights.setter
+    def nights(self, val):
+        self._nights = val
 
     @property
     def title(self):
@@ -186,5 +197,7 @@ class Booking(db.Model):
             "depart":self.depart,
             "id":self.id,
             "color":self.color,
-            "status":self.status
+            "status":self.status,
+            "nights":self.nights,
+            "paymentStatus": self.payment_status,
         })

@@ -87,16 +87,16 @@ def update_obj_from_request(apiData):
     return fee
 
 def get_response_object(data):
-    apiData = {}
-    groupName = ""
-    if "group_id" in data:
-        if not (data["group_id"] is None):
-            gp_id = int(data["group_id"])
-            gp = Group.query.get(gp_id)
-            if gp:
-                groupName = gp.name
-    for x in data:
-        apiData[fieldToMap[x]] = data[x]
-    apiData["groupName"]  = groupName   
-    return apiData  
+    # apiData = {}
+    # groupName = ""
+    # if "group_id" in data:
+    #     if not (data["group_id"] is None):
+    #         gp_id = int(data["group_id"])
+    #         gp = Group.query.get(gp_id)
+    #         if gp:
+    #             groupName = gp.name
+    # for x in data:
+    #     apiData[fieldToMap[x]] = data[x]
+    # apiData["groupName"]  = groupName   
+    return data  
     
