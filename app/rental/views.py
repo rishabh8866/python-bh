@@ -3,6 +3,7 @@ from app import app, db, auth
 from app.rental import rental
 from app.rental.model import Rental
 from app.booking.model import Booking
+from app.fee.model import Fee
 from app.rental import mapper as rental_mapper
 from app.rate import mapper as rate_mapper
 from app import views as common_views
@@ -118,24 +119,41 @@ def delete_rental(rentalId):
     if gp is not None:
         try:
             ckeck_in_booking = Booking.query.filter_by(_rental_id=rental_id).first()
-            if ckeck_in_booking:
-                    response_object = jsonify({
-                        "status" : 'failed',
-                        "message": 'Record not deleted,rental is in booking'
-                    })
-                    return response_object,200
-            else:        
-                db.session.delete(gp)
+            try:
+                # If booking exisits then delete first
+                db.session.delete(ckeck_in_booking)
                 db.session.commit()
+                ckeck_in_booking_deleted_status = True
+                try:
+                    if ckeck_in_booking_deleted_status:
+                        # Delete rate that assosiated with rental
+                        check_in_rate = Rate.query.filter_by(_rental_id=rental_id).first()
+                        db.session.delete(check_in_rate)
+                        db.session.commit()
+
+                        # Delete fee that assosiated with rental
+                        check_in_fee = Fee.query.filter_by(_rental_id=rental_id).first()
+                        db.session.delete(check_in_fee)
+                        db.session.commit() 
+
+                        # Delete rental
+                        db.session.delete(gp)
+                        db.session.commit() 
+
+                        response_object = jsonify({
+                            "status" : 'success',
+                            "message": 'Successfully Deleted',
+                            "id": rentalId
+                        })
+                        # return common_views.as_success(constants.view_constants.SUCCESS)
+                        return response_object,200
+
+                except Exception as e:
+                    print(e)
+            except Exception as e:
+                print(e)
         except:
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-        response_object = jsonify({
-            "status" : 'success',
-            "message": 'Successfully Deleted',
-            "id": rentalId
-        })
-        # return common_views.as_success(constants.view_constants.SUCCESS)
-        return response_object,200
     else:
         response_object = jsonify({
             "status" : 'failed',

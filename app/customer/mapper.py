@@ -34,6 +34,7 @@ mapFields = {
     "invoiceName":"invoice_name",
     "address1":"address1",
     "address2":"address2",
+    "address3":"address3",
     "invoiceText":"invoice_text",
     "invoiceFooter":"invoice_footer",
     "country":"country"
@@ -67,6 +68,7 @@ fieldToMap = {
     "invoice_name":"invoiceName",
     "address1":"address1",
     "address2":"address2",
+    "address3":"address3",
     "invoice_text":"invoiceText",
     "invoice_footer":"invoiceFooter",
     "country":"country"

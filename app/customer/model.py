@@ -273,7 +273,7 @@ class Customer(db.Model):
             "property_type":self.property_type,
             "check_in_time":self.check_in_time,
             "check_out_time":self.check_out_time,
-            "_minimum_stay_requirement":self.minimum_stay_requirement,
+            "minimum_stay_requirement":self.minimum_stay_requirement,
             "country":self.country
         }
 

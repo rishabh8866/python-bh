@@ -235,36 +235,60 @@ def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
     c = Customer.query.get(g.customer.id)
+    # Check if invoice Data is in DB or not.
     invoice = Invoice.query.filter_by(_customer_id=g.customer.id).first()
-    customer_data = {
-        "accountType": c._account_type,
-        "allowBookingFor": c._allow_booking_for,
-        "country": c._country,
-        "createdAt": c._created_at,
-        "currency": c._currency,
-        "customerType": c._customer_type,
-        "dateDisplay":c._date_display.name,
-        "emailId": c._email_id,
-        "id": c.id,
-        "isFutureBooking": c._is_future_booking,
-        "language": c._language,
-        "name": c._name,
-        "noOfUnits": c._number_of_rooms,
-        "numberDisplay": c._number_display,
-        "permissions": c._permissions,
-        "propertyType": c._property_type,
-        "timeDisplay": c._time_display,
-        "website": c._website,
-        "invoiceName":invoice._name,
-        "address1":invoice._address1,
-        "address2":invoice._address2,
-        "invoiceText":invoice._invoice_text,
-        "invoiceFooter":invoice._invoice_footer,
-        "country":{
-            "label":invoice._country_label,
-            "value":invoice._country_value,
+    if invoice:
+        customer_data = {
+            "accountType": c._account_type,
+            "allowBookingFor": c._allow_booking_for,
+            "country": c._country,
+            "createdAt": c._created_at,
+            "currency": c._currency,
+            "customerType": c._customer_type,
+            "dateDisplay":c._date_display.name,
+            "emailId": c._email_id,
+            "id": c.id,
+            "isFutureBooking": c._is_future_booking,
+            "language": c._language,
+            "name": c._name,
+            "noOfUnits": c._number_of_rooms,
+            "numberDisplay": c._number_display,
+            "permissions": c._permissions,
+            "propertyType": c._property_type,
+            "timeDisplay": c._time_display,
+            "website": c._website,
+            "invoiceName":invoice._name,
+            "address1":invoice._address1,
+            "address2":invoice._address2,
+            "address3":invoice._address3,
+            "invoiceText":invoice._invoice_text,
+            "invoiceFooter":invoice._invoice_footer,
+            "country":{
+                "label":invoice._country_label,
+                "value":invoice._country_value,
+            }
         }
-    }
+    else:
+        customer_data = {
+            "accountType": c._account_type,
+            "allowBookingFor": c._allow_booking_for,
+            "country": c._country,
+            "createdAt": c._created_at,
+            "currency": c._currency,
+            "customerType": c._customer_type,
+            "dateDisplay":c._date_display.name,
+            "emailId": c._email_id,
+            "id": c.id,
+            "isFutureBooking": c._is_future_booking,
+            "language": c._language,
+            "name": c._name,
+            "noOfUnits": c._number_of_rooms,
+            "numberDisplay": c._number_display,
+            "permissions": c._permissions,
+            "propertyType": c._property_type,
+            "timeDisplay": c._time_display,
+            "website": c._website,
+        }
     response_object = jsonify({
         "customer":customer_data,
         "status" : 'success',
@@ -347,6 +371,7 @@ def general_settings():
             invoice_update._name =data['invoiceName']
             invoice_update._address1 =data['address1']
             invoice_update._address2 =data['address2']
+            invoice_update._address3 =data['address3']
             invoice_update._country_label=data['country']['label']
             invoice_update._country_value=data['country']['value']
             invoice_update._invoice_text=data['invoiceText']
@@ -355,7 +380,7 @@ def general_settings():
         else:
             # Create new Record in DB if not available
             invoice = Invoice(customer_id=g.customer.id,name=data['invoiceName'],address1=data['address1'],\
-                address2=data['address2'],country_label=data['country']['label'],country_value=data['country']['value'],\
+                address2=data['address2'],address3=data['address3'],country_label=data['country']['label'],country_value=data['country']['value'],\
                     invoice_text=data['invoiceText'],invoice_footer=data['invoiceFooter'])
             db.session.add(invoice)
             db.session.commit()
@@ -382,6 +407,7 @@ def general_settings():
                 "invoiceName":data['invoiceName'],
                 "address1":data['address1'],
                 "address2":data['address2'],
+                "address3":data['address3'],
                 "invoiceText":data['invoiceText'],
                 "invoiceFooter":data['invoiceFooter'],
                 "country":{

@@ -7,6 +7,7 @@ class Invoice(db.Model):
     _name                      =db.Column      (db.String(150))
     _address1                  =db.Column      (db.String(250))
     _address2                  =db.Column      (db.String(250))
+    _address3                  =db.Column      (db.String(250))
     _country_label             =db.Column      (db.String(250))
     _country_value             =db.Column      (db.String(250))
     _invoice_text              =db.Column      (db.String(250))
@@ -16,6 +17,13 @@ class Invoice(db.Model):
     def __init__(self, **kwargs):
         self._customer_id = kwargs["customer_id"]
         self._name = kwargs["name"]
+        self._address1 = kwargs["address1"]
+        self._address2 = kwargs["address2"]
+        self._address3 = kwargs["address3"]
+        self._country_label = kwargs["country_label"]
+        self._country_value = kwargs["country_value"]
+        self._invoice_text = kwargs["invoice_text"]
+        self._invoice_footer = kwargs["invoice_footer"]
         
         
     @property
@@ -42,6 +50,14 @@ class Invoice(db.Model):
     @address2.setter
     def address2(self, val):
         self._address2 = val
+    
+    @property
+    def address3(self):
+        return self._address3
+
+    @address3.setter
+    def address3(self, val):
+        self._address3 = val
     
     @property
     def country_label(self):
@@ -90,6 +106,7 @@ class Invoice(db.Model):
             "name"  : self.name,                      
             "address1"     : self.address1,                   
             "address2" : self.address2,
+            "address3" : self.address3,
             "country_label"     : self.country_label,                            
             "country_value"     : self.country_value,                            
             "invoice_text"     : self.invoice_text,                            
