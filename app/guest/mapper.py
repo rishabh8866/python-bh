@@ -2,7 +2,7 @@ from app.guest.model import Guest
 
 fields = {
     "primary": ["name", "email_id", "phone_no", "customer_id"],
-    "secondary": ["secondary_email_id", "country", "address", "postal_code", "state", "nationality", "language", "notes"],
+    "secondary": ["secondary_email_id", "country", "address", "postal_code", "state", "nationality", "language", "notes","company"],
     "unique": []
 }
 
@@ -21,7 +21,8 @@ mapFields = {
     "nationality": "nationality",
     "language": "language",
     "notes": "notes",
-    "bookings": "bookings"
+    "bookings": "bookings",
+    "company": "company"
 }
 
 fieldToMap = {
@@ -38,6 +39,7 @@ fieldToMap = {
     "nationality": "nationality",
     "language": "language",
     "notes": "notes",
+    "company": "company"
 }
 
 def get_obj_from_request(apiData, customer):

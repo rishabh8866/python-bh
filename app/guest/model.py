@@ -21,6 +21,7 @@ class Guest(db.Model):
     _state              =db.Column          (db.String(150))
     _nationality        =db.Column          (db.String(150))
     _language           =db.Column          (db.String(150))
+    _company            =db.Column          (db.String(150),nullable=True)
     _notes              =db.Column          (db.Text)
     _customer_id        =db.Column          (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'), nullable = False)
     _bookings           =db.relationship    ("Booking", secondary = guest_bookings , lazy='dynamic',backref = db.backref("guests",cascade="all, delete",lazy='dynamic'))
@@ -110,6 +111,15 @@ class Guest(db.Model):
     def language(self, val):
         self._language = val
 
+
+    @property
+    def company(self):
+        return self._company
+
+    @company.setter
+    def company(self, val):
+        self._company = val
+
     @property
     def notes(self):
         return self._notes
@@ -141,6 +151,7 @@ class Guest(db.Model):
             "email_id": self._email_id,
             "phone_no": self._phone_no,
             "customer_id": self._customer_id,
+            "company":self.company
         }
 
     def full_serialize(self):

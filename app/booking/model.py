@@ -1,6 +1,7 @@
 from app import app, db
 from app.booking.enum import PaymentEnum, SourceEnum
 from datetime import datetime
+from app.rental.model import Rental
 
 class Booking(db.Model):
     __tablename__ = "booking"
@@ -184,6 +185,10 @@ class Booking(db.Model):
         }
 
     def full_serialize(self):
+        if self.rental_id:
+            print(self.rental_id)
+            rental_name = Rental.query.get(self.rental_id)
+            print(rental_name._name)
         return dict(self.half_serialize(), **{
             "title":self.title,
             "bookingType":self.booking_type,
@@ -193,6 +198,7 @@ class Booking(db.Model):
             "checkOutTime":self.check_out_time,
             "source":self.source,
             "rentalId":self.rental_id,
+            "rentalName":rental_name._name,
             "arrive":self.arrive,
             "depart":self.depart,
             "id":self.id,

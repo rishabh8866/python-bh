@@ -99,6 +99,7 @@ def update_guests():
         guest_update._nationality = data['nationality']
         guest_update._language = data['language']
         guest_update._notes = data['notes']
+        guest_update._company = data['company']
     else:
         response_object = jsonify({
                 "status" : 'failed',
