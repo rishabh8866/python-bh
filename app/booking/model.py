@@ -23,6 +23,7 @@ class Booking(db.Model):
     _nights             =db.Column       (db.Integer, nullable = False)
     _color               =db.Column      (db.String(150))
     _tax                 =db.Column      (db.Integer, nullable = False)
+    _notes              =db.Column      (db.String(200),default='')
     _rental_id           =db.Column      (db.Integer, db.ForeignKey('rental.id',ondelete='CASCADE'))
     _customer_id         =db.Column      (db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'))
     
@@ -163,6 +164,14 @@ class Booking(db.Model):
         self._depart = val
 
     @property
+    def notes(self):
+        return self._notes
+
+    @notes.setter
+    def notes(self, val):
+        self._notes = val
+
+    @property
     def rental_id(self):
         return self._rental_id
 
@@ -186,9 +195,7 @@ class Booking(db.Model):
 
     def full_serialize(self):
         if self.rental_id:
-            print(self.rental_id)
             rental_name = Rental.query.get(self.rental_id)
-            print(rental_name._name)
         return dict(self.half_serialize(), **{
             "title":self.title,
             "bookingType":self.booking_type,
@@ -206,4 +213,5 @@ class Booking(db.Model):
             "status":self.status,
             "nights":self.nights,
             "paymentStatus": self.payment_status,
+            "notes": self.notes,
         })

@@ -365,25 +365,13 @@ def general_settings():
         customer_update._date_display = data['dateDisplay']
         customer_update._number_display = data['numberDisplay']
 
-        # Check if record exists in invoice table,if exists then update else add as new record
-        invoice_update = Invoice.query.filter_by(_customer_id=g.customer.id).first()
-        if invoice_update:
-            invoice_update._name =data['invoiceName']
-            invoice_update._address1 =data['address1']
-            invoice_update._address2 =data['address2']
-            invoice_update._address3 =data['address3']
-            invoice_update._country_label=data['country']['label']
-            invoice_update._country_value=data['country']['value']
-            invoice_update._invoice_text=data['invoiceText']
-            invoice_update._invoice_footer=data['invoiceFooter']
-            db.session.commit()
-        else:
-            # Create new Record in DB if not available
-            invoice = Invoice(customer_id=g.customer.id,name=data['invoiceName'],address1=data['address1'],\
-                address2=data['address2'],address3=data['address3'],country_label=data['country']['label'],country_value=data['country']['value'],\
-                    invoice_text=data['invoiceText'],invoice_footer=data['invoiceFooter'])
-            db.session.add(invoice)
-            db.session.commit()
+        # To update invoice values
+        customer_update._address1 = data['address1']
+        customer_update._address2 = data['address2']
+        customer_update._address3 = data['address3']
+        customer_update._invoice_text = data['invoiceText']
+        customer_update._invoice_footer = data['invoiceFooter']
+       
     else:
         response_object = jsonify({
                 "status" : 'fail',
@@ -404,16 +392,13 @@ def general_settings():
                 "name":data['name'],
                 "numberDisplay":NumberDisplay[data["numberDisplay"]],
                 "timeDisplay":data['timeDisplay'],
-                "invoiceName":data['invoiceName'],
+                # "invoiceName":data['invoiceName'],
                 "address1":data['address1'],
                 "address2":data['address2'],
                 "address3":data['address3'],
                 "invoiceText":data['invoiceText'],
                 "invoiceFooter":data['invoiceFooter'],
-                "country":{
-                    "label":data['country']['label'],
-                    "value":data['country']['value']
-                }
+                "country":g.customer.country
             },
             "status" : 'success',
             "message": 'general settings updated'

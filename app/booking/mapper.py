@@ -2,7 +2,7 @@ from app.booking.model import Booking
 
 fields = {
     "primary": ["no_of_adults", "price", "tax", "rental_id"],
-    "secondary": ["no_of_guests","no_of_children", "check_in_time", "check_out_time", "payment_status", "source", "arrive", "depart","booking_type","title","status","color","nights"],
+    "secondary": ["no_of_guests","no_of_children", "check_in_time", "check_out_time", "payment_status", "source", "arrive", "depart","booking_type","title","status","color","nights","notes"],
     "unique": []
 }
 
@@ -24,7 +24,8 @@ mapFields = {
     "title":"title",
     "status":"status",
     "color":"color",
-    "nights":"nights"
+    "nights":"nights",
+    "notes":"notes"
 }
 
 def get_obj_from_request(apiData, customer):

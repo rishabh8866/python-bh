@@ -183,6 +183,11 @@ def edit_booking():
 
                 if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
+                    # Allow update while date is same
+                    booking_update._color = data['color']
+                    booking_update._price = data['price']
+                    booking_update._status = data['status']
+                    db.session.commit()
                     response_object = jsonify({
                         "data": json.loads(jsonified_data),
                         "status": 'fail',

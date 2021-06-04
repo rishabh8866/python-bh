@@ -130,7 +130,7 @@ def get_guests_for_booking(bookingId):
     if booking:
         resp = []
         for guest in booking.guests:
-            resp.append(guest.half_serialize())
+            resp.append(guest.full_serialize())
         return jsonify({"guests": resp})
     else:
         response_object = jsonify({

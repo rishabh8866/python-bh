@@ -30,8 +30,14 @@ class Customer(db.Model):
     _account_type       =db.Column      (db.String(250))
     _check_in_time      =db.Column      (db.String(250))
     _check_out_time     =db.Column      (db.String(250))
-    _daily_rate         =db.Column    (db.Integer)
+    _daily_rate         =db.Column      (db.Integer)
     _minimum_stay_requirement         =db.Column  (db.Integer)
+    # Column used for Invoice store
+    _address1           =db.Column      (db.String(250),nullable = True)
+    _address2           =db.Column      (db.String(250),nullable = True)
+    _address3           =db.Column      (db.String(250),nullable = True)
+    _invoice_text       =db.Column      (db.String(250),nullable = True)
+    _invoice_footer     =db.Column      (db.String(250),nullable = True)
     rentals             =db.relationship('Rental', cascade='all,delete', backref='customer', lazy=True)
 
 

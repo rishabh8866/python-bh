@@ -46,7 +46,6 @@ def list_inquiry():
                 "checkOutTime":booking_list._check_out_time,
                 "nights":str(delta.days),
                 "netAmount": booking_list._price,
-                "createdDate": "2021-01-1",
                 "paymentStatus": booking_list._payment_status,
                 "status": booking_list._status,
                 "arrive":booking_list._arrive,
