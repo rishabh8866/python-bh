@@ -9,6 +9,7 @@ from app.customer import utils
 from app import views as common_views
 from app.customer.model import Customer
 import constants,json
+from flask_cors import cross_origin
 
 from app.group import group
 from app.group.model import Group
@@ -47,7 +48,6 @@ timeDisplay={
 @auth.verify_password
 def verify_password(unused_1, unused_2):
     auth_token = request.headers.get("auth-token")
-    print("Jasdeep auth token is: ", auth_token)
     if auth_token:
         customer = Customer.verify_auth_token(auth_token)
         if not customer:
@@ -96,6 +96,7 @@ def register():
         try:
             c = customer_mapper.get_obj_from_request(data,request.json['emailId'])
         except Exception as e:
+            print(e)
             return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
         try:
             db.session.add(c)
@@ -110,6 +111,7 @@ def register():
                 user = Customer.query.filter_by(_email_id=request.json['emailId']).first()
                 gp = Group(name = group_data["groupName"], color = group_data["color"], customer_id = user.id)
             except Exception as e:
+                print("Jasdeep exception: " + e)
                 return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
             try:
                 db.session.add(gp)
@@ -140,35 +142,39 @@ def register():
                 })
             return response_object,200
         #customer made send the email process
+        print("Jasdeep sending mail")
         utils.send_mail(c)
         #return common_views.as_success(constants.view_constants.USER_REGISTRATION_SUCCESSFUL)
         response_object = jsonify({
             "data":request.json,
             "token": str(c.generate_auth_token().decode("utf-8")),
             "status" : 'success',
-             "message": 'Account created successfully! Please check your email to log in.'
+            "message": 'Account created successfully! Please check your email to log in.'
         })
         return response_object,200
 
-
 @customer.route("/oauth/login", methods = ["GET"])
 def oauth_login():
+    print("Jasdeep here: " + request.args.get('type'))
     type = request.args.get('type')
     return jsonify({
+        "status": "redirect",
         "data": {
-            "uri": utils.get_oauth_url(type, request.base_url + "/callback")
+            "uri": utils.get_oauth_url(type, request.url_root + "login_callback")
             }
-        }), 302
+        }), 200
 
 
 @customer.route("/oauth/login/callback", methods = ["GET"])
 def oauth_login_callback():
+    print("Jasdeep base : " + request.base_url)
     code = request.args.get("code")
     type = OauthTypeEnum.GOOGLE
     # facebook login
-    if "state" in request.args and request.args.get("state") == "abc":
+    if "state" in request.args and "abc" in request.args.get("state"):
         type = OauthTypeEnum.FACEBOOK
-    email = utils.get_user_email_from_oauth(code, request.url, request.base_url, type)
+        print("Jasdeep type is facebook")
+    email = utils.get_user_email_from_oauth(code, request.url, request.url_root + "login_callback", type)
     return login_user_through_email(email, False)
 
 

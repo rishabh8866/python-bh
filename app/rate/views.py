@@ -135,7 +135,7 @@ def get_single_rate(rateId):
         return response_object,200
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'Record not exists'
             })
         return response_object,200
@@ -195,7 +195,7 @@ def get_rates_by_rental(rentalId):
         return response_object,200
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'Record not exists'
             })
         return response_object,200

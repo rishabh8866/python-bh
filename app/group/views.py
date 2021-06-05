@@ -56,7 +56,7 @@ def edit_group():
         return response_object,200
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'record not exists'
         })
         return response_object,200

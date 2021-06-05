@@ -91,7 +91,7 @@ def edit_rental():
         return response_object,200
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'record not exists'
         })
         return response_object,200
@@ -156,7 +156,7 @@ def delete_rental(rentalId):
             return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
     else:
         response_object = jsonify({
-            "status" : 'failed',
+            "status" : 'fail',
             "message": 'Record not exists'
         })
         return response_object,200
@@ -192,7 +192,7 @@ def get_single_rental(rentalId):
         return response_object,200
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'Record not exists'
             })
         return response_object,200

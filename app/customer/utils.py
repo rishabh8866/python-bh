@@ -79,7 +79,7 @@ def get_email_from_google_oauth(code, url, redirect_url):
     )
     oauth_google_client.parse_request_body_response(json.dumps(token_response.json()))
     userinfo_endpoint = google_config["userinfo_endpoint"]
-    uri, headers, body = client.add_token(userinfo_endpoint)
+    uri, headers, body = oauth_google_client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers = headers, data = body)
     if userinfo_response.json().get("email_verified"):
         user_email = userinfo_response.json()["email"]

@@ -40,6 +40,7 @@ mapFields = {
     "country":"country"
 }
 
+
 fieldToMap = {
     "id":"id",
     "email_id": "emailId",
@@ -83,7 +84,9 @@ def get_obj_from_request(apiData,current_email):
       data[mapFields[x]] = apiData[x]
     for field in fields["primary"]:
         if field not in data.keys():
+            print("Jasdeep field: " + field)
             raise Exception(field + " not present")
+    print("Jasdeep primary present")
     for field in fields["unique"]:
         if getattr(Customer, "check_" + field)(data[field]):
             raise Exception(field + " ought to be unique")
@@ -113,4 +116,4 @@ def get_obj_from_customer_info(data):
     apiData = {}
     for x in data:
         apiData[fieldToMap[x]] = data[x]
-    return apiData  
+    return apiData

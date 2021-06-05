@@ -196,7 +196,7 @@ def edit_booking():
                     return response_object,200 
         else:
             response_object = jsonify({
-                "status": 'failed',
+                "status": 'fail',
                 "message": 'rental not exists.'
             })
             return response_object,200 
@@ -217,7 +217,7 @@ def edit_booking():
         booking_update._status = data['status']
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'record not exists'
         })
         return response_object,200

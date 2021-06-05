@@ -14,7 +14,7 @@ from datetime import datetime,date
 import calendar
 
 # Use to get a single record
-@inquiry.route("/", methods = ["GET"])
+@inquiry.route("/", methods = ["POST"])
 def list_inquiry():
     todays_date = datetime.now()
     last_day_of_month = calendar.monthrange(todays_date.year,todays_date.month)[1]
@@ -39,7 +39,7 @@ def list_inquiry():
             delta = b - a  # number of nights.
             rental = Rental.query.get(booking_list._rental_id)
             data = {
-                "bookingNumber":booking_list.id,
+                "id":booking_list.id,
                 "channel":booking_list._source,
                 "guestName":guest_name.name,
                 "checkInTime":booking_list._check_in_time,
@@ -77,9 +77,9 @@ def list_inquiry():
             a = datetime.strptime(booking_list._arrive, date_format)
             b = datetime.strptime(booking_list._depart, date_format)
             delta = b - a  # number of nights.
-            
+            rental = Rental.query.get(booking_list._rental_id)
             data = {
-                "bookingNumber":booking_list.id,
+                "id":booking_list.id,
                 "channel":booking_list._source,
                 "guestName":guest_name.name,
                 "checkInTime":booking_list._check_in_time,
@@ -92,6 +92,7 @@ def list_inquiry():
                 "arrive":booking_list._arrive,
                 "depart":booking_list._depart,
                 "rentalId":booking_list._rental_id,
+                "rentalName":rental.name,
             }
             d.append(data)
         if d == []:
@@ -124,7 +125,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,
@@ -173,7 +174,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,
@@ -221,7 +222,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,
@@ -269,7 +270,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,
@@ -318,7 +319,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,
@@ -367,7 +368,7 @@ def list_inquiry():
                 b = datetime.strptime(booking_list._depart, date_format)
                 delta = b - a  # number of nights.
                 data = {
-                    "bookingNumber":booking_list.id,
+                    "id":booking_list.id,
                     "channel":booking_list._source,
                     "guestName":guest_name.name,
                     "checkInTime":booking_list._check_in_time,

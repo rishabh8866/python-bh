@@ -7,11 +7,15 @@ from flask_cors import CORS
 from flask_mail import Mail
 from oauthlib.oauth2 import WebApplicationClient
 
+import os
+if not os.environ.get("DB_USER"):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 app = Flask(__name__)
 manager = Manager(app)
 CORS(app)
-app.config.from_object("config")
+app.config.from_object("config.config")
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 auth = HTTPBasicAuth()

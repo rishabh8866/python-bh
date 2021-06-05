@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+.base_template: &base_template
+  interruptible: true
+
+build:
+  <<: *base_template
+  needs: []
+  stage: build
+  image:
+    name: ubuntu
+  services:
+    - name: docker:dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    # DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - apt-get update
+    - apt install docker.io -y
+    - docker login registry.gitlab.com -u $REGISTRY_USER -p $ACCESS_TOKEN
+    - docker -v
+  script:
+    - |
+      export IMAGE=$(echo "registry.gitlab.com/beehaz/beehaz-api:$CI_PIPELINE_ID")
+    - docker  build -t $IMAGE .
+    - docker push $IMAGE
+
+deploy:
+  <<: *base_template
+  needs: [build]
+  stage: deploy
+  image: ubuntu
+  services:
+    - name: docker:dind
+      alias: docker
+  before_script:
+    - docker login registry.gitlab.com -u $REGISTRY_USER -p $ACCESS_TOKEN
+    - |
+      export IMAGE=$(echo "registry.gitlab.com/beehaz/beehaz-api:$CI_PIPELINE_ID")
+  script:
+    - docker pull $IMAGE

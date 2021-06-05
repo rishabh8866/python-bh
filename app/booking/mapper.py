@@ -44,18 +44,15 @@ def get_obj_from_request(apiData, customer):
         if not field in fields["secondary"] and not field in fields["primary"]:
             print(field + " field is not necessary")
             continue
-        print("Jasdeep setting " + field + " " + str(data[field]))
         setattr(booking, field, data[field])
     booking.customer_id = customer.id
-    print(booking)
-    print("jasdeep booking made")
     print(booking)
     return booking
 
 
 
 def get_response_object(data):
-    return data  
+    return data
 
 # def get_obj_from_request(apiData,current_email):
 #     print("GET",current_email)

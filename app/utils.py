@@ -64,7 +64,7 @@ def send_mail_ZOHO(subject, sender, recipients, body):
     MAIL_PASSWORD = app.config['MAIL_PASSWORD'],
     MAIL_USE_SSL =  app.config['MAIL_USE_SSL'],
     ))
-    mail.init_app(app)  
+    mail.init_app(app)
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.html = body
     mail.send(msg)

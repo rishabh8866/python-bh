@@ -102,7 +102,7 @@ def update_guests():
         guest_update._company = data['company']
     else:
         response_object = jsonify({
-                "status" : 'failed',
+                "status" : 'fail',
                 "message": 'please check provided details'
             })
         return response_object,400
