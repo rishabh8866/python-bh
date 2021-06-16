@@ -3,6 +3,7 @@ from app import app, db, auth
 from app.booking import booking
 from app.booking.model import Booking
 from app.rental.model import Rental
+from app.rate.model import Rate
 from app.guest.model import Guest
 from app.booking import utils
 from app.booking import mapper as booking_mapper
@@ -10,6 +11,7 @@ import app.views as common_views
 import constants,json
 from sqlalchemy import and_
 import datetime
+from datetime import datetime
 
 @booking.route("/", methods = ["POST"])
 @auth.login_required
@@ -184,9 +186,15 @@ def edit_booking():
                 if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
                     # Allow update while date is same
-                    booking_update._color = data['color']
+                    booking_update._payment_status = data['paymentStatus']
                     booking_update._price = data['price']
+                    booking_update._color = data['color']
+                    booking_update._no_of_guests = data['noOfGuests']
+                    booking_update._no_of_children = data['noOfChildren']
+                    booking_update._source = data['source']
                     booking_update._status = data['status']
+                    booking_update._notes = data['notes']
+                    
                     db.session.commit()
                     response_object = jsonify({
                         "data": json.loads(jsonified_data),
@@ -215,6 +223,9 @@ def edit_booking():
         booking_update._title = data['title']
         booking_update._color = data['color']
         booking_update._status = data['status']
+        booking_update._nights = data['nights']
+        booking_update._payment_status = data['paymentStatus']
+        booking_update._notes = data['notes']
     else:
         response_object = jsonify({
                 "status" : 'fail',
@@ -288,3 +299,42 @@ def get_booking_by_guest_id(guestId):
             "message": 'Guest not exists'
         })
         return response_object,200
+
+
+@booking.route("/charges", methods = ["POST"])
+@auth.login_required
+def charges_booking():
+    if not request.json:
+        return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
+    data = utils.clean_up_request(request.json)
+    date_format = "%Y-%m-%d"
+    a = datetime.strptime(data['arrive'],date_format)
+    b = datetime.strptime(data['depart'],date_format)
+    number_of_nights = (b - a).days  # number of nights.
+
+    # Get rates based on rental id
+    rate_lists = Rate.query.filter(Rate._rental_id==data['rentalId'])
+    for rate in rate_lists:
+        default_rate = rate._daily_rate
+    daily_rate = default_rate *  number_of_nights
+    
+    # For Calculate Extra Guest Fees
+    rental_lists = Rental.query.get(data['rentalId'])   # Get max_guests from rental
+    max_guests = rental_lists._max_guests
+    extra_guest_fees = ''
+
+    # Calculate fees
+    fees = ''
+    
+    charges = {
+        'daily_rate':daily_rate,
+        'extra_guest_fees':extra_guest_fees,
+        'fees':fees,
+        'discounts':''
+    }
+    response_object = jsonify({
+        "charges":charges,
+        "status" : 'sucess',
+        "message": ''
+    })
+    return response_object,200

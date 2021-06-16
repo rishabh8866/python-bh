@@ -228,7 +228,7 @@ def login_user_through_email(email_id, do_send_email = True):
 def login(auth_token):
     if not auth_token:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    c = Customer.verify_auth_token(auth_token).half_serialize()
+    c = Customer.verify_auth_token(auth_token).full_serialize()
     if not c:
         return common_views.not_authenticated(constants.view_constants.TOKEN_NOT_VALID)
     c = customer_mapper.get_obj_from_customer_info(c)
@@ -241,60 +241,33 @@ def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
     c = Customer.query.get(g.customer.id)
-    # Check if invoice Data is in DB or not.
-    invoice = Invoice.query.filter_by(_customer_id=g.customer.id).first()
-    if invoice:
-        customer_data = {
-            "accountType": c._account_type,
-            "allowBookingFor": c._allow_booking_for,
-            "country": c._country,
-            "createdAt": c._created_at,
-            "currency": c._currency,
-            "customerType": c._customer_type,
-            "dateDisplay":c._date_display.name,
-            "emailId": c._email_id,
-            "id": c.id,
-            "isFutureBooking": c._is_future_booking,
-            "language": c._language,
-            "name": c._name,
-            "noOfUnits": c._number_of_rooms,
-            "numberDisplay": c._number_display,
-            "permissions": c._permissions,
-            "propertyType": c._property_type,
-            "timeDisplay": c._time_display,
-            "website": c._website,
-            "invoiceName":invoice._name,
-            "address1":invoice._address1,
-            "address2":invoice._address2,
-            "address3":invoice._address3,
-            "invoiceText":invoice._invoice_text,
-            "invoiceFooter":invoice._invoice_footer,
-            "country":{
-                "label":invoice._country_label,
-                "value":invoice._country_value,
-            }
-        }
-    else:
-        customer_data = {
-            "accountType": c._account_type,
-            "allowBookingFor": c._allow_booking_for,
-            "country": c._country,
-            "createdAt": c._created_at,
-            "currency": c._currency,
-            "customerType": c._customer_type,
-            "dateDisplay":c._date_display.name,
-            "emailId": c._email_id,
-            "id": c.id,
-            "isFutureBooking": c._is_future_booking,
-            "language": c._language,
-            "name": c._name,
-            "noOfUnits": c._number_of_rooms,
-            "numberDisplay": c._number_display,
-            "permissions": c._permissions,
-            "propertyType": c._property_type,
-            "timeDisplay": c._time_display,
-            "website": c._website,
-        }
+    customer_data = {
+        "accountType": c._account_type,
+        "allowBookingFor": c._allow_booking_for,
+        "country": c._country,
+        "createdAt": c._created_at,
+        "currency": c._currency,
+        "customerType": c._customer_type,
+        "dateDisplay":c._date_display.name,
+        "emailId": c._email_id,
+        "id": c.id,
+        "isFutureBooking": c._is_future_booking,
+        "language": c._language,
+        "name": c._name,
+        "noOfUnits": c._number_of_rooms,
+        "numberDisplay": c._number_display,
+        "permissions": c._permissions,
+        "propertyType": c._property_type,
+        "timeDisplay": c._time_display,
+        "website": c._website,
+
+        # Invoice Data
+        "address1":c._address1,
+        "address2":c._address2,
+        "address3":c._address3,
+        "invoiceText":c._invoice_text,
+        "invoiceFooter":c._invoice_footer,
+    }
     response_object = jsonify({
         "customer":customer_data,
         "status" : 'success',
@@ -366,10 +339,12 @@ def general_settings():
     # Find record by email of currently logged-in user..
     customer_update = Customer.query.filter_by(_email_id=current_email).first()
     if customer_update:
+        customer_update._name = data['name']
         customer_update._currency = data['currency']
         customer_update._time_display = data['timeDisplay']
         customer_update._date_display = data['dateDisplay']
         customer_update._number_display = data['numberDisplay']
+        customer_update._country = data['country']
 
         # To update invoice values
         customer_update._address1 = data['address1']

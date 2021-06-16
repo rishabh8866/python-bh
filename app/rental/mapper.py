@@ -3,7 +3,7 @@ from app.group.model import Group
 
 fields = {
     "primary": ["name", "address_line1", "postal_code"],
-    "secondary": ["address_line2", "max_guests", "currency","checkin_time","checkout_time"],
+    "secondary": ["address_line2", "max_guests", "currency","checkin_time","checkout_time","country"],
     "unique": []
 }
 
