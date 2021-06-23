@@ -1,6 +1,6 @@
-from app import app, db
+from app import app, db, utils
 from datetime import datetime
-from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum
+from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum, PaymentStatusEnum
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 import constants
 import enum
@@ -23,6 +23,9 @@ class Customer(db.Model):
     _date_display       =db.Column      (db.Enum(DateDisplayEnum))
     _customer_type      =db.Column      (db.Enum(TypeEnum))
     _number_display     =db.Column      (db.Enum(NumberDisplayEnum))
+    _payment_status     =db.Column      (db.Enum(PaymentStatusEnum))
+    _last_paid_on       =db.Column      (db.DateTime())
+    _paid_till          =db.Column      (db.DateTime())
     _language           =db.Column      (db.String(250))
     _permissions        =db.Column      (db.String(250),default="user")
     _is_future_booking  =db.Column      (db.Boolean,default=False)
@@ -50,7 +53,7 @@ class Customer(db.Model):
         self._is_future_booking=True
         self._allow_booking_for="months"
         self._number_of=1
-        self._account_type="Free"
+        self._payment_status = PaymentStatusEnum.UNPAID.value
         if "name" in kwargs:
             self._name = kwargs["name"]
         self._created_at = datetime.utcnow()
@@ -232,7 +235,25 @@ class Customer(db.Model):
     @daily_rate.setter
     def daily_rate(self,val):
         self._daily_rate  = val
-
+    
+    @property
+    def payment_status(self):
+        return self._payment_status
+    
+    @payment_status.setter
+    def payment_status(self, val):
+        if val == PaymentStatusEnum.MONTHLY_PAID:
+            self._last_paid_on = datetime.utcnow()
+            self._paid_till =  utils.add_months(datetime.utcnow(), 1)
+        self._payment_status = val
+    
+    @property
+    def last_paid_on(self):
+        return self._last_paid_on
+    
+    @property
+    def paid_till(self):
+        return self._paid_till
 
     @property
     def minimum_stay_requirement(self):
@@ -290,7 +311,14 @@ class Customer(db.Model):
             "time_display": self.time_display,
             "website": self.website,
             "currency": self.currency,
+            "payment_status": self.payment_status
         })
+    
+    def is_in_paid_period(self):
+        paid_till = self.paid_till
+        if paid_till and paid_till > datetime.utcnow():
+            return True
+        return False
 
     def __repr__(self):
         return "Customer: %s %s"%(self._email_id, self._name)

@@ -1,24 +1,14 @@
 version: "3.4"
 
 services:
-  db:
-    image: mysql:5.7
-    ports:
-      - "32000:3306"
-    env_file:
-      - ".env"
-    command: --init-file /data/application/init.sql
-    volumes:
-      - ./init.sql:/data/application/init.sql
-
   web:
     # build:
     #   context: "."
     #   args:
     #     - "FLASK_ENV=${FLASK_ENV:-production}"
-    # env_file:
-    #   - ".env"
-    image: "gamer496/beehaz_web:latest"
+    env_file:
+      - ".env"
+    image: "registry.gitlab.com/beehaz/beehaz-api:$CI_PIPELINE_ID"
     deploy:
       resources:
         limits:

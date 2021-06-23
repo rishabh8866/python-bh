@@ -23,7 +23,14 @@ DEBUG = True
 #oauth creds
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-GOOGLE_DISCOVERY_URL = ("https://accounts.google.com/.well-known/openid-configuration")
+GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 FACEBOOK_OAUTH_CLIENT_ID = os.environ.get("FACEBOOK_CLIENT_ID", None)
 FACEBOOK_OAUTH_CLIENT_SECRET = os.environ.get("FACEBOOK_CLIENT_SECRET", None)
 FACEBOOK_DISCOVERY_URL = "https://www.facebook.com/v10.0/dialog/oauth"
+
+# stripe keys
+STRIPE_KEY = os.environ.get("STRIPE_KEY", None)
+STRIPE_ENDPOINT_SECRET = os.environ.get("STRIPE_ENDPOINT_SECRET", None)
+
+#slack keys
+SLACK_TOKEN = os.environ.get("SLACK_TOKEN", None)

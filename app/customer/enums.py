@@ -21,6 +21,11 @@ class NumberDisplayEnum(str,enum.Enum):
     M2 = "1'000.00"
     M3 = "1.000,00"
 
+class PaymentStatusEnum(str,enum.Enum):
+    UNPAID = "unpaid"
+    MONTHLY_PAID = "monthly_paid"
+    PROCESSING = "PAYMENT_PROCESSING"
+
 class PropertyEnum(str,enum.Enum):
     SERVICED_APARTMENTS = 'serviced_apartments'
     BNB = 'bnb'

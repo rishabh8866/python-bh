@@ -1,5 +1,5 @@
-from flask import jsonify, render_template, Flask
-from app import app
+from flask import jsonify, render_template
+from app import app, utils
 import constants
 
 @app.route("/")
@@ -9,6 +9,13 @@ def index():
 def not_found(e):   
   return render_template('index.html')
 
+@app.errorhandler(Exception)
+def all_exception_handler(error):
+    if not error:
+        error = "empty"
+    app.logger.error(error)
+    utils.send_message_to_slack(error, "server_exception")
+    return 'Error', 500
 # @app.route("/", methods=["GET"])
 # def index():
 #     return render_template('index.html')
@@ -17,6 +24,10 @@ def not_found(e):
 def get_docs():
     print('sending docs')
     return render_template('swaggerui.html')
+
+@app.route("/raiseTestException", methods=["GET"])
+def raiseTestException():
+    raise Exception("exception")
 
 @app.route('/api/world')
 def get_world():

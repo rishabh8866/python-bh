@@ -1,0 +1,56 @@
+stages:
+  - build
+  - deploy
+
+.base_template: &base_template
+  interruptible: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "staging"'
+    - if: '$CI_COMMIT_BRANCH == "for_pipelines"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+.beehaz_base_template: &beehaz_base_template
+  <<: *base_template
+  image: ubuntu
+  services:
+    - name: docker:dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    # DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - apt-get update
+    - apt install docker.io -y
+    - docker login registry.gitlab.com -u $REGISTRY_USER -p $ACCESS_TOKEN
+    - docker -v  
+
+
+build:
+  <<: *beehaz_base_template
+  needs: []
+  stage: build
+  script:
+    - |
+      export IMAGE=$(echo "registry.gitlab.com/beehaz/beehaz-api:$CI_PIPELINE_ID")
+    - docker  build -t $IMAGE .
+    - docker push $IMAGE
+
+deploy:
+  <<: *beehaz_base_template
+  needs: [build]
+  stage: deploy
+  script:
+    - apt-get install -y build-essential curl
+    - curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
+    - mv /usr/local/bin/docker-compose /usr/bin/docker-compose
+    - chmod +x /usr/bin/docker-compose
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "StrictHostKeyChecking no " > ~/.ssh/config
+    - docker context create remote --docker "host=ssh://ubuntu@$REMOTE_MACHINE"
+    - docker --context remote ps
+    - docker-compose --context remote up -d --remove-orphans
+    - echo "server up"

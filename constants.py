@@ -15,3 +15,21 @@ class view_constants:
     MAIL_SENT = "mail sent"
     REQUEST_PARAMETERS_NOT_SUFFICIENT = "request criteria not met"
     DB_TRANSACTION_FAULT = "db transaction fault"
+
+class payment_constants:
+    OMS = {
+        "id": "oms_fixed_v1",
+        "cost": 2000,
+        "currency": "usd",
+        "description": "Get one month subscription",
+        "quantity": 1,
+        "payment_method_types": ["card"]
+    }
+
+
+SLACK_CHANNELS = {
+    "server_exception": {
+        "channel": "C025NFJ0YFL",
+        "msg": "Exception encountered: {msg}"
+    }
+}

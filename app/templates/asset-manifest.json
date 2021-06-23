@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.8550720a.chunk.css",
-    "main.js": "/static/js/main.e1de5967.chunk.js",
-    "main.js.map": "/static/js/main.e1de5967.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ea9cc2cd.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ea9cc2cd.js.map",
-    "static/css/2.9782b6df.chunk.css": "/static/css/2.9782b6df.chunk.css",
-    "static/js/2.e696b5eb.chunk.js": "/static/js/2.e696b5eb.chunk.js",
-    "static/js/2.e696b5eb.chunk.js.map": "/static/js/2.e696b5eb.chunk.js.map",
-    "static/js/3.6f3e4731.chunk.js": "/static/js/3.6f3e4731.chunk.js",
-    "static/js/3.6f3e4731.chunk.js.map": "/static/js/3.6f3e4731.chunk.js.map",
+    "main.css": "/static/css/main.37ea706e.chunk.css",
+    "main.js": "/static/js/main.1410c3fb.chunk.js",
+    "main.js.map": "/static/js/main.1410c3fb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.05016bd2.js",
+    "runtime-main.js.map": "/static/js/runtime-main.05016bd2.js.map",
+    "static/css/2.c2fd965c.chunk.css": "/static/css/2.c2fd965c.chunk.css",
+    "static/js/2.358414a1.chunk.js": "/static/js/2.358414a1.chunk.js",
+    "static/js/2.358414a1.chunk.js.map": "/static/js/2.358414a1.chunk.js.map",
+    "static/js/3.0deb001d.chunk.js": "/static/js/3.0deb001d.chunk.js",
+    "static/js/3.0deb001d.chunk.js.map": "/static/js/3.0deb001d.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/2.9782b6df.chunk.css.map": "/static/css/2.9782b6df.chunk.css.map",
-    "static/css/main.8550720a.chunk.css.map": "/static/css/main.8550720a.chunk.css.map",
-    "static/js/2.e696b5eb.chunk.js.LICENSE.txt": "/static/js/2.e696b5eb.chunk.js.LICENSE.txt",
+    "static/css/2.c2fd965c.chunk.css.map": "/static/css/2.c2fd965c.chunk.css.map",
+    "static/css/main.37ea706e.chunk.css.map": "/static/css/main.37ea706e.chunk.css.map",
+    "static/js/2.358414a1.chunk.js.LICENSE.txt": "/static/js/2.358414a1.chunk.js.LICENSE.txt",
     "static/media/address-book-regular.a6674ee8.svg": "/static/media/address-book-regular.a6674ee8.svg",
     "static/media/building-solid.611c2104.svg": "/static/media/building-solid.611c2104.svg",
     "static/media/calendar-alt-regular.3c2bd673.svg": "/static/media/calendar-alt-regular.3c2bd673.svg",
@@ -26,6 +26,7 @@
     "static/media/icon_house_inActive.cee3db57.svg": "/static/media/icon_house_inActive.cee3db57.svg",
     "static/media/icon_houses.e79c7d6d.svg": "/static/media/icon_houses.e79c7d6d.svg",
     "static/media/icon_houses_inActive.9c9fae67.svg": "/static/media/icon_houses_inActive.9c9fae67.svg",
+    "static/media/icons8-plus.582bf483.svg": "/static/media/icons8-plus.582bf483.svg",
     "static/media/inquiries-icon.8f3002af.svg": "/static/media/inquiries-icon.8f3002af.svg",
     "static/media/main.31b1091b.png": "/static/media/main.31b1091b.png",
     "static/media/person-lines.56216822.svg": "/static/media/person-lines.56216822.svg",
@@ -34,10 +35,10 @@
     "static/media/tablet.8a75f8d1.png": "/static/media/tablet.8a75f8d1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ea9cc2cd.js",
-    "static/css/2.9782b6df.chunk.css",
-    "static/js/2.e696b5eb.chunk.js",
-    "static/css/main.8550720a.chunk.css",
-    "static/js/main.e1de5967.chunk.js"
+    "static/js/runtime-main.05016bd2.js",
+    "static/css/2.c2fd965c.chunk.css",
+    "static/js/2.358414a1.chunk.js",
+    "static/css/main.37ea706e.chunk.css",
+    "static/js/main.1410c3fb.chunk.js"
   ]
 }
