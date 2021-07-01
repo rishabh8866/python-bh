@@ -3,6 +3,7 @@ from app import app, db, auth
 from app.rental import rental
 from app.rental.model import Rental
 from app.booking.model import Booking
+from app.customer.model import Customer
 from app.fee.model import Fee
 from app.rental import mapper as rental_mapper
 from app.rate import mapper as rate_mapper
@@ -27,14 +28,46 @@ def add_rental():
         # return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = request.json
     utils.clean_up_request(data)
-    check_rental_limit = Rental.query.filter(Rental._customer_id==g.customer.id).count()
-    if check_rental_limit >= 10:
-        response_object = jsonify({
-            "status" : 'fail',
-            "message": 'Maximum of 10 rentals allowed in free version. Please contact support if you wish to add more rentals.'
-        })
-        # return common_views.as_success(constants.view_constants.SUCCESS)
-        return response_object,200
+    c = Customer.query.get(g.customer.id)
+    # Check if the account type is free or not, if free then only 10 rentals should be added.
+    if c._account_type.value == 'free' or c._account_type.value == 'FREE':
+        check_rental_limit = Rental.query.filter(Rental._customer_id==g.customer.id).count()
+        if check_rental_limit >= 10:
+            response_object = jsonify({
+                "status" : 'fail',
+                "message": 'Maximum of 10 rentals allowed in free version. Please contact support if you wish to add more rentals.'
+            })
+            # return common_views.as_success(constants.view_constants.SUCCESS)
+            return response_object,200
+        else:
+            try:
+                r = rental_mapper.get_obj_from_request(data, g.customer)
+            except Exception as e:
+                print("Jasdeep db exception: " + str(e))
+                return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
+            try:
+                db.session.add(r)
+                db.session.commit()
+                db.session.flush()
+                try:
+                    # Add default rate
+                    default_rate = Rate(rental_id=r.id, usd_per_guest=1, date_range="", minimum_stay_requirement=g.customer._minimum_stay_requirement, week_days="MON", daily_rate=g.customer._daily_rate, guest_per_night=2,
+                                        allow_discount=False, weekly_discount=0, monthly_discount=0, allow_fixed_rate=False, week_price=0, monthly_price=0, customer_id=g.customer.id, group_id=None)
+                    db.session.add(default_rate)
+                    db.session.commit()
+                except Exception as e:
+                    print(e)
+                
+            except Exception as e:
+                print("Jasdeep db exception: " + str(e))
+                return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+            response_object = jsonify({
+                "data": rental_mapper.get_response_object(r.full_serialize()),
+                "status" : 'success',
+                "message": 'Successfully Added'
+            })
+            # return common_views.as_success(constants.view_constants.SUCCESS)
+            return response_object,200
     else:
         try:
             r = rental_mapper.get_obj_from_request(data, g.customer)
@@ -63,7 +96,7 @@ def add_rental():
             "message": 'Successfully Added'
         })
         # return common_views.as_success(constants.view_constants.SUCCESS)
-        return response_object,200
+        return response_object,200    
 
 
 @rental.route("/", methods = ["PUT"])
@@ -119,41 +152,42 @@ def delete_rental(rentalId):
     if gp is not None:
         try:
             ckeck_in_booking = Booking.query.filter_by(_rental_id=rental_id).first()
-            try:
-                # If booking exisits then delete first
-                db.session.delete(ckeck_in_booking)
-                db.session.commit()
-                ckeck_in_booking_deleted_status = True
+            if ckeck_in_booking:
+                response_object = jsonify({
+                    "status" : 'fail',
+                    "message": 'The rental has associated booking',
+                    "id": rentalId
+                })
+                return response_object,200
+            else:
                 try:
-                    if ckeck_in_booking_deleted_status:
-                        # Delete rate that assosiated with rental
-                        check_in_rate = Rate.query.filter_by(_rental_id=rental_id).first()
-                        db.session.delete(check_in_rate)
-                        db.session.commit()
+                    # Delete rate that assosiated with rental
+                    check_in_rate = Rate.query.filter_by(_rental_id=rental_id).first()
+                    db.session.delete(check_in_rate)
+                    db.session.commit()
 
-                        # Delete fee that assosiated with rental
-                        check_in_fee = Fee.query.filter_by(_rental_id=rental_id).first()
+                    # Delete fee that assosiated with rental
+                    check_in_fee = Fee.query.filter_by(_rental_id=rental_id).first()
+                    if check_in_fee:
                         db.session.delete(check_in_fee)
                         db.session.commit() 
+                    else:
+                        pass
+                    
+                    # Delete rental
+                    db.session.delete(gp)
+                    db.session.commit() 
 
-                        # Delete rental
-                        db.session.delete(gp)
-                        db.session.commit() 
-
-                        response_object = jsonify({
-                            "status" : 'success',
-                            "message": 'Successfully Deleted',
-                            "id": rentalId
-                        })
-                        # return common_views.as_success(constants.view_constants.SUCCESS)
-                        return response_object,200
-
+                    response_object = jsonify({
+                        "status" : 'success',
+                        "message": 'Successfully Deleted',
+                        "id": rentalId
+                    })
+                    return response_object,200
                 except Exception as e:
-                    print(e)
-            except Exception as e:
-                print(e)
-        except:
-            return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
+                    print('dd',e)
+        except Exception as e:
+            print('ddd',e)
     else:
         response_object = jsonify({
             "status" : 'fail',

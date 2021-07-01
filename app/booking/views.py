@@ -32,10 +32,59 @@ def add_booking():
                 start_date = booking_list._arrive
                 end_date = booking_list._depart
 
+                # Get checkInTime and checkOutTime from DB
+                checkin_time = booking_list._check_in_time 
+                checkout_time = booking_list._check_out_time 
+
                 get_post_arrive_date = data['arrive']
                 get_post_depart_date = data['depart']
 
                 if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
+                    if end_date == get_post_arrive_date:
+                        print(booking_list.id)
+
+                        # Need to check date between
+                        booking_lists1 = Booking.query.filter_by(_customer_id=b.customer_id,_rental_id=data['rentalId']).all()
+                        print('sss',booking_lists1._check_out_time)
+
+                        if booking_lists1._check_out_time  < data['checkInTime']:
+                            print('YEs')
+                            db.session.add(b)
+                            db.session.commit()
+                            db.session.flush()
+                            booking_list = Booking.query.filter_by(id=b.id).first()
+                            data = {
+                                    "rentalId": booking_list._rental_id,
+                                    "noOfAdults": booking_list._no_of_adults,
+                                    "noOfChildren": booking_list._no_of_children,
+                                    "price": booking_list._price,
+                                    "tax": booking_list._tax,
+                                    "id":booking_list.id,
+                                    "noOfGuests": booking_list._no_of_guests,
+                                    "checkInTime": booking_list._check_in_time,
+                                    "checkOutTime": booking_list._check_out_time,
+                                    "arrive": booking_list._arrive,
+                                    "depart": booking_list._depart,
+                                    "paymentStatus": booking_list._payment_status,
+                                    "source": booking_list._source,
+                                    "bookingType": booking_list._booking_type,
+                                    "status":booking_list._status,
+                                    "color":booking_list._color,
+                                    "title":booking_list._title,
+                                    "nights":booking_list._nights
+                                }
+                            response_object = jsonify({
+                                'booking': data,
+                                "status": "success",
+                                "message": 'Booking created'
+                            })
+                            return response_object,200
+                        else:
+                            response_object = jsonify({
+                                "status": 'fail',
+                                "message": 'Double bookings not avaiable,please change date or rental'
+                            })
+                            return response_object,200
                     data = {
                             "rentalId": booking_list._rental_id,
                             "noOfAdults": booking_list._no_of_adults,
@@ -136,7 +185,6 @@ def add_booking():
     except Exception as e:
         return common_views.internal_error(constants.view_constants.MAPPING_ERROR)
 
-
 @booking.route("/<string:bookingId>", methods = ["DELETE"])
 @auth.login_required
 def delete_booking(bookingId):
@@ -170,6 +218,7 @@ def edit_booking():
     if not request.json:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
     data = utils.clean_up_request(request.json)
+    # Get current booking to update
     booking_update = Booking.query.get(request.json['id'])
     if  booking_update:
         # Check here double booking
@@ -177,15 +226,16 @@ def edit_booking():
         if booking_lists:
             for booking_list in booking_lists:
                 # Get dates from DB
-                start_date = booking_list._arrive
-                end_date = booking_list._depart
+                arrive_date = booking_list._arrive
+                depart_date = booking_list._depart
 
                 get_post_arrive_date = data['arrive']
                 get_post_depart_date = data['depart']
-
-                if ((start_date <= get_post_arrive_date <= end_date) or (get_post_arrive_date <= start_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
+                
+                # Check if rentalId,arrival,departure date is same
+                if ((arrive_date == get_post_arrive_date) and (depart_date == get_post_depart_date)) and booking_list._status != "Cancelled": 
                     jsonified_data = json.dumps(data,sort_keys=True,default=str)
-                    # Allow update while date is same
+                    # Allow update rentalId,arrival,departure date is same
                     booking_update._payment_status = data['paymentStatus']
                     booking_update._price = data['price']
                     booking_update._color = data['color']
@@ -198,71 +248,52 @@ def edit_booking():
                     db.session.commit()
                     response_object = jsonify({
                         "data": json.loads(jsonified_data),
-                        "status": 'fail',
-                        "message": 'Double bookings not avaiable,please change date or rental'
+                        "status": 'success',
+                        "message": 'Booking updated'
                     })
                     return response_object,200 
+                else:
+                    booking_lists = Booking.query.filter_by(_customer_id=g.customer.id).all()
+                    if booking_lists:
+                        for booking_list in booking_lists:
+                            
+                            # Get dates from DB
+                            arrive_date = booking_list._arrive
+                            depart_date = booking_list._depart
+
+                            get_post_arrive_date = data['arrive']
+                            get_post_depart_date = data['depart']
+
+                            checkout_time = booking_list._check_out_time
+                                                       
+                            if ((arrive_date <= get_post_arrive_date <= depart_date) or (get_post_arrive_date <= arrive_date <= get_post_depart_date)) and booking_list._status != "Cancelled":
+                                booking_data = Booking.query.get(booking_list.id)
+                                booking_info = booking_data.full_serialize()
+                                response_object = jsonify({
+                                    "data": booking_info,
+                                    "status": 'fail',
+                                    "message": 'Double bookings not avaiable,please change date or rental'
+                                })
+                                return response_object,200
         else:
-            response_object = jsonify({
-                "status": 'fail',
-                "message": 'rental not exists.'
-            })
-            return response_object,200 
-        booking_update._rental_id = data['rentalId']
-        booking_update._price = data['price']
-        booking_update._tax = data['tax']
-        booking_update._no_of_adults = data['noOfAdults'] 
-        booking_update._arrive = data['arrive']
-        booking_update._depart = data['depart']
-        booking_update._check_in_time = data['checkInTime']
-        booking_update._check_out_time = data['checkOutTime']
-        booking_update._no_of_children = data['noOfChildren']
-        booking_update._source = data['source']
-        booking_update._booking_type = data['bookingType']
-        booking_update._no_of_guests = data['noOfGuests']
-        booking_update._title = data['title']
-        booking_update._color = data['color']
-        booking_update._status = data['status']
-        booking_update._nights = data['nights']
-        booking_update._payment_status = data['paymentStatus']
-        booking_update._notes = data['notes']
+            # Check if rental is in DB
+            check_rental = Rental.query.get(data['rentalId'])
+            if check_rental:
+                booking_update._rental_id = data['rentalId']
+                db.session.commit()
+            else:
+                response_object = jsonify({
+                        "status": 'fail',
+                        "message": 'rental not exists.'
+                    })
+                return response_object,200 
     else:
         response_object = jsonify({
                 "status" : 'fail',
-                "message": 'record not exists'
+                "message": 'Booking record not available'
         })
         return response_object,200
-    try:
-        db.session.commit()
-        cust_data = {
-            "rentalId":data['rentalId'],
-            "price": data['price'],
-            "noOfAdults": data['noOfAdults'] ,
-            "noOfChildren": data['noOfChildren'],
-            "tax": data['tax'],
-            "id":data['id'],
-            "noOfGuests": data['noOfGuests'],
-            "checkInTime": data['checkInTime'],
-            "checkOutTime": data['checkOutTime'],
-            "arrive": data['arrive'],
-            "depart": data['depart'],
-            "paymentStatus": data['bookingType'],
-            "source": data['source'],
-            "bookingType":  data['bookingType'],
-            "status":data['status'],
-            "color":data['color'],
-            "title":data['title'],
-        }
-    except Exception as e:
-        print(e)
-        return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
-    response_object = jsonify({
-            "data":cust_data,
-            "status" : 'success',
-            "message": 'Booking updated'
-        })
-    return response_object,200
-
+        
 
 @booking.route("/", methods = ["GET"])
 @auth.login_required

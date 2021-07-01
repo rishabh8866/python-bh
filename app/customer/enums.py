@@ -48,3 +48,9 @@ class DateDisplayEnum(str,enum.Enum):
 class OauthTypeEnum(str, enum.Enum):
     GOOGLE = "google"
     FACEBOOK = "facebook"
+
+
+class AccountTypeEnum(str, enum.Enum):
+    TRIAL = "trial"
+    FREE = "free"
+    PLUS = "plus"

@@ -1,6 +1,6 @@
 from app import app, db, utils
 from datetime import datetime
-from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum, PaymentStatusEnum
+from app.customer.enums import PropertyEnum, CurrencyEnum, TimeDisplayEnum, DateDisplayEnum, TypeEnum, NumberDisplayEnum, PaymentStatusEnum,AccountTypeEnum
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 import constants
 import enum
@@ -30,7 +30,9 @@ class Customer(db.Model):
     _permissions        =db.Column      (db.String(250),default="user")
     _is_future_booking  =db.Column      (db.Boolean,default=False)
     _allow_booking_for  =db.Column      (db.String(250))
-    _account_type       =db.Column      (db.String(250))
+    _account_type       =db.Column      (db.Enum(AccountTypeEnum))
+    _plan_type          =db.Column      (db.String(250),default="")
+    _linkedcal          =db.Column      (db.Boolean,default=False)
     _check_in_time      =db.Column      (db.String(250))
     _check_out_time     =db.Column      (db.String(250))
     _daily_rate         =db.Column      (db.Integer)
@@ -54,6 +56,7 @@ class Customer(db.Model):
         self._allow_booking_for="months"
         self._number_of=1
         self._payment_status = PaymentStatusEnum.UNPAID.value
+        self._account_type = AccountTypeEnum.TRIAL.value
         if "name" in kwargs:
             self._name = kwargs["name"]
         self._created_at = datetime.utcnow()
@@ -212,6 +215,24 @@ class Customer(db.Model):
         self._account_type = val
 
     @property
+    def plan_type(self):
+        return self._plan_type
+
+    @plan_type.setter
+    def plan_type(self, val):
+        self._plan_type = val
+
+
+    @property
+    def linkedcal(self):
+        return self._linkedcal
+
+    @linkedcal.setter
+    def linkedcal(self, val):
+        self._linkedcal = val
+
+
+    @property
     def check_in_time(self):
         return self._check_in_time
 
@@ -287,31 +308,34 @@ class Customer(db.Model):
     def half_serialize(self):
         return {
             "id":self.id,
-            "email_id": self.email_id,
+            "emailId": self.email_id,
             "name": self.name,
-            "number_of_rooms": self.number_of_rooms,
-            "customer_type": self.customer_type,
-            "created_at": self._created_at,
+            "numberOfRooms": self.number_of_rooms,
+            "customerType": self.customer_type,
+            "createdAt": self._created_at,
             "language": self.language,
             "permissions":self.permissions,
-            "is_future_booking":self._is_future_booking,
-            "allow_booking_for":self.allow_booking_for,
-            "account_type":self.account_type,
-            "property_type":self.property_type,
-            "check_in_time":self.check_in_time,
-            "check_out_time":self.check_out_time,
-            "minimum_stay_requirement":self.minimum_stay_requirement,
-            "country":self.country
+            "isFutureBooking":self._is_future_booking,
+            "allowBookingFor":self.allow_booking_for,
+            "accountType":self.account_type,
+            "propertyType":self.property_type,
+            "checkInTime":self.check_in_time,
+            "checkOutTime":self.check_out_time,
+            "minimumStayRequirement":self.minimum_stay_requirement,
+            "country":self.country,
+            "dailyRate":self._daily_rate,
+            "paymentStatus":self._payment_status,
+            "numberOf":self._number_of
         }
 
     def full_serialize(self):
         return dict(self.half_serialize(), **{
-            "number_display": self.number_display,
-            "date_display": self.date_display,
-            "time_display": self.time_display,
+            "numberDisplay": self.number_display,
+            "dateDisplay": self.date_display,
+            "timeDisplay": self.time_display,
             "website": self.website,
             "currency": self.currency,
-            "payment_status": self.payment_status
+           
         })
     
     def is_in_paid_period(self):

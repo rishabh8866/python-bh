@@ -204,7 +204,9 @@ def login_user_through_email(email_id, do_send_email = True):
             "checkInTime":c._check_in_time,
             "checkOutTime":c._check_out_time,
             "country":c._country,
-            "minimumStayRequirement":c._minimum_stay_requirement
+            "minimumStayRequirement":c._minimum_stay_requirement,
+            "paymentStatus":c._payment_status,
+            "dailyRate":c._daily_rate
         }
         if do_send_email:
             utils.send_mail(c)
@@ -228,7 +230,7 @@ def login_user_through_email(email_id, do_send_email = True):
 def login(auth_token):
     if not auth_token:
         return common_views.bad_request(constants.view_constants.REQUEST_PARAMETERS_NOT_SUFFICIENT)
-    c = Customer.verify_auth_token(auth_token).half_serialize()
+    c = Customer.verify_auth_token(auth_token).full_serialize()
     if not c:
         return common_views.not_authenticated(constants.view_constants.TOKEN_NOT_VALID)
     c = customer_mapper.get_obj_from_customer_info(c)
@@ -241,68 +243,13 @@ def get_customer():
     if not g.customer:
         return common_views.not_authenticated(constants.view_constants.NOT_AUTHENTICATED)
     c = Customer.query.get(g.customer.id)
-    # Check if invoice Data is in DB or not.
-    invoice = Invoice.query.filter_by(_customer_id=g.customer.id).first()
-    if invoice:
-        customer_data = {
-            "accountType": c._account_type,
-            "allowBookingFor": c._allow_booking_for,
-            "country": c._country,
-            "createdAt": c._created_at,
-            "currency": c._currency,
-            "customerType": c._customer_type,
-            "dateDisplay":c._date_display.name,
-            "emailId": c._email_id,
-            "id": c.id,
-            "isFutureBooking": c._is_future_booking,
-            "language": c._language,
-            "name": c._name,
-            "noOfUnits": c._number_of_rooms,
-            "numberDisplay": c._number_display,
-            "permissions": c._permissions,
-            "propertyType": c._property_type,
-            "timeDisplay": c._time_display,
-            "website": c._website,
-            "invoiceName":invoice._name,
-            "address1":invoice._address1,
-            "address2":invoice._address2,
-            "address3":invoice._address3,
-            "invoiceText":invoice._invoice_text,
-            "invoiceFooter":invoice._invoice_footer,
-            "country":{
-                "label":invoice._country_label,
-                "value":invoice._country_value,
-            }
-        }
-    else:
-        customer_data = {
-            "accountType": c._account_type,
-            "allowBookingFor": c._allow_booking_for,
-            "country": c._country,
-            "createdAt": c._created_at,
-            "currency": c._currency,
-            "customerType": c._customer_type,
-            "dateDisplay":c._date_display.name,
-            "emailId": c._email_id,
-            "id": c.id,
-            "isFutureBooking": c._is_future_booking,
-            "language": c._language,
-            "name": c._name,
-            "noOfUnits": c._number_of_rooms,
-            "numberDisplay": c._number_display,
-            "permissions": c._permissions,
-            "propertyType": c._property_type,
-            "timeDisplay": c._time_display,
-            "website": c._website,
-            "is_in_paid_period": c.is_in_paid_period()
-        }
+    customer_info = c.full_serialize()
     response_object = jsonify({
-        "customer":customer_data,
+        "customer":customer_info,
         "status" : 'success',
         "message": 'Customer fetched'
     })
     return response_object,200
-
 
 # Current users settings.
 @customer.route("/customerSettings", methods = ["PUT"])
@@ -325,6 +272,18 @@ def customer_settings():
         customer_update._allow_booking_for = data['allowBookingFor']
         customer_update._account_type = data['accountType']
         customer_update._number_of = data['numberOf']
+        if data['accountType'] == 'plus':
+            plan_type_values = ['monthly','yearly']
+            if data['planType'] in plan_type_values:
+                customer_update._plan_type = data['planType']
+            else:
+                response_object = jsonify({
+                    "status" : 'fail',
+                    "message": 'plan type can be either monthly or yearly'
+                })
+                return response_object,200
+        else:
+            customer_update._plan_type = data['planType']
     else:
         response_object = jsonify({
             "status" : 'fail',
@@ -335,14 +294,15 @@ def customer_settings():
         db.session.commit()
         cust_data = {
             "id":g.customer.id,
-            "accountType": data['accountType'],
-            "allowBookingFor":  data['allowBookingFor'],
-            "emailId": "demringen@hotmail.red.com",
-            "isFutureBooking": data['isFutureBooking'],
-            "language": data['name'],
             "name": data['name'],
+            "language": data['language'],
+            "isFutureBooking": data['isFutureBooking'],
+            "permissions":  data['permissions'],
+            "allowBookingFor":  data['allowBookingFor'],
+            "accountType": data['accountType'],
             "numberOf": data['numberOf'],
-            "permissions":  data['permissions']
+            "planType": data['planType'],
+            "emailId":data['emailId'],
         }
     except Exception as e:
         return common_views.internal_error(constants.view_constants.DB_TRANSACTION_FAULT)
@@ -371,6 +331,9 @@ def general_settings():
         customer_update._time_display = data['timeDisplay']
         customer_update._date_display = data['dateDisplay']
         customer_update._number_display = data['numberDisplay']
+        customer_update._is_future_booking = data['isFutureBooking']
+        customer_update._allow_booking_for = data['allowBookingFor']
+        customer_update._number_of = data['numberOf']
 
         # To update invoice values
         customer_update._address1 = data['address1']
@@ -399,13 +362,18 @@ def general_settings():
                 "name":data['name'],
                 "numberDisplay":NumberDisplay[data["numberDisplay"]],
                 "timeDisplay":data['timeDisplay'],
-                # "invoiceName":data['invoiceName'],
+                
                 "address1":data['address1'],
                 "address2":data['address2'],
                 "address3":data['address3'],
                 "invoiceText":data['invoiceText'],
                 "invoiceFooter":data['invoiceFooter'],
-                "country":g.customer.country
+                "country":g.customer.country,
+
+                "isFutureBooking":data['isFutureBooking'],
+                "allowBookingFor":data['allowBookingFor'],
+                "numberOf":data['numberOf'],
+
             },
             "status" : 'success',
             "message": 'general settings updated'

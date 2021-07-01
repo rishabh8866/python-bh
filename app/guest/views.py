@@ -59,7 +59,15 @@ def delete_guest(guestId):
         try:
             # Cancelled booking when guest deleted
             for booking in g._bookings:
-                booking._status = 'Cancelled'
+                # Check if guest is assoiciated with any booking.
+                if booking or booking._status == 'Cancelled':
+                    response_object = jsonify({
+                            "status" : 'fail',
+                            "message": 'The specified guest has inquiries associated'
+                        })
+                    return response_object,200
+                else:
+                    pass
                 db.session.commit()
             db.session.delete(g)
             db.session.commit()

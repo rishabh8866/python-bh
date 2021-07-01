@@ -116,6 +116,7 @@ def get_https(url):
 
 
 def send_message_to_slack(msg, channel_id):
+    # pass
     response = None
     try:
         response = slack_client.chat_postMessage(channel = constants.SLACK_CHANNELS[channel_id]["channel"], text = constants.SLACK_CHANNELS[channel_id]["msg"].format(msg = str(msg)))

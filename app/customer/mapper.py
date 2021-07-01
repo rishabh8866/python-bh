@@ -37,7 +37,9 @@ mapFields = {
     "address3":"address3",
     "invoiceText":"invoice_text",
     "invoiceFooter":"invoice_footer",
-    "country":"country"
+    "country":"country",
+    "paymentStatus":"payment_status",
+    "planType":"plan_type"
 }
 
 
@@ -46,7 +48,7 @@ fieldToMap = {
     "email_id": "emailId",
     "name": "name",
     "number_of_rooms": "noOfUnits",
-    "property_type": "companyName",
+    "company_name": "companyName",
     "property_type": "propertyType",
     "website": "website",
     "customer_type": "customerType",
@@ -72,7 +74,9 @@ fieldToMap = {
     "address3":"address3",
     "invoice_text":"invoiceText",
     "invoice_footer":"invoiceFooter",
-    "country":"country"
+    "country":"country",
+    "payment_status":"paymentStatus",
+    "plan_type":"planType"
 }
 
 def get_obj_from_request(apiData,current_email):
